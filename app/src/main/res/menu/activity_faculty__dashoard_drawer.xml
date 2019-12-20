@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navination_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/navination_profile"
+            android:icon="@drawable/ic_batches"
+            android:title="Profile" />
+        <item
+            android:id="@+id/navination_about"
+            android:icon="@drawable/ic_faculty"
+            android:title="About Us" />
+    <item
+        android:id="@+id/navigation_contact"
+        android:icon="@drawable/ic_contact"
+        android:title="Contact" />
+    <item
+        android:id="@+id/navigation_feedback"
+        android:icon="@drawable/ic_feedback"
+        android:title="Feedback" />
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout" />
+    </group>
+</menu>

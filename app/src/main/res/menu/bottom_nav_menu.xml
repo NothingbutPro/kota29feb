@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navi_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/navi_faculty"
+        android:icon="@drawable/ic_faculty"
+        android:title="Faculty" />
+
+    <item
+        android:id="@+id/navi_video_libary"
+        android:icon="@drawable/ic_video_library"
+        android:title="Video Library" />
+    <item
+        android:id="@+id/navi_Batch"
+        android:icon="@drawable/ic_batches"
+        android:title="Batches " />
+    <item
+        android:id="@+id/navi_student_material"
+
+        android:icon="@drawable/ic_enquary"
+        android:title="Enquiry " />
+</menu>

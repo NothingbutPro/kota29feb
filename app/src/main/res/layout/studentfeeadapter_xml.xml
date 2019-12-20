@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </ImageView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_weight="0.50"
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ABCD"
+                            android:layout_gravity="left|center"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="15dp"
+                            />
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:padding="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/mainclass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+
+                                android:text="sdgfdfgdfg"
+                                android:textColor="@color/red"
+                                android:textSize="15sp">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/v_batch"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:layout_gravity="left|center"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="15dp"
+                                android:textColor="@color/brown"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/mainsubname"
+                    android:text=""
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                </TextView>
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/add_class"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address:"
+                        android:layout_gravity="left|center"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/brown"/>
+
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white1"
+                android:background="@color/red"
+                android:text="View Details"
+                android:id="@+id/viewdetails_btn"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/hide_li"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+
+                    android:id="@+id/new_name"
+                    android:hint="New Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </EditText>
+
+                <EditText
+                    android:maxEms="10"
+                    android:maxLength="10"
+                    android:id="@+id/new_mobile"
+                    android:hint="New Mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </EditText>
+
+                <EditText
+                    android:id="@+id/new_address"
+                    android:hint="Edit Name Address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </EditText>
+
+                <Button
+                    android:layout_gravity="right"
+                    android:textColor="@color/white1"
+                    android:background="@color/red"
+                    android:id="@+id/edit_btn_save"
+                    android:text="Edit and Save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/assignstd"
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:visibility="gone"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/white1"
+                    android:background="@color/red"
+                    android:text="Edit"
+                    android:id="@+id/edit_btn"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+
+                <Button
+                    android:visibility="gone"
+                    android:layout_marginLeft="20dp"
+                    android:text="Delete"
+                    android:background="@color/red"
+                    android:textColor="@color/white1"
+                    android:id="@+id/delbatch"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/sssign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/add_student"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/ic_add_circle_outline_black_24dp" />
+                    <TextView
+
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Assign"
+                        android:textStyle="normal"
+                        android:layout_gravity="left|center"
+                        android:layout_margin="10dp"
+                        android:textSize="18sp"
+                        android:textColor="@color/colordarkBlue"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

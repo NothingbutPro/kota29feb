@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.068">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Attendance"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
+            android:id="@+id/datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.github.jhonnyx2012.horizontalpicker.HorizontalPicker>
+        <TextView
+            android:id="@+id/save_Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="8 Nov Friday"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/red"
+            />
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_marginTop="10dp"
+    android:scrollbars="vertical" />
+
+       <LinearLayout
+           android:layout_width="250dp"
+           android:layout_height="50dp"
+          android:layout_gravity="center"
+           android:gravity="center"
+           android:layout_marginTop="10dp"
+           android:layout_marginBottom="10dp"
+           android:orientation="vertical">
+
+        <Button
+            android:id="@+id/getotpbtn"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Mark Attendance"
+            android:background="@drawable/button"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:layout_margin="60dp"
+            android:textColor="@color/colorWhite"
+            />
+       </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

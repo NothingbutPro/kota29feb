@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/red"
+                android:text="Student: "
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+
+            </TextView>
+            <TextView
+
+                android:gravity="center_vertical"
+                android:id="@+id/student_pre_name"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+            </TextView>
+                <LinearLayout
+
+                    android:weightSum="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.nightonke.jellytogglebutton.JellyToggleButton
+                        android:padding="10dp"
+                        android:id="@+id/preapcheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:jtbLeftText="A"
+                        app:jtbJelly="active_tremble_tail_slim_jim"
+                        app:jtbRightText="P"
+                        app:jtbMoveToSameStateCallListener="true"
+                        app:jtbLeftTextSize="12sp"
+                        app:jtbRightTextSize="12sp"
+                        app:jtbEaseType="ease_in_out_circ"
+                        android:checked="true"
+                        app:jtbTextMarginCenter="4dp"
+                        app:jtbLeftThumbColor="@color/red"
+                        app:jtbRightThumbColor="@android:color/holo_green_light"
+                        app:jtbLeftTextColor="@color/white1"
+                        app:jtbRightTextColor="@color/white1"
+
+                        />
+                    <!--            <CheckBox-->
+<!--                android:id="@+id/preapcheck"-->
+<!--                android:checked="true"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
+<!--            </CheckBox>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/preaptext"-->
+<!--                        android:textAlignment="textEnd"-->
+<!--                        android:text="Present"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="end">-->
+<!--                    </TextView>-->
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

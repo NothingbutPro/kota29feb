@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".BasicAdmin.Masters.Batch.AddBatchActivity">
+
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolsbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Batch"
+          android:layout_marginTop="20dp"
+          android:textSize="20dp"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:textColor="@color/black"
+
+          />
+
+  </androidx.appcompat.widget.Toolbar>
+<RelativeLayout
+    android:id="@+id/batch_add_fab"
+    android:layout_below="@+id/toolsbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.github.clans.fab.FloatingActionButton
+
+        android:id="@+id/batchfab"
+        android:layout_width="wrap_content"
+        android:layout_height="20pt"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_add"
+        fab:fab_colorNormal="@color/red"
+        fab:fab_colorPressed="#FAF1996A"
+        fab:fab_colorRipple="#FAF88545"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/tbar"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".BasicAdmin.Masters.Batch.AddStudentActivity">
+
+        <LinearLayout
+            android:id="@+id/batchli"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Batch"
+                android:textSize="20dp"
+                android:layout_margin="5sp"
+                android:paddingLeft="15dp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/proedt_name_s"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:inputType="text"
+                android:hint="Enter Batch"
+                android:background="@drawable/backgraund"
+                android:paddingLeft="8dp"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Class"
+                android:textSize="18dp"
+                android:layout_marginLeft="25sp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/backgraund">
+                <Spinner
+                    android:id="@+id/pro_class_spiner"
+                    android:layout_width="320dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:paddingLeft="8dp"
+                    android:inputType="number"
+
+                    android:dropDownSelector="@color/red"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/pro_btn_save_batch"
+                android:layout_width="300dp"
+                android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/button"
+                android:text="Save"
+                android:textColor="@color/white1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/batch_add_fab"
+        android:id="@+id/recyclerView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+</RelativeLayout>

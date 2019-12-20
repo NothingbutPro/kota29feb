@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    app:srcCompat="@drawable/teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </ImageView>
+                <TextView
+                    android:id="@+id/mainname"
+                    android:text=""
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                </TextView>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ABCD"
+                android:layout_gravity="left|center"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+              />
+            </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/mainsubname"
+                android:text=""
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+            </TextView>
+            <TextView
+                 android:id="@+id/add_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Class "
+                android:layout_gravity="left|center"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/brown"/>
+
+
+        </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/hide_li"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <EditText
+
+                android:id="@+id/batchedit"
+                android:hint="Edit Name of Batch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+                <Button
+                    android:layout_gravity="right"
+                    android:textColor="@color/white1"
+               android:background="@color/red"
+                android:id="@+id/edit_btn"
+                    android:text="Edit and Save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </Button>
+            </LinearLayout>
+
+<LinearLayout
+    android:layout_gravity="center_horizontal"
+    android:id="@+id/assignstd"
+    android:weightSum="3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <Button
+
+        android:layout_marginRight="10dp"
+        android:textColor="@color/white1"
+        android:background="@color/red"
+        android:text="Edit"
+        android:id="@+id/editbatch"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+    <Button
+        android:layout_marginLeft="20dp"
+        android:text="Delete"
+        android:background="@color/red"
+        android:textColor="@color/white1"
+        android:id="@+id/delbatch"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/add_student"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="left|center"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:src="@drawable/ic_add_circle_outline_black_24dp" />-->
+<!--    <TextView-->
+
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Assign"-->
+<!--        android:textStyle="normal"-->
+<!--        android:layout_gravity="left|center"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textColor="@color/colordarkBlue"/>-->
+    </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="1dp"
+            android:weightSum="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_weight="1.5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginLeft="0dp"
+                    android:padding="5dp"
+                    android:text="Red"
+                    android:textColor="@color/red"
+                    android:id="@+id/videotits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/batchvid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <CheckBox
+                android:visibility="gone"
+                android:id="@+id/checvidpackag"
+                android:layout_weight="0.10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+            </CheckBox>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--    layout of edit-->
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/hide_li"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:padding="15dp"
+            android:id="@+id/new_class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
+            >
+
+        </Spinner>
+
+        <Spinner
+            android:layout_marginTop="4dp"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
+            android:id="@+id/new_course"
+            android:hint="Discount Amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+        <EditText
+            android:id="@+id/new_tits"
+            android:hint="New Video Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </EditText>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:shape_roundRect_bottomLeftRadius="10dp"
+            app:shape_roundRect_bottomRightRadius="10dp"
+            app:shape_roundRect_topLeftRadius="10dp"
+            app:shape_roundRect_topRightRadius="10dp"
+            android:layout_marginRight="10dp"
+            app:shape_roundRect_borderColor="@android:color/black"
+            app:shape_roundRect_borderWidth="2dp"
+            >
+        <Button
+            android:layout_gravity="right"
+            android:textColor="@color/white1"
+            android:background="@color/red"
+            android:id="@+id/edit_vid_btn_save"
+            android:text="Edit and Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Button>
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+    <!--    ////-->
+    <LinearLayout
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="4dp"
+                app:shape_roundRect_bottomLeftRadius="10dp"
+                app:shape_roundRect_bottomRightRadius="10dp"
+                app:shape_roundRect_topLeftRadius="10dp"
+                app:shape_roundRect_topRightRadius="10dp"
+                android:layout_marginLeft="10dp"
+                app:shape_roundRect_borderColor="@android:color/black"
+                app:shape_roundRect_borderWidth="2dp"
+                >
+            <Button
+                android:padding="10dp"
+                android:id="@+id/editvideonly"
+                android:text="Edit Video"
+                android:textColor="@color/white1"
+                android:background="@color/red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </Button>
+            </com.github.florent37.shapeofview.shapes.RoundRectView>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+            <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="4dp"
+                app:shape_roundRect_bottomLeftRadius="10dp"
+                app:shape_roundRect_bottomRightRadius="10dp"
+                app:shape_roundRect_topLeftRadius="10dp"
+                app:shape_roundRect_topRightRadius="10dp"
+                android:layout_marginRight="10dp"
+                app:shape_roundRect_borderColor="@android:color/black"
+                app:shape_roundRect_borderWidth="2dp"
+                >
+            <Button
+                android:id="@+id/delvidonly"
+                android:text="Delete"
+                android:textColor="@color/white1"
+                android:background="@color/red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </Button>
+            </com.github.florent37.shapeofview.shapes.RoundRectView>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasicAdmin.Masters.StudyMaterial.EditStudyMaterial">
+
+    <LinearLayout
+
+        android:id="@+id/hide_li"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+
+            android:id="@+id/alledit"
+            android:hint="Edit PDF Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </EditText>
+
+        <Spinner
+            android:padding="4dp"
+            android:id="@+id/editpdfspin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </Spinner>
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_weight="0.50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_gravity="left"
+                    android:textColor="@color/white1"
+                    android:background="@color/red"
+                    android:id="@+id/select_file"
+                    android:text="Select File"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+
+                    android:textColor="@color/white1"
+                    android:background="@color/red"
+                    android:id="@+id/edit_btn"
+                    android:text="Edit and Save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    tools:context=".BasicAdmin.Masters.Forclass.ClassViewActivity">
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/classtool"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="List of Class"
+          android:layout_marginTop="10dp"
+          android:textSize="30dp"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:textColor="@color/black"
+
+          />
+  </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_below="@+id/classtool"
+        android:id="@+id/classvieli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/class_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="20pt"
+            android:layout_gravity="right|top"
+            android:src="@drawable/ic_add"
+            fab:fab_colorNormal="@color/red"
+            fab:fab_colorPressed="#FAF1996A"
+            fab:fab_colorRipple="#FAF88545" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/classvieli"
+        android:id="@+id/class_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

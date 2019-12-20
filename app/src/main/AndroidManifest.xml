@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ics.admin">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/asr_logo"
+        tools:overrideLibrary="top.defaults.camera"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@drawable/asr_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".BasicAdmin.AdminProfileActivity"></activity>
+        <activity android:name=".BasicAdmin.HomeWork.ViewAllAnnouncements" />
+        <activity android:name=".BasicAdmin.TeachersDetails.AnnouncementActivity" />
+        <activity android:name=".BasicAdmin.FeesStructure.AllStudentFeeActivity" />
+        <activity android:name=".BasicAdmin.FeesStructure.ViewAllFeesActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".BasicAdmin.Masters.StudyMaterial.EditStudyMaterial" />
+        <activity android:name=".BasicAdmin.Attendence.ViewAttendenceActivity" />
+        <activity android:name=".BasicAdmin.FeesStructure.PayFeesActivity" />
+        <activity android:name=".BasicAdmin.FeesStructure.AddFeesActivity" />
+        <activity android:name=".BasicAdmin.Enquiry.ViewEnquiryActivity" />
+        <activity android:name=".BasicAdmin.VideoPermission.VideosViewActivity" />
+        <activity android:name=".BasicAdmin.StudentDetails.AllStudentListActivity" />
+        <activity android:name=".BasicAdmin.StudentDetails.StudentAssinviewActivity" />
+        <activity android:name=".BasicAdmin.TeachersDetails.ViewTeachersActivity" />
+        <activity android:name=".BasicAdmin.TeachersDetails.AddTeachersActivity" />
+        <activity android:name=".BasicAdmin.Enquiry.AddEnquiryActivity" />
+        <activity android:name=".BasicAdmin.VideoPermission.VideoPackagessActivity" />
+        <activity
+            android:name=".BasicAdmin.VideoPermission.AddVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BasicAdmin.HomeWork.ViewWorkActivity" />
+        <activity android:name=".BasicAdmin.HomeWork.HomeWorkActivity" />
+        <activity android:name=".BasicAdmin.Attendence.Addattendactivity" />
+        <activity android:name=".BasicAdmin.UsersPermission.AddUserPermission" />
+        <activity android:name=".BasicAdmin.StudentDetails.AssignStudentActivity" />
+        <activity android:name=".BasicAdmin.StudentDetails.Studentadnviewactivty" />
+        <activity android:name=".BasicAdmin.SelectFacultyActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.asus.i_hisaabv3.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".BasicAdmin.Masters.Forclass.ClassViewActivity" />
+        <activity android:name=".BasicAdmin.Masters.Subjects.SubjectViewActivity" />
+        <activity android:name=".BasicAdmin.Masters.Courses.AddCourseActivity" />
+        <activity android:name=".BasicAdmin.Masters.StudyMaterial.StudyMaterialActivity" />
+        <activity android:name=".BasicAdmin.Masters.Subjects.AddSubjectActivity" />
+        <activity android:name=".BasicAdmin.Masters.Forclass.AddClassActivity" />
+        <activity android:name=".MasterManuActivity" />
+        <activity android:name=".BasicAdmin.Masters.Batch.AddBatchActivity" />
+        <activity android:name=".Activities_by_Parag.ui.MYAdminPermissions" />
+        <activity
+            android:name=".BasicAdmin.StudentDetails.StudentListActivity"
+            android:label="@string/title_activity_stdent_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities_by_Parag.ui.Faculty_Dashoard" />
+        <activity android:name=".FaculttyPermission" />
+        <activity android:name=".BasicAdmin.StudentActivity" />
+        <activity android:name=".BasicAdmin.Masters.Batch.AddStudentActivity" />
+        <activity android:name=".BasicAdmin.AddFacultyActivity" />
+        <activity android:name=".OTPActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".Activities_by_Parag.ui.SubMenusActivity" />
+        <activity
+            android:name=".BasicAdmin.AdminActivity"
+            android:label="@string/title_activity_admin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

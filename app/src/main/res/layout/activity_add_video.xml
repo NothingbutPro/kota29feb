@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tools"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:text="Recorded Video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <LinearLayout
+        android:layout_below="@id/tools"
+        android:orientation="vertical"
+        android:id="@+id/materialli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Material"
+            android:textSize="20dp"
+            android:layout_margin="5sp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/black"/>
+
+
+        <EditText
+            android:id="@+id/studyedt_name_sdesv"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:hint="Enter Title"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:background="@drawable/backgraund"
+            android:layout_width="320dp"
+            android:layout_margin="10dp"
+            android:layout_height="50dp">
+            <Spinner
+                android:id="@+id/class_spiner_vid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint=" Class"
+                android:paddingLeft="8dp"
+                android:textSize="15dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:background="@drawable/backgraund"
+            android:layout_width="320dp"
+            android:layout_margin="10dp"
+            android:layout_height="50dp">
+            <Spinner
+                android:id="@+id/batch_spiner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint=" Class"
+                android:paddingLeft="8dp"
+                android:inputType="number"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/pdfselect"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/selectfile"
+                android:hint="Enter Title"
+                android:inputType="text"
+                android:paddingLeft="8dp"
+                android:textSize="15dp">
+
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/selepdftxt"
+                android:text="Please select file"
+                android:layout_below="@id/pdfselect"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        </RelativeLayout>
+        <Button
+            android:visibility="gone"
+            android:id="@+id/studybtn_save_s"
+            android:layout_width="300dp"
+            android:layout_height="50sp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/button"
+            android:text="Save"
+            android:textColor="@color/white1"/>
+    </LinearLayout>
+   <LinearLayout
+       android:id="@+id/lix"
+       android:padding="10dp"
+       android:weightSum="1"
+       android:orientation="horizontal"
+       android:layout_below="@id/materialli"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <ImageView
+           android:visibility="gone"
+           android:src="@drawable/video"
+           android:layout_weight="0.80"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+       </ImageView>
+
+       <TextView
+           android:text=""
+           android:id="@+id/fliename"
+           android:layout_weight="0.20"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+       </TextView>
+
+   </LinearLayout>
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/lix"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    <Button
+
+        android:id="@+id/capturestartbtn"
+        android:layout_margin="10dp"
+        android:textColor="@color/white1"
+        android:background="@color/red"
+        android:text="Start Video Recording"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+        </RelativeLayout>
+    <Button
+
+        android:id="@+id/sendbtn"
+        android:layout_margin="10dp"
+        android:textColor="@color/white1"
+        android:background="@color/red"
+        android:text="Submit Video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+    </LinearLayout>
+</RelativeLayout>

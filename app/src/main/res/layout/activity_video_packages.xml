@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasicAdmin.VideoPermission.VideoPackagessActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tools"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </androidx.appcompat.widget.Toolbar>
+<ScrollView
+
+    android:fillViewport="true"
+    android:id="@+id/linearLayoutscroll"
+    app:layout_constraintTop_toBottomOf="@+id/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/vidpackagetit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/viddescrip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:hint="MRP(Actual Price)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="number"
+                android:id="@+id/mrpprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Price(Discounted)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="number"
+                android:id="@+id/discountpri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Video Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="time"
+                android:id="@+id/vidtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_weight="0.50"
+            android:hint="Create Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="date"
+                android:id="@+id/credate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+            android:hint="Expire Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:focusable="false"
+                android:editable="false"
+                android:inputType="date"
+                android:id="@+id/expiredate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:drawableLeft="@drawable/fab_add"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:text="Add Videos"
+            android:textColor="@color/white1"
+            android:background="@color/red"
+            android:id="@+id/seleallpacks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutscroll">
+
+        </Button>
+
+        <TextView
+            android:textColor="@color/red"
+            android:text="Video Selected:"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="None Selected"
+            android:padding="10dp"
+            android:id="@+id/allselecctedvid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
+
+
+        <Button
+
+            android:id="@+id/makepackbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:text="Make A Packages"
+            android:textColor="@color/white1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </Button>
+    </LinearLayout>
+
+</ScrollView>
+
+</LinearLayout>

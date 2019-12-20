@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasicAdmin.FeesStructure.PayFeesActivity"
+    >
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasicAdmin.FeesStructure.PayFeesActivity"
+
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="0.50"
+            android:padding="10dp"
+            android:textColor="@color/white1"
+            android:text="Pay Fees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
+            <TextView
+                android:id="@+id/student_name"
+                android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+            android:layout_weight="0.50"
+            android:padding="10dp"
+            android:textColor="@color/white1"
+            android:text="Student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:background="@drawable/backgraund"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+
+            android:padding="4dp"
+            android:text="Select Class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <LinearLayout
+            android:padding="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+            android:id="@+id/class_fee_id"
+            android:text="Select Class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner>
+        </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="3dp"
+                android:background="@drawable/backgraund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+
+                    android:padding="4dp"
+                    android:text="Select Bstch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <LinearLayout
+                    android:padding="9dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:id="@+id/batch_fee_id"
+                        android:text="Select Class"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+                </LinearLayout>
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:background="@drawable/backgraund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+
+                    android:padding="4dp"
+                    android:text="Select Student"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <LinearLayout
+
+                    android:padding="9dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:id="@+id/student_fee_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/backgraund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Pay By"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <LinearLayout
+
+                        android:padding="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:entries="@array/payby"
+                            android:id="@+id/paybyspinwithout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </Spinner>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/backgraund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Pay Mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <LinearLayout
+
+                        android:padding="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:entries="@array/paymodes"
+                            android:id="@+id/paymodes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </Spinner>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/backgraund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Fee Amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <LinearLayout
+
+                        android:padding="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/feeamount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </EditText>
+                    </LinearLayout>
+
+                </LinearLayout>
+        </LinearLayout>
+
+<!--            if not payed at all-->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/nonemiselecli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+
+                    android:padding="4dp"
+                    android:text="Fee Amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:padding="9dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </EditText>
+                </LinearLayout>
+
+        </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/backgraund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Paying Amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <LinearLayout
+
+                        android:padding="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/payamtwithoutemi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </EditText>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+<!--            till here no payment-->
+<!--            if emi selected-->
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/emiselecli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/backgraund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Instalments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <LinearLayout
+
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:inputType="number"
+                            android:id="@+id/installs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </EditText>
+
+                    </LinearLayout>
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Emi Monthly Amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <LinearLayout
+
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:inputType="number"
+                            android:id="@+id/emimonthamt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </EditText>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/backgraund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Emi Month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <LinearLayout
+
+                        android:padding="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:inputType="number"
+                            android:id="@+id/emimnthstr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </EditText>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/backgraund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:padding="4dp"
+                        android:text="Paying Amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <LinearLayout
+
+                        android:padding="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/payinamt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </EditText>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+<!--            end of emi-->
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+        android:textColor="@color/white1"
+        android:id="@+id/submitfee"
+        android:text="Submit Fee"
+        android:layout_margin="10dp"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+</LinearLayout>
+</ScrollView>

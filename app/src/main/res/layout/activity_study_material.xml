@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    tools:context=".BasicAdmin.Masters.StudyMaterial.StudyMaterialActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/submatejectool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Study Material"
+                android:layout_marginTop="10dp"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/black"
+
+                />
+        </androidx.appcompat.widget.Toolbar>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/submatejectool"
+            android:id="@+id/subject_fabli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/materialsubject_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="20pt"
+
+                app:srcCompat="@drawable/ic_add"
+                fab:fab_colorNormal="@color/red"
+                fab:fab_colorPressed="#FAF1996A"
+                fab:fab_colorRipple="#FAF88545" />
+        </LinearLayout>
+    <ScrollView
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/submatejectool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:id="@+id/materialli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Study Material"
+            android:textSize="20dp"
+            android:layout_margin="5sp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/black"/>
+
+
+        <EditText
+            android:id="@+id/studyedt_name_s"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:hint="Enter Title"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp" />
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:background="@drawable/backgraund"
+        android:layout_width="320dp"
+        android:layout_margin="10dp"
+        android:layout_height="50dp">
+        <Spinner
+            android:id="@+id/class_spiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint=" Class"
+            android:paddingLeft="8dp"
+            android:inputType="number"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/selepdftxt"
+            android:text="Please select file"
+            android:layout_below="@id/pdfselect"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+        <ImageButton
+
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/pdfselect"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/selectfile"
+            android:hint="Enter Title"
+            android:inputType="text"
+            android:paddingLeft="8dp"
+            android:textSize="15dp">
+
+        </ImageButton>
+
+
+
+    </LinearLayout>
+        <Button
+            android:id="@+id/studybtn_save_s"
+            android:layout_width="300dp"
+            android:layout_height="50sp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/button"
+            android:text="Save"
+            android:textColor="@color/white1"/>
+    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="14dp"
+            android:id="@+id/studymaterialri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

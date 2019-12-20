@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".OTPActivity">
+
+<ImageView
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    app:srcCompat="@drawable/asr_logo"
+    android:layout_marginTop="50dp"/>
+
+
+    <EditText
+        android:maxEms="10"
+        android:maxLength="10"
+        android:id="@+id/mobile"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Mobile No"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:inputType="number"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15sp"
+        android:textColor="#F7020000"
+        android:textSize="16sp"/>
+
+
+        <EditText
+            android:id="@+id/getotp"
+            android:hint="Please enter otp"
+            android:inputType="number"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15sp"
+            android:textColor="#F7020000"
+            android:textSize="16sp"
+
+            />
+
+    <Button
+        android:id="@+id/getotps"
+        android:layout_margin="5dp"
+        android:background="@color/red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GET OTP"
+        android:layout_gravity="bottom|center"
+        android:textColor="@color/white1"/>
+    <Button
+        android:id="@+id/getotpbtn"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="Login"
+        android:visibility="gone"
+        android:background="@drawable/button"
+        android:textAllCaps="false"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:layout_margin="60dp"
+        android:textColor="@color/colorWhite"
+        />
+
+
+
+</LinearLayout>

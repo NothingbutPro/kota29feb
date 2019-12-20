@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Admin</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    -------------login--------
+    <string name="app_login">LogIn</string>
+    <string name="app_signup">SignUp</string>
+    <string name="app_email_or_phone">Email or Phone</string>
+    <string name="app_password">Password</string>
+    <string name="app_forgot_password">Or Forgot Password</string>
+    <string name="app_or">OR</string>
+    <string name="app_facebook_login">Continue with Facebook</string>
+    <string name="app_google_login">Continue with Google</string>
+    <string name="app_privacy">By signing up,you agree to our terms of Use and Privacy Policy</string>
+    <string name="app_dont_have">Dont have an account?</string>
+    <string name="app_signin">Sign Up?</string>
+    _________signuo_________
+    <string name="app_create_an_account">Create an Account </string>
+    <string name="app_your_name">Your Name</string>
+    <string name="app_mobile_number">Phone Number </string>
+    <string name="app_emailid">Email Address</string>
+    <string name="app_cnfm_pswd">Conform Password</string>
+    <string name="app_city">Select City</string>
+    <string name="app_state">Select State</string>
+    <string name="app_create_account">Create Account </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_stdent_details">StdentDetailsActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_faculty__dashoard">Faculty_Dashoard</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <array name="paymodes">
+        <item>Cash</item>
+        <item>By Check</item>
+        <item>Online</item>
+    </array>
+    <array name="payby">
+        <item>EMI</item>
+        <item>Without EMI</item>
+
+    </array>
+</resources>

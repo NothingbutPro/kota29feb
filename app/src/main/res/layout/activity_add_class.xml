@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".BasicAdmin.Masters.Forclass.AddClassActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class"
+            android:textSize="20dp"
+            android:layout_margin="5sp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/edt_name_s"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:hint="Enter Class"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp" />
+
+        <!--<Spinner-->
+        <!--android:id="@+id/class_spiner"-->
+        <!--android:layout_width="320dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:hint=" Class"-->
+        <!--android:paddingLeft="8dp"-->
+        <!--android:inputType="number"-->
+        <!--android:background="@drawable/backgraund"-->
+
+        <!--android:textSize="15dp" />-->
+
+        <!--<Spinner-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/batch_spiner"-->
+        <!--android:layout_width="320dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:hint=" Enter Mobile"-->
+        <!--android:paddingLeft="8dp"-->
+        <!--android:inputType="number"-->
+        <!--android:background="@drawable/backgraund"-->
+
+        <!--android:textSize="15dp" />-->
+
+
+        <Button
+            android:id="@+id/btn_save_s"
+            android:layout_width="300dp"
+            android:layout_height="50sp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/button"
+            android:text="Save"
+            android:textColor="@color/white1"/>
+    </LinearLayout>
+
+</LinearLayout>

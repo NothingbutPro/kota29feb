@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    useLibrary 'org.apache.http.legacy'
+    compileOptions {
+        sourceCompatibility var
+        targetCompatibility var1
+    }
+    defaultConfig {
+        applicationId "com.ics.admin"
+        minSdkVersion 19
+        targetSdkVersion 28
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        useLibrary 'org.apache.http.legacy'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion = '28.0.3'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    implementation('org.apache.httpcomponents:httpmime:4.3') {
+        exclude module: "httpclient"
+    }
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'com.github.florent37:shapeofview:1.4.7'
+    implementation 'com.github.florent37:shapeofview:1.4.7'
+    implementation 'com.google.android.material:material:1.0.0-beta01'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    //showpassword
+    implementation 'com.maksim88:PasswordEditText:v0.9'
+    implementation 'com.android.support:multidex:1.0.3'
+// circleimage
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.beardedhen:androidbootstrap:2.3.2'
+
+    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
+    //------FabButton-------
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.github.jhonnyx2012:horizontal-picker:1.0.6'
+    implementation 'androidx.cardview:cardview:1.0.0-beta01'
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+
+    implementation 'com.github.smarteist:autoimageslider:1.3.2'
+//    implementation 'com.amosyuen.ffmpegvideorecorder:ffmpeg-video-recorder:2.0.3'
+    //for multipart
+    implementation 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    implementation 'com.nightonke:jellytogglebutton:1.0.2'
+    //Butter knife
+    //
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    implementation 'com.karumi:dexter:4.2.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    //
+
+}
