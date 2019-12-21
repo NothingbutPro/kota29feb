@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 import com.ics.admin.Activities_by_Parag.ui.Faculty_Dashoard;
 import com.ics.admin.BasicAdmin.AdminActivity;
 import com.ics.admin.ShareRefrance.Shared_Preference;
+import com.ics.admin.Student_main_app.StudentDashboardActivity;
+
+import com.yarolegovich.lovelydialog.LovelyChoiceDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +43,7 @@ public class OTPActivity  extends AppCompatActivity {
     Button getotpbtn,getotps;
     public static int Admin_id;
    // public static String Faculty_id;
+    String who = "none";
     Shared_Preference shared_preference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +72,18 @@ public class OTPActivity  extends AppCompatActivity {
 
 
                 if(getotpbtn.getText().toString().equals("Login")) {
-                    new Verifyotp(getotp.getText().toString(),mobile.getText().toString()).execute();
+                    if(who.equals("none")) {
+                        Toast.makeText(OTPActivity.this, ""+who, Toast.LENGTH_SHORT).show();
+                        new Verifyotp(getotp.getText().toString(), mobile.getText().toString()).execute();
+                    }else {
+                        Toast.makeText(OTPActivity.this, ""+who, Toast.LENGTH_SHORT).show();
+                        new VerifyotpforStudent(getotp.getText().toString(), mobile.getText().toString()).execute();
+                    }
                 }
                 else {
 
-
                 }
             }
-
-
-
-
-
         });
 
     }
@@ -162,10 +167,14 @@ public class OTPActivity  extends AppCompatActivity {
 
                     jsonObject = new JSONObject(result);
                     if(!jsonObject.getBoolean("responce")){
+                        cancel(true);
+                        who = "student";
+                        ShowDialognow(Mobile_Number);
 //                       Intent intent = new Intent(OTPActivity.this , LoginActivity.class);
 //                       startActivity(intent);
                         Toast.makeText(getApplication(),"You are not registerd", Toast.LENGTH_SHORT).show();
                     }else {
+                        who = "none";
                         getotp.setVisibility(View.VISIBLE);
                         String otp= jsonObject.getString("data");
                         getotp.setText(otp);
@@ -206,6 +215,30 @@ public class OTPActivity  extends AppCompatActivity {
             }
             return result.toString();
         }
+    }
+
+    private void ShowDialognow(String mobile_Number) {
+//        new FancyGifDialog.Builder(OTPActivity.this).
+        String [] strings = {"Parent" , "Student"};
+        new LovelyChoiceDialog(this )
+                .setTopColorRes(R.color.red)
+                .setTitle("Can't find You")
+                .setIcon(R.drawable.asr_logo)
+                .setMessage("Please choose")
+                .setItems(strings, new LovelyChoiceDialog.OnItemSelectedListener<String>() {
+                    @Override
+                    public void onItemSelected(int position, String item) {
+                        if(position ==0)
+                        {
+                            Toast.makeText(OTPActivity.this, "You have chosen ", Toast.LENGTH_SHORT).show();
+                            new GETOPTPSTUDENT(mobile_Number).execute();
+                        }else {
+                            Toast.makeText(OTPActivity.this, " chose 1 ", Toast.LENGTH_SHORT).show();
+                            new GETOPTPSTUDENT(mobile_Number).execute();
+                        }
+                    }
+                })
+                .show();
     }
 
     private class Verifyotp extends AsyncTask<String, Void, String> {
@@ -292,6 +325,9 @@ public class OTPActivity  extends AppCompatActivity {
                     if(!jsonObject.getBoolean("responce")){
                         getotp.setVisibility(View.VISIBLE);
                         Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(OTPActivity.this , StudentDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
                     }else {
                         shared_preference=new Shared_Preference();
                         String type = jsonObject.getJSONObject("data").getString("type");
@@ -302,7 +338,7 @@ public class OTPActivity  extends AppCompatActivity {
                             Intent intent = new Intent(OTPActivity.this, AdminActivity.class);
                             startActivity(intent);
                             finish();
-                        }else {
+                        }else if(type.equals("2")) {
                             String Faculty_id = jsonObject.getJSONObject("data").getString("addedby");
                             shared_preference.setId(OTPActivity.this,Faculty_id,"Faculty",true);
                             shared_preference.setFacultyId(OTPActivity.this,Admin_id);
@@ -344,5 +380,272 @@ public class OTPActivity  extends AppCompatActivity {
             return result.toString();
         }
     }
+
+    private class GETOPTPSTUDENT extends AsyncTask<String, Void, String> {
+        String Mobile_Number;
+        private Dialog dialog;
+
+        public GETOPTPSTUDENT(String mobile_Number) {
+            this.Mobile_Number = mobile_Number;
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL("http://ihisaab.in/school_lms/Studentapi/sendotp");
+
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("mobile", Mobile_Number);
+
+
+                Log.e("postDataParams", postDataParams.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /*milliseconds*/);
+                conn.setConnectTimeout(15000 /*milliseconds*/);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader in = new BufferedReader(new
+                            InputStreamReader(
+                            conn.getInputStream()));
+
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+
+                    while ((line = in.readLine()) != null) {
+
+                        StringBuffer Ss = sb.append(line);
+                        Log.e("Ss", Ss.toString());
+                        sb.append(line);
+                        break;
+                    }
+
+                    in.close();
+                    return sb.toString();
+
+                } else {
+                    return new String("false : " + responseCode);
+                }
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+//                dialog.dismiss();
+
+                JSONObject jsonObject = null;
+                Log.e("PostRegistration", result.toString());
+                try {
+
+                    jsonObject = new JSONObject(result);
+                    if(!jsonObject.getBoolean("responce")){
+                        cancel(true);
+//                       Intent intent = new Intent(OTPActivity.this , LoginActivity.class);
+//                       startActivity(intent);
+                        Toast.makeText(getApplication(),"You are not registerd", Toast.LENGTH_SHORT).show();
+                    }else {
+                        getotp.setVisibility(View.VISIBLE);
+                        String otp= jsonObject.getString("data");
+                        getotp.setText(otp);
+                        getotpbtn.setText("Login");
+                        getotpbtn.setVisibility(View.VISIBLE);
+                    }
+
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        public String getPostDataString(JSONObject params) throws Exception {
+
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            Iterator<String> itr = params.keys();
+
+            while (itr.hasNext()) {
+
+                String key = itr.next();
+                Object value = params.get(key);
+
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+            }
+            return result.toString();
+        }
     }
+
+    private class VerifyotpforStudent extends AsyncTask<String, Void, String>{
+        String Mobile_Number;
+        private Dialog dialog;
+
+
+        public VerifyotpforStudent(String toString, String s) {
+
+            this.Mobile_Number = toString;
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL("http://ihisaab.in/school_lms/Studentapi/login");
+
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("otp", Mobile_Number);
+                postDataParams.put("mobile", mobile.getText().toString());
+
+
+                Log.e("postDataParams", postDataParams.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /*milliseconds*/);
+                conn.setConnectTimeout(15000 /*milliseconds*/);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader in = new BufferedReader(new
+                            InputStreamReader(
+                            conn.getInputStream()));
+
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+
+                    while ((line = in.readLine()) != null) {
+
+                        StringBuffer Ss = sb.append(line);
+                        Log.e("Ss", Ss.toString());
+                        sb.append(line);
+                        break;
+                    }
+
+                    in.close();
+                    return sb.toString();
+
+                } else {
+                    return new String("false : " + responseCode);
+                }
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+//                dialog.dismiss();
+
+                JSONObject jsonObject = null;
+                Log.e("PostRegistration", result.toString());
+                try {
+
+                    jsonObject = new JSONObject(result);
+                    if(!jsonObject.getBoolean("responce")){
+                        getotp.setVisibility(View.VISIBLE);
+                        Toast.makeText(getApplication(),"wrong OTP", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(OTPActivity.this , StudentDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        Toast.makeText(OTPActivity.this, "Student Success", Toast.LENGTH_SHORT).show();
+//                        shared_preference=new Shared_Preference();
+//                        String type = jsonObject.getJSONObject("data").getString("type");
+//                        String Admin_id = jsonObject.getJSONObject("data").getString("user_id");
+//                        if(type.equals("1")) {
+//
+//                            shared_preference.setId(OTPActivity.this,Admin_id,"Admin",true);
+//                            Intent intent = new Intent(OTPActivity.this, AdminActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }else if(type.equals("2")) {
+//                            String Faculty_id = jsonObject.getJSONObject("data").getString("addedby");
+//                            shared_preference.setId(OTPActivity.this,Faculty_id,"Faculty",true);
+//                            shared_preference.setFacultyId(OTPActivity.this,Admin_id);
+//                            Intent intent1 = new Intent(OTPActivity.this, Faculty_Dashoard.class);
+//                            startActivity(intent1);
+//                            finish();
+//                        }
+                    }
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        public String getPostDataString(JSONObject params) throws Exception {
+
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            Iterator<String> itr = params.keys();
+
+            while (itr.hasNext()) {
+
+                String key = itr.next();
+                Object value = params.get(key);
+
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+            }
+            return result.toString();
+        }
+    }
+}
 

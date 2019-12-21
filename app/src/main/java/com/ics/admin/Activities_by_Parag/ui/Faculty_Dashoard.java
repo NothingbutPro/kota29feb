@@ -78,8 +78,6 @@ TextView faculty_logout;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty__dashoard);
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         faculty_logout=(TextView)findViewById(R.id.faculty_logout);
         bottom_nav_faculty = (BottomNavigationView) findViewById(R.id.bottom_nav_view_fact);
