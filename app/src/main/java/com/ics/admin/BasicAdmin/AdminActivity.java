@@ -27,6 +27,8 @@ import com.ics.admin.ShareRefrance.Shared_Preference;
 public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottom_nav_view;
+
+
     Shared_Preference shared_preference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

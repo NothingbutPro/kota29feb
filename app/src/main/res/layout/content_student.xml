@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Student_main_app.StudentDashboardActivity"
+    tools:showIn="@layout/app_bar_admin">
+    <FrameLayout
+        android:id="@+id/student_frame_container"
+        android:layout_width="match_parent"
+        android:layout_above="@id/student_bottomnavview"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottom_nav_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:foregroundGravity="bottom"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        app:itemTextColor="@color/red"-->
+<!--        app:itemIconTint="@color/red"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        app:menu="@menu/bottom_nav_menu" />-->
+
+    <com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView
+        android:id="@+id/student_bottomnavview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="bottom"
+        android:layout_gravity="bottom"
+        app:itemTextColor="@color/white1"
+        app:itemIconTint="@color/white1"
+        android:background="@color/white1"
+        app:itemBackground="@color/red"
+        app:morphCornerRadius="128dp"
+        app:morphItemRadius="64dp"
+        app:menu="@menu/bottom_nav_student_menu"
+        app:morphVerticalOffset="8dp"
+        android:layout_alignParentBottom="true"
+
+        />
+</RelativeLayout>

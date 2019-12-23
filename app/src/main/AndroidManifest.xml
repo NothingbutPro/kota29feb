@@ -23,13 +23,18 @@
         android:roundIcon="@drawable/asr_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:overrideLibrary="top.defaults.camera">
-        <activity android:name="com.ics.admin.MainActivity"
-            >
+        tools:overrideLibrary="top.defaults.camera"
+        tools:replace="android:icon">
+        <activity android:name=".Student_main_app.Student_UI._Student_Announcement"></activity>
+        <activity android:name=".Student_main_app._StudentRegistration" />
+        <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"></action>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -102,7 +107,6 @@
             android:name=".BasicAdmin.AdminActivity"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>

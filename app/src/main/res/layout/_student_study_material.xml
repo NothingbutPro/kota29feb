@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_margin="4dp"
+        android:layout_marginTop="10dp"
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/studymattx"
+            android:layout_margin="4dp"
+            android:textAlignment="center"
+            android:textColor="@color/white1"
+            android:background="@drawable/ripple"
+            android:padding="10dp"
+            android:layout_weight="0.50"
+            android:text="Study Material"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/vodmattxt"
+            android:layout_margin="4dp"
+            android:textAlignment="center"
+            android:textColor="@color/white1"
+            android:background="@drawable/ripple"
+            android:padding="10dp"
+            android:layout_weight="0.50"
+            android:text="Video Material"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TextView>
+    </LinearLayout>
+<!--    <com.tompee.funtablayout.FunTabLayout-->
+<!--        android:id="@+id/tablayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="52dp" />-->
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:backgroundTint="@color/red"-->
+<!--        android:id="@+id/tabLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#1db995">-->
+<!--    </com.google.android.material.tabs.TabLayout>-->
+
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/viewpager"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+</LinearLayout>

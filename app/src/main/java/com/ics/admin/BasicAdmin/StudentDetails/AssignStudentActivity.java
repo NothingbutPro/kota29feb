@@ -459,6 +459,7 @@ public class AssignStudentActivity extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
 
                 postDataParams.put("student_id", id);
+                postDataParams.put("school_id", new Shared_Preference().getId(AssignStudentActivity.this));
                 postDataParams.put("class_id", class_id);
                 postDataParams.put("batch_id", batch_id);
 

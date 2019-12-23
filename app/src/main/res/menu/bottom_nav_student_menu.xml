@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navi_study"
+        android:icon="@drawable/ic_study_shared"
+        android:title="Study Material" />
+    <item
+        android:id="@+id/navi_tests"
+        android:icon="@drawable/ic_test_mark"
+        android:title="Test Details" />
+
+    <item
+        android:id="@+id/navi_fee_details"
+        android:icon="@drawable/ic_fee_student"
+        android:title="Fee Details" />
+    <item
+        android:id="@+id/navi_attendence"
+        android:icon="@drawable/ic_attendence_date"
+        android:title="Attendance " />
+    <item
+        android:id="@+id/navi_community"
+        android:icon="@drawable/ic_community_people"
+        android:title="Community " />
+</menu>

@@ -88,7 +88,7 @@ TextView faculty_logout;
         getSupportActionBar().setTitle("Faculty");
 
         shared_preference = new Shared_Preference();
-        new GETALLMYPERMISSIONS(Shared_Preference.getId(Faculty_Dashoard.this)).execute();
+        new GETALLMYPERMISSIONS(Shared_Preference.getFacultyId(Faculty_Dashoard.this)).execute();
         faculty_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

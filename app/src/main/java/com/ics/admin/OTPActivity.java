@@ -1,16 +1,22 @@
 package com.ics.admin;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ics.admin.Activities_by_Parag.ui.Faculty_Dashoard;
@@ -18,7 +24,8 @@ import com.ics.admin.BasicAdmin.AdminActivity;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 import com.ics.admin.Student_main_app.StudentDashboardActivity;
 
-import com.yarolegovich.lovelydialog.LovelyChoiceDialog;
+import com.ics.admin.Student_main_app._StudentRegistration;
+import com.marcoscg.dialogsheet.DialogSheet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,10 +42,12 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class OTPActivity  extends AppCompatActivity {
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
+public class OTPActivity  extends AppCompatActivity {
     EditText getotp, mobile;
     Button getotpbtn,getotps;
     public static int Admin_id;
@@ -219,26 +228,57 @@ public class OTPActivity  extends AppCompatActivity {
 
     private void ShowDialognow(String mobile_Number) {
 //        new FancyGifDialog.Builder(OTPActivity.this).
-        String [] strings = {"Parent" , "Student"};
-        new LovelyChoiceDialog(this )
-                .setTopColorRes(R.color.red)
-                .setTitle("Can't find You")
-                .setIcon(R.drawable.asr_logo)
-                .setMessage("Please choose")
-                .setItems(strings, new LovelyChoiceDialog.OnItemSelectedListener<String>() {
-                    @Override
-                    public void onItemSelected(int position, String item) {
-                        if(position ==0)
-                        {
-                            Toast.makeText(OTPActivity.this, "You have chosen ", Toast.LENGTH_SHORT).show();
-                            new GETOPTPSTUDENT(mobile_Number).execute();
-                        }else {
-                            Toast.makeText(OTPActivity.this, " chose 1 ", Toast.LENGTH_SHORT).show();
-                            new GETOPTPSTUDENT(mobile_Number).execute();
-                        }
-                    }
-                })
+        DialogSheet dialogSheet = new DialogSheet(this);
+        dialogSheet.setTitle("We can't find you")
+                .setMessage("Are you a")
+                .setColoredNavigationBar(true)
+                .setCancelable(true)
+                .setBackgroundColor(Color.WHITE) // Your custom background color
+                .setButtonsColorRes(R.color.colorAccent) // You can use dialogSheetAccent style attribute instead
                 .show();
+        dialogSheet.setView(R.layout._student_app_ask_dialog);
+//         Access dialog custom inflated view
+        View inflatedView = dialogSheet.getInflatedView();
+        TextView parenttxt = inflatedView.findViewById(R.id.parenttxt);
+        TextView studenttxt = inflatedView.findViewById(R.id.studenttxt);
+        parenttxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(OTPActivity.this, "You have chosen ", Toast.LENGTH_SHORT).show();
+                dialogSheet.dismiss();
+                who = "student";
+                new GETOPTPSTUDENT(mobile_Number).execute();
+            }
+        });
+        studenttxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(OTPActivity.this, " chose 1 ", Toast.LENGTH_SHORT).show();
+                dialogSheet.dismiss();
+                who = "student";
+                new GETOPTPSTUDENT(mobile_Number).execute();
+            }
+        });
+//        String [] strings = {"Parent" , "Student"};
+//        new LovelyChoiceDialog(this )
+//                .setTopColorRes(R.color.red)
+//                .setTitle("Can't find You")
+//                .setIcon(R.drawable.asr_logo)
+//                .setMessage("Please choose")
+//                .setItems(strings, new LovelyChoiceDialog.OnItemSelectedListener<String>() {
+//                    @Override
+//                    public void onItemSelected(int position, String item) {
+//                        if(position ==0)
+//                        {
+//                            Toast.makeText(OTPActivity.this, "You have chosen ", Toast.LENGTH_SHORT).show();
+//                            new GETOPTPSTUDENT(mobile_Number).execute();
+//                        }else {
+//                            Toast.makeText(OTPActivity.this, " chose 1 ", Toast.LENGTH_SHORT).show();
+//                            new GETOPTPSTUDENT(mobile_Number).execute();
+//                        }
+//                    }
+//                })
+//                .show();
     }
 
     private class Verifyotp extends AsyncTask<String, Void, String> {
@@ -325,9 +365,9 @@ public class OTPActivity  extends AppCompatActivity {
                     if(!jsonObject.getBoolean("responce")){
                         getotp.setVisibility(View.VISIBLE);
                         Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(OTPActivity.this , StudentDashboardActivity.class);
-                        startActivity(intent);
-                        finish();
+//                        Intent intent = new Intent(OTPActivity.this , StudentDashboardActivity.class);
+//                        startActivity(intent);
+//                        finish();
                     }else {
                         shared_preference=new Shared_Preference();
                         String type = jsonObject.getJSONObject("data").getString("type");
@@ -464,6 +504,30 @@ public class OTPActivity  extends AppCompatActivity {
 //                       Intent intent = new Intent(OTPActivity.this , LoginActivity.class);
 //                       startActivity(intent);
                         Toast.makeText(getApplication(),"You are not registerd", Toast.LENGTH_SHORT).show();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            RegisterDialogshow();
+                        }else {
+                            Toast.makeText(OTPActivity.this, "Your version is too low", Toast.LENGTH_SHORT).show();
+                        }
+//       String [] strings = {"Cancel" , "Register now"};
+//        new LovelyChoiceDialog(OTPActivity.this )
+//                .setTopColorRes(R.color.red)
+//                .setTitle("Do you want to Register")
+//                .setIcon(R.drawable.asr_logo)
+//                .setMessage("Please choose")
+//                .setItems(strings, new LovelyChoiceDialog.OnItemSelectedListener<String>() {
+//                    @Override
+//                    public void onItemSelected(int position, String item) {
+//                        if(position ==0)
+//                        {
+//                            Toast.makeText(OTPActivity.this, "You have Cancel ", Toast.LENGTH_SHORT).show();
+//
+//                        }else {
+//                            Toast.makeText(OTPActivity.this, " Regsiter 1 ", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                })
+//                .show();
                     }else {
                         getotp.setVisibility(View.VISIBLE);
                         String otp= jsonObject.getString("data");
@@ -505,6 +569,35 @@ public class OTPActivity  extends AppCompatActivity {
             }
             return result.toString();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @SuppressLint("RestrictedApi")
+    private void RegisterDialogshow() {
+        // Simple Material Dialog
+        new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
+                .setTitleText("Do you want to register?")
+                .setCancelText("Not Now")
+                .setConfirmText("Register Now")
+                .showCancelButton(true).
+                setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        Toast.makeText(OTPActivity.this, "You have cansdfgdf", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismiss();
+                        Intent intent  = new Intent(OTPActivity.this , _StudentRegistration.class);
+                        startActivity(intent);
+//                        Toast.makeText(OTPActivity.this, "ok registering now", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+
     }
 
     private class VerifyotpforStudent extends AsyncTask<String, Void, String>{
