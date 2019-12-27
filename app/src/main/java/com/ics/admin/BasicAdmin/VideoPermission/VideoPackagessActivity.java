@@ -54,10 +54,13 @@ public class VideoPackagessActivity extends AppCompatActivity {
     EditText vidpackagetit,viddescrip,mrpprice,discountpri,vidtime,credate,expiredate;
     private RecyclerView grivideorec;
     ArrayList<VideoPackages> videoPackagesArrayList = new ArrayList<>();
+    ArrayList<VideoPackages> videoDemoPackagesArrayList = new ArrayList<>();
     VideoPackagesAdapter videoPackagesAdapter;
+    VideoPackagesAdapter videoDemoPackagesAdapter;
     Button seleallpacks,makepackbutton;
-    public   TextView allselecctedvid;
-    public   String Selected_packages;
+    int demo_checked;
+    public TextView allselecctedvid ,seldemopack,sele_vidtxt;
+    public String Selected_packages,Selected_Demo_video;
 
 //    public static List<String> Selected_packagesList = new ArrayList<>();
     @Override
@@ -73,6 +76,7 @@ public class VideoPackagessActivity extends AppCompatActivity {
         credate= findViewById(R.id.credate);
         expiredate= findViewById(R.id.expiredate);
         seleallpacks= findViewById(R.id.seleallpacks);
+        seldemopack= findViewById(R.id.seldemopack);
         allselecctedvid= findViewById(R.id.allselecctedvid);
         makepackbutton= findViewById(R.id.makepackbutton);
         credate.setOnClickListener(new View.OnClickListener() {
@@ -102,9 +106,16 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 new MAkePAckFrmVIdeo(vidpackagetits,viddescrips,Selected_packages,credates,expiredates,mrpprices,discountpris,vidtimes).execute();
             }
         });
+        seldemopack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MakeADemoVideo(v);
+            }
+        });
         seleallpacks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 videoPackagesArrayList.clear();
                 Selected_packages = null;
                 allselecctedvid.setText(null);
@@ -112,7 +123,6 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(false);
                 dialog.setContentView(R.layout.packagesdialog);
-
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                 lp.copyFrom(dialog.getWindow().getAttributes());
                 lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -120,6 +130,7 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 dialog.getWindow().setAttributes(lp);
                 Button doneselect = dialog.findViewById(R.id.doneselect);
                 grivideorec = dialog.findViewById(R.id.grivideorec);
+                sele_vidtxt.setText("Please Select Packages Video");
                 new GETALLVIDEOSPackages(new Shared_Preference().getId(v.getContext())).execute();
                 doneselect.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -149,6 +160,59 @@ public class VideoPackagessActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void MakeADemoVideo(View v) {
+        videoDemoPackagesArrayList.clear();
+        Selected_Demo_video = null;
+//        allselecctedvid.setText(null);
+        final Dialog dialog = new Dialog(v.getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.packagesdialog);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setAttributes(lp);
+        Button doneselect = dialog.findViewById(R.id.doneselect);
+        grivideorec = dialog.findViewById(R.id.grivideorec);
+        sele_vidtxt = dialog.findViewById(R.id.sele_vidtxt);
+        sele_vidtxt.setText("Please Select Demo Video(only 1)");
+        new GETALLVIDEOSPackagesForDemo(new Shared_Preference().getId(v.getContext())).execute();
+        doneselect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                for(int i =0;i<videoDemoPackagesArrayList.size();i++)
+                {
+                    if(i==0)
+                    {
+                        if(videoDemoPackagesArrayList.get(i).getPackage_select().equals("Checked")) {
+                            demo_checked =demo_checked+1;
+                            Toast.makeText(VideoPackagessActivity.this, "Demo Video Selected", Toast.LENGTH_SHORT).show();
+                            Selected_Demo_video = videoDemoPackagesArrayList.get(i).getId();
+                        }
+                    }else {
+                        if(videoDemoPackagesArrayList.get(i).getPackage_select().equals("Checked")) {
+                            demo_checked =demo_checked+1;
+                            if(demo_checked >1) {
+                                Toast.makeText(VideoPackagessActivity.this, "More than 1 video has been checked", Toast.LENGTH_LONG).show();
+                                Log.e("More than " + i, "" + videoDemoPackagesArrayList.get(i).getPackage_select());
+                                Selected_Demo_video = "";
+                                i= videoDemoPackagesArrayList.size();
+                            }else {
+                                demo_checked =demo_checked+1;
+                                Selected_Demo_video = videoDemoPackagesArrayList.get(i).getId();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        dialog.show();
 
     }
 
@@ -346,6 +410,7 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 postDataParams.put("amount", mrpprice);
                 postDataParams.put("discount_amount", discountpris);
                 postDataParams.put("video_time", vidtimes);
+                postDataParams.put("demo_video_id", Selected_Demo_video);
 
                 Log.e("postDataParams", postDataParams.toString());
 
@@ -413,9 +478,160 @@ public class VideoPackagessActivity extends AppCompatActivity {
                     }else {
                         Toast.makeText(VideoPackagessActivity.this, "Error found Please check the fields", Toast.LENGTH_SHORT).show();
                     }
-
+                    cancel(true);
                 } catch (JSONException e) {
+                    cancel(true);
+//                    batch_spin_assign.remo
+                    e.printStackTrace();
+                }
 
+            }
+        }
+
+        public String getPostDataString(JSONObject params) throws Exception {
+
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            Iterator<String> itr = params.keys();
+
+            while (itr.hasNext()) {
+
+                String key = itr.next();
+                Object value = params.get(key);
+
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+            }
+            return result.toString();
+        }
+    }
+
+    private class GETALLVIDEOSPackagesForDemo extends AsyncTask<String, Void, String> {
+
+        String userid;
+        String calls_id;
+        // String Faculty_id;
+        private Dialog dialog;
+
+
+        public GETALLVIDEOSPackagesForDemo(String i) {
+            this.userid = i;
+
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL("http://ihisaab.in/school_lms/api/view_video");
+
+                JSONObject postDataParams = new JSONObject();
+
+                postDataParams.put("user_id", userid);
+
+                Log.e("postDataParams", postDataParams.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /*milliseconds*/);
+                conn.setConnectTimeout(15000 /*milliseconds*/);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader in = new BufferedReader(new
+                            InputStreamReader(
+                            conn.getInputStream()));
+
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+
+                    while ((line = in.readLine()) != null) {
+
+                        StringBuffer Ss = sb.append(line);
+                        Log.e("Ss", Ss.toString());
+                        sb.append(line);
+                        break;
+                    }
+
+                    in.close();
+                    return sb.toString();
+
+                } else {
+                    return new String("false : " + responseCode);
+                }
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+//                dialog.dismiss();
+
+                JSONObject jsonObject1 = null;
+                Log.e("PostRegistration", result.toString());
+                try {
+
+                    jsonObject1 = new JSONObject(result);
+                    if(jsonObject1.getBoolean("responce")) {
+//                        Toast.makeText(VideoPackagessActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
+                        for(int i=0;i<jsonObject1.getJSONArray("data").length();i++)
+                        {
+                            JSONObject jsonObject = jsonObject1.getJSONArray("data").getJSONObject(i);
+                            String id = jsonObject.getString("id");
+                            String school_id = jsonObject.getString("school_id");
+                            String addedby = jsonObject.getString("addedby");
+                            String class_id = jsonObject.getString("class_id");
+                            String course_id = jsonObject.getString("course_id");
+                            String date = jsonObject.getString("date");
+                            String video_image = jsonObject.getString("video_image");
+                            String video = jsonObject.getString("video");
+                            String video_url = jsonObject.getString("video_url");
+                            String title = jsonObject.getString("title");
+                            String description = jsonObject.getString("description");
+                            String status = jsonObject.getString("status");
+                            String Class = jsonObject.getString("Class");
+                            String Course = jsonObject.getString("Course");
+                            String package_select = "Checked";
+                            videoDemoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select));
+                        }
+                        videoDemoPackagesAdapter = new VideoPackagesAdapter(VideoPackagessActivity.this,videoDemoPackagesArrayList);
+//                        LinearLayoutManager layoutManager = new LinearLayoutManager(VideoPackagessActivity.this);
+//                        layoutManager.setOrientation(RecyclerView.VERTICAL);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(VideoPackagessActivity.this,1);
+                        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                        grivideorec.setLayoutManager(gridLayoutManager);
+                        grivideorec.setAdapter(videoDemoPackagesAdapter);
+                    }else {
+                        Toast.makeText(VideoPackagessActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
+                    }
+                    cancel(true);
+                } catch (JSONException e) {
+                    cancel(true);
 //                    batch_spin_assign.remo
                     e.printStackTrace();
                 }

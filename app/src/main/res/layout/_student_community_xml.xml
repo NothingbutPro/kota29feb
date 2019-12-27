@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:visibility="gone"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_margin="4dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:weightSum="1"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/studymattx"-->
+    <!--            android:layout_margin="4dp"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textColor="@color/white1"-->
+    <!--            android:background="@drawable/ripple"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:layout_weight="0.50"-->
+    <!--            android:text="Study Material"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent">-->
+
+    <!--        </TextView>-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/vodmattxt"-->
+    <!--            android:layout_margin="4dp"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textColor="@color/white1"-->
+    <!--            android:background="@drawable/ripple"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:layout_weight="0.50"-->
+    <!--            android:text="Video Material"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent">-->
+
+    <!--        </TextView>-->
+    <!--    </LinearLayout>-->
+    <!--    <com.tompee.funtablayout.FunTabLayout-->
+    <!--        android:id="@+id/tablayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="52dp" />-->
+    <!--    <com.google.android.material.tabs.TabLayout-->
+    <!--        android:backgroundTint="@color/red"-->
+    <!--        android:id="@+id/tabLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="#1db995">-->
+    <!--    </com.google.android.material.tabs.TabLayout>-->
+
+    <!--    <androidx.viewpager.widget.ViewPager-->
+    <!--        android:id="@+id/viewpager"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
+
+
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        android:id="@+id/com_viewpagertab"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        app:stl_indicatorAlwaysInCenter="false"
+        app:stl_indicatorWithoutPadding="false"
+        app:stl_indicatorInFront="false"
+        app:stl_indicatorInterpolation="linear"
+        app:stl_indicatorGravity="bottom"
+        app:stl_indicatorColor="#40C4FF"
+        app:stl_indicatorThickness="4dp"
+        android:fillViewport="true"
+        app:stl_indicatorWidth="auto"
+        android:background="@color/red"
+        app:stl_indicatorCornerRadius="2dp"
+        app:stl_overlineColor="#4D000000"
+        app:stl_overlineThickness="0dp"
+        app:stl_underlineColor="#4D000000"
+        app:stl_underlineThickness="1dp"
+        app:stl_dividerColor="#4D000000"
+        app:stl_dividerThickness="1dp"
+        app:stl_defaultTabBackground="?attr/selectableItemBackground"
+        app:stl_defaultTabTextAllCaps="true"
+        app:stl_defaultTabTextColor="@android:color/white"
+        app:stl_defaultTabTextSize="12sp"
+        app:stl_defaultTabTextHorizontalPadding="16dp"
+        app:stl_defaultTabTextMinWidth="0dp"
+        app:stl_distributeEvenly="false"
+        app:stl_clickable="true"
+        app:stl_titleOffset="24dp"
+        app:stl_drawDecorationAfterTab="true"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/com_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/viewpagertab"
+        />
+
+</LinearLayout>

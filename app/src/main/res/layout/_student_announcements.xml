@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="5dp"
+
+    android:elevation="1dp"
+    android:background="@drawable/recycle_rect">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/_st_attendclass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="14 Street/3rd Block"
+                android:textColor="#A2A2A2"
+                android:textSize="12dp" />
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+
+                    android:visibility="gone"
+                    android:text="Announce date"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    />
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/cr_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:text="Date"
+                    android:textColor="@color/blue" />
+            </LinearLayout>
+            <!--            <TextView-->
+            <!--                android:id="@+id/attendstudent"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="10dp"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:text="Property Name"-->
+            <!--                android:textColor="#000"-->
+            <!--                android:textSize="14dp" />-->
+
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/st_attendencetxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="$2200"
+            android:textColor="@color/red"
+            android:textSize="14dp" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/st_announcetxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student: "
+            android:textColor="#000"
+            android:textSize="14dp" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/attendbatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text=""
+            android:textColor="#A2A2A2"
+            android:textSize="12dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/st_announce_date"
+                    android:layout_marginTop="10dp"
+                    android:text="Announcement date"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    />
+
+
+
+            </LinearLayout>
+
+            <TextView
+
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:text="Date"
+                android:textColor="@color/blue"
+                android:id="@+id/attenddate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

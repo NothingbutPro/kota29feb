@@ -18,9 +18,9 @@
     <item
         android:id="@+id/navi_attendence"
         android:icon="@drawable/ic_attendence_date"
-        android:title="Attendance " />
+        android:title="Attendance" />
     <item
         android:id="@+id/navi_community"
         android:icon="@drawable/ic_community_people"
-        android:title="Community " />
+        android:title="Community" />
 </menu>

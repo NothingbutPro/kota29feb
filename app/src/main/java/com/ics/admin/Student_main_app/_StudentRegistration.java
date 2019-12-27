@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.ics.admin.Api_Retrofit.Retro_urls;
 import com.ics.admin.Api_Retrofit.StudentApis;
+import com.ics.admin.OTPActivity;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 import com.ics.admin.Student_main_app._StudentModels._StudentRegistrationModel;
+import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +57,12 @@ public class _StudentRegistration extends AppCompatActivity {
     }
 
     private void RegisterUSerNow() {
+        LovelyProgressDialog lovelyProgressDialog =  new LovelyProgressDialog(this)
+                .setIcon(R.drawable.asr_logo)
+                .setTitle("Registering Please wait")
+                .setTopColorRes(R.color.red);
+        lovelyProgressDialog.setCancelable(false);
+        lovelyProgressDialog.show();
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(300, TimeUnit.SECONDS).writeTimeout(100, TimeUnit.SECONDS).build();
@@ -70,13 +79,17 @@ public class _StudentRegistration extends AppCompatActivity {
 //                            Log.d("string" , ""+response.body().getData().getEmail());
                 if(response !=null)
                 {
+                    lovelyProgressDialog.dismiss();
+                   Shared_Preference shared_preference = new Shared_Preference();
                     Toast.makeText(_StudentRegistration.this, "Registration Success ", Toast.LENGTH_SHORT).show();
-
+                    shared_preference.setschool_id(_StudentRegistration.this , String.valueOf(response.body().getData()));
+                    shared_preference.setStudent_info(_StudentRegistration.this , String.valueOf(response.body().getData()),"","","");
                     Intent intent = new Intent(_StudentRegistration.this , StudentDashboardActivity.class);
-                    new Shared_Preference().setId(_StudentRegistration.this , String.valueOf(Integer.valueOf(response.body().getData())),"Student" ,true );
+//                    new Shared_Preference().setId(_StudentRegistration.this , String.valueOf(Integer.valueOf(response.body().getData())),"Student" ,true );
                     startActivity(intent);
                     finish();
                 }else{
+                    lovelyProgressDialog.dismiss();
                     Toast.makeText(_StudentRegistration.this, "Either Email is duplicate or Password", Toast.LENGTH_SHORT).show();
                 }
 
@@ -84,10 +97,10 @@ public class _StudentRegistration extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<_StudentRegistrationModel> call, Throwable t) {
-
+                lovelyProgressDialog.dismiss();
                 Log.d("local cause" , ""+t.getLocalizedMessage());
                 Log.d("local cause" , ""+t.getMessage());
-                Toast.makeText(_StudentRegistration.this, "Network problem", Toast.LENGTH_SHORT).show();
+                Toast.makeText(_StudentRegistration.this, "Data Not found", Toast.LENGTH_SHORT).show();
 
             }
         });

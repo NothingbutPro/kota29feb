@@ -1,100 +1,159 @@
 package com.ics.admin.Student_main_app.Student_UI;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
-import com.ics.admin.Adapter.ViewPagerAdapter;
 import com.ics.admin.R;
-import com.tompee.funtablayout.FlipTabAdapter;
+import com.ics.admin.Student_main_app.LovelyProgressDialogs;
+import com.ics.admin.Student_main_app.StudentDashboardActivity;
+import com.ics.admin.Student_main_app.Student_Adapters._Student_Study_Material_Adapter;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.tompee.funtablayout.FunTabLayout;
-import com.tompee.funtablayout.PopTabAdapter;
 
 public class _Student_Study_material  extends Fragment{
     private ViewPager viewPager;
     FunTabLayout tabLayout;
-    TextView studymattx,vodmattxt;
+//    TextView studymattx,vodmattxt;
+    _Student_Study_Material_Adapter student_study_material_adapter;
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-//        getActivity().setupViewPager(viewPager);
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout._student_study_material, container, false);
-        studymattx = view.findViewById(R.id.studymattx);
-        vodmattxt = view.findViewById(R.id.vodmattxt);
+        Toast.makeText(getActivity(), "CREATED sTUDENT STYUDY ", Toast.LENGTH_SHORT).show();
+//        studymattx = view.findViewById(R.id.studymattx);
+//        vodmattxt = view.findViewById(R.id.vodmattxt);
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getChildFragmentManager(), FragmentPagerItems.with(getActivity())
+                .add("Study Material", _Student_PDF_Material_Fragment.class)
+                .add("Videos Packages", _Student_Video_Material_Fragment.class)
+                .create());
 
-//        FunTabLayout tabLayout = (FunTabLayout) view.findViewById(R.id.tabLayout);
-//        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
-//        viewPager = view.findViewById(R.id.viewpager);
-////        tabLayout.setupViewPager(viewPager);
-////        tabLayout.addTab(tabLayout.newTab().setText("Study Material"));
-////        tabLayout.addTab(tabLayout.newTab().setText("Video Material"));
-////        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-////        final MyAdapter adapter = new MyAdapter(getActivity(),getChildFragmentManager(), tabLayout.getTabCount());
-////        viewPager.setAdapter(adapter);
-////        tabLayout.addTab(tabLayout.newTab().setText("Movie"));
-////        setupViewPager(viewPager);
-////        viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
-//        FlipTabAdapter.Builder builder = new FlipTabAdapter.Builder(getActivity()).
-//                setViewPager(viewPager).
-//                setTabPadding(24, 24, 24, 24).
-//                setTabTextAppearance(R.style.FlipTabText).
-//                setTabBackgroundResId(R.drawable.ripple).
-//                setTabIndicatorColor(Color.YELLOW).
-//                setIconFetcher(this).
-//                setIconDimension(80).
-//                setDefaultIconColor(Color.WHITE);
-//
-////        viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
-////            @Override
-////            public Fragment getItem(int position) {
-////                // return fragment
-////                if(position==0) {
-////                    return new _Student_Study_material();
-////                }else {
-////                    return  new _Student_Video_Material();
-////                }
-////            }
-////
-////            @Override
-////            public int getCount() {
-////                // return fragment count
-////                return 2;
-////            }
-////
-////            @Override
-////            public CharSequence getPageTitle(int position) {
-////                // return fragment title
-////                return "Study Material";
-////            }
-////        });
-////        tabLayout.setUpWithAdapter(builder.build());
-////        tabLayout.addTa
-////        tabLayout.setTabVisibleCount(2);
-//        tabLayout.setUpWithAdapter(builder.build());
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager.setAdapter(adapter);
+
+        SmartTabLayout viewPagerTab = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
+        viewPagerTab.setViewPager(viewPager);
+        viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(getActivity(), "Page selected"+position, Toast.LENGTH_SHORT).show();
+//                Fragment page = adapter.getPage(position);
+//                if(position==0) {
+//                    FragmentManager fragmentManager = getChildFragmentManager();
+//                    fragmentManager.beginTransaction().replace(R.id.student_frame_container,new _Student_PDF_Material_Fragment()).commit();
+//                }else if(position==1){
+//                    FragmentManager fragmentManager = getChildFragmentManager();
+//                    fragmentManager.beginTransaction().replace(R.id.student_frame_container,new _Student_Video_Material_Fragment()).commit();
+//                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         return view;
     }
 
-//    private class MyAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getChildFragmentManager(), FragmentPagerItems.with(getActivity())
+                .add("Study Material", _Student_PDF_Material_Fragment.class)
+                .add("Videos Packages", _Student_Video_Material_Fragment.class)
+                .create());
+
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager.setAdapter(adapter);
+
+        SmartTabLayout viewPagerTab = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
+        viewPagerTab.setViewPager(viewPager);
+        viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(getActivity(), "Page selected"+position, Toast.LENGTH_SHORT).show();
+//                if(position==0) {
+//                    FragmentManager fragmentManager = getChildFragmentManager();
+//                    fragmentManager.beginTransaction().replace(R.id.student_frame_container,new _Student_PDF_Material_Fragment()).commit();
+//                }else if(position==1){
+//                    FragmentManager fragmentManager = getChildFragmentManager();
+//                    fragmentManager.beginTransaction().replace(R.id.student_frame_container,new _Student_Video_Material_Fragment()).commit();
+//                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+//    @Override
+//    public void onAttachFragment(Fragment childFragment) {
+//        Toast.makeText(getActivity(), "SAfdgdfg", Toast.LENGTH_SHORT).show();
+//        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+//                getChildFragmentManager(), FragmentPagerItems.with(getActivity())
+//                .add("Study Material", _Student_PDF_Material_Fragment.class)
+//                .add("Videos Packages", _Student_Video_Material_Fragment.class)
+//                .create());
+//
+//        ViewPager viewPager = (ViewPager) getView().findViewById(R.id.viewpager);
+//        viewPager.setAdapter(adapter);
+//
+//        SmartTabLayout viewPagerTab = (SmartTabLayout) getView().findViewById(R.id.viewpagertab);
+//        viewPagerTab.setViewPager(viewPager);
+//        viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                Toast.makeText(getActivity(), "Page selected"+position, Toast.LENGTH_SHORT).show();
+////                if(position==0) {
+////                    FragmentManager fragmentManager = getChildFragmentManager();
+////                    fragmentManager.beginTransaction().replace(R.id.student_frame_container,new _Student_PDF_Material_Fragment()).commit();
+////                }else if(position==1){
+////                    FragmentManager fragmentManager = getChildFragmentManager();
+////                    fragmentManager.beginTransaction().replace(R.id.student_frame_container,new _Student_Video_Material_Fragment()).commit();
+////                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+//        super.onAttachFragment(childFragment);
+//    }
+
+    //    private class MyAdapter extends FragmentPagerAdapter {
 //
 //        private Context myContext;
 //        int totalTabs;
@@ -113,7 +172,7 @@ public class _Student_Study_material  extends Fragment{
 //                    _Student_Study_material homeFragment = new _Student_Study_material();
 //                    return homeFragment;
 //                case 1:
-//                    _Student_Video_Material sportFragment = new _Student_Video_Material();
+//                    _Student_Video_Material_Fragment sportFragment = new _Student_Video_Material_Fragment();
 //                    return sportFragment;
 //                default:
 //                    return null;
@@ -136,7 +195,7 @@ public class _Student_Study_material  extends Fragment{
 ////                if(position==0) {
 ////                    return new _Student_Study_material();
 ////                }else {
-////                    return  new _Student_Video_Material();
+////                    return  new _Student_Video_Material_Fragment();
 ////                }
 //            }
 //

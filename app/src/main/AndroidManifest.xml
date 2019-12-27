@@ -25,7 +25,9 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="top.defaults.camera"
         tools:replace="android:icon">
-        <activity android:name=".Student_main_app.Student_UI._Student_Announcement"></activity>
+        <activity android:name=".Student_main_app.Student_UI._Student_Video_Lecture_Activity"></activity>
+        <activity android:name=".Student_main_app.Student_UI._Student_Profile_Activity" />
+        <activity android:name=".Student_main_app.Student_UI._Student_Announcement" />
         <activity android:name=".Student_main_app._StudentRegistration" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -71,6 +73,7 @@
         <activity android:name=".BasicAdmin.StudentDetails.AssignStudentActivity" />
         <activity android:name=".BasicAdmin.StudentDetails.Studentadnviewactivty" />
         <activity android:name=".BasicAdmin.SelectFacultyActivity" />
+        <activity android:name=".Student_main_app.Student_UI._Student_All_Videos_By_Packages" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

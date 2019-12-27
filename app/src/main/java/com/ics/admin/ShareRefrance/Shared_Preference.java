@@ -9,9 +9,11 @@ public class Shared_Preference {
     public static final String IS_LOGIN = "isLogin";
     public static final String NAMEE = "user_fullname";
     public static final String FACULTY_ID = "faculty_id";
-    public static final String EMAIL = "user_email";
-    public static final String SERVICE = "user_service";
-    public static final String SUBSERVICE = "user_subservice";
+    public static final String COURSE_ID = "course_id";
+    public static final String BATCH_ID = "batch_id";
+    public static final String CLASS_ID = "class_id";
+    public static final String STUDENT_ID = "student_id";
+    public static final String SCHOOL_ID = "school_id";
 
     Context context;
     SharedPreferences prefs;
@@ -53,48 +55,56 @@ public class Shared_Preference {
         editor.commit();
     }
 
+    public static void setschool_id(Context context, String value) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(SCHOOL_ID, value);
+        editor.commit();
+    }
+
     public static String getNamee(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
         return preferences.getString(NAMEE, "");
     }
 
+    public static String getSchoolId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        return preferences.getString(SCHOOL_ID, "");
+    }
+
     //-------------------------------------
-    public static void setEmail(Context context, String value) {
-        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(EMAIL, value);
-        editor.commit();
-    }
 
-    public static String getEmail(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
-        return preferences.getString(EMAIL, "");
-    }
-
-    //------------------------------
-    public static void setService(Context context, String value) {
-        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(SERVICE, value);
-        editor.commit();
-    }
-
-    public static String getService(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
-        return preferences.getString(SERVICE, "");
-    }
 
     //-----------------------------------
-    public static void setSubservice(Context context, String value) {
+    public static void setStudent_info(Context context, String value ,String class_id,String course_id,String batch_id) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(SUBSERVICE, value);
+        editor.putString(STUDENT_ID, value);
+        editor.putString(CLASS_ID, class_id);
+        editor.putString(COURSE_ID, course_id);
+        editor.putString(BATCH_ID, batch_id);
         editor.commit();
     }
-
-    public static String getSubservice(Context context) {
+    //+++++++++++++++++++++++++++++++++++++++++
+    public static String getStudent_id(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
-        return preferences.getString(SUBSERVICE, "");
+        return preferences.getString(STUDENT_ID, "");
+    }
+
+    public static String getClassId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        return preferences.getString(CLASS_ID, "");
+    }
+
+
+    public static String getCourseId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        return preferences.getString(COURSE_ID, "");
+    }
+
+    public static String getBatchId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        return preferences.getString(BATCH_ID, "");
     }
 
 

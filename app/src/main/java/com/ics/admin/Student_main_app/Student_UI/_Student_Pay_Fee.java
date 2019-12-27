@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ics.admin.OTPActivity;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
+import com.ics.admin.Student_main_app.LovelyProgressDialogs;
 import com.ics.admin.Student_main_app.Student_Adapters.Student_FeeAdapter;
 import com.ics.admin.Student_main_app._StudentModels._Student_Pay_Fee_Model;
 
@@ -43,12 +44,15 @@ public class _Student_Pay_Fee extends Fragment {
     RecyclerView _std_pay_fee_rec;
     Student_FeeAdapter studentFeeAdapter;
     ArrayList<_Student_Pay_Fee_Model> student_pay_fee_models = new ArrayList<>();
+    LovelyProgressDialogs lovelyProgressDialogs;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout._student_pay_fee, container, false);
         _std_pay_fee_rec = view.findViewById(R.id._std_pay_fee_rec);
-        new GETALLMYFEES(new Shared_Preference().getId(getActivity())).execute();
+        lovelyProgressDialogs = new LovelyProgressDialogs(getActivity());
+        lovelyProgressDialogs.StartDialog("Getting Your Fee Details");
+        new GETALLMYFEES(new Shared_Preference().getStudent_id(getActivity())).execute();
         return view;
     }
 
@@ -58,6 +62,11 @@ public class _Student_Pay_Fee extends Fragment {
 
         public GETALLMYFEES(String student_id) {
             this.student_id = student_id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
 
         @Override
@@ -167,7 +176,7 @@ public class _Student_Pay_Fee extends Fragment {
 
                     e.printStackTrace();
                 }
-
+                lovelyProgressDialogs.DismissDialog();
             }
         }
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="student_nav_view">
     <item
-        android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:id="@+id/nav_st_studmat"
+        android:icon="@drawable/ic_study_shared"
+        android:title="Study Material" />
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_batches"
         android:title="Profile" />
     <item
-        android:id="@+id/nav_about"
-        android:icon="@drawable/ic_faculty"
-        android:title="About Us" />
+        android:id="@+id/nav_st_attendence"
+        android:icon="@drawable/ic_attendence_date"
+        android:title="My Attendance" />
 
     <item
         android:id="@+id/nav_contact"
@@ -24,7 +24,7 @@
         android:icon="@drawable/ic_feedback"
         android:title="Feedback" />
     <item
-        android:id="@+id/nav_logout"
+        android:id="@+id/_st_nav_logout"
         android:icon="@drawable/ic_logout"
         android:title="Logout" />
 

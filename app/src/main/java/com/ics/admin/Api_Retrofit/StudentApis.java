@@ -1,9 +1,17 @@
 package com.ics.admin.Api_Retrofit;
 
+import com.ics.admin.Student_main_app._StudentModels._My_Student_Attendence_Model;
 import com.ics.admin.Student_main_app._StudentModels._StudentRegistrationModel;
-import com.ics.admin.Student_main_app._StudentRegistration;
-
-import java.io.File;
+import com.ics.admin.Student_main_app._StudentModels._Student_All_Packages;
+import com.ics.admin.Student_main_app._StudentModels._Student_All_Packages_data;
+import com.ics.admin.Student_main_app._StudentModels._Student_Announcement_Model;
+import com.ics.admin.Student_main_app._StudentModels._Student_Announcements_Model_Datas;
+import com.ics.admin.Student_main_app._StudentModels._Student_Chat_Public_Community;
+import com.ics.admin.Student_main_app._StudentModels._Student_Demo_Videos;
+import com.ics.admin.Student_main_app._StudentModels._Student_PDF_Material_Model;
+import com.ics.admin.Student_main_app._StudentModels._Student_Profile_Model;
+import com.ics.admin.Student_main_app._StudentModels._Student_Public_Message;
+import com.ics.admin.Student_main_app._StudentModels._Student_Video_Materials_Model;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -12,7 +20,7 @@ import retrofit2.http.POST;
 
 public interface StudentApis {
     @FormUrlEncoded
-    @POST("Ragistration")
+    @POST("add_student")
     Call<_StudentRegistrationModel> Register_to_Student(
             @Field("name") String name,
             @Field("email") String email,
@@ -20,4 +28,68 @@ public interface StudentApis {
             @Field("mobile") String mobile,
             @Field("address") String address
     );
+    @FormUrlEncoded
+    @POST("view_attendance")
+    Call<_My_Student_Attendence_Model> MY_STUDENT_ATTENDENCE_CALL(
+            @Field("student_id") String student_id,
+            @Field("att_date") String att_date
+    );
+
+    @FormUrlEncoded
+    @POST("studymateriallist")
+    Call<_Student_PDF_Material_Model> STUDENT_PDF_MATERIAL_MODEL_CALL(
+            @Field("user_id") String user_id,
+            @Field("class_id") String class_id
+    );
+
+    @FormUrlEncoded
+    @POST("view_profile")
+    Call<_Student_Profile_Model> STUDENT_PROFILE_MODEL_CALL(
+            @Field("student_id") String user_id
+    );
+//    @FormUrlEncoded
+//    @POST("view_video")
+//    Call<_Student_Video_Materials_Model> STUDENT_VIDEO_MATERIALS_MODEL_CALL(
+//            @Field("user_id") String user_id,
+//            @Field("class_id") String class_id,
+//            @Field("course_id") String course_id
+//    );
+
+    @FormUrlEncoded
+    @POST("getpackages")
+    Call<_Student_Video_Materials_Model> STUDENT_VIDEO_MATERIALS_MODEL_CALL(
+            @Field("school_id") String user_id
+    );
+
+    @FormUrlEncoded
+    @POST("viewallvideo")
+    Call<_Student_All_Packages> STUDENT_ALL_PACKAGES_DATA_CALL(
+            @Field("video_id") String video_id
+    );
+    @FormUrlEncoded
+    @POST("viewallvideo")
+    Call<_Student_Demo_Videos> STUDENT_ALL_DEMO_PACKAGES_DATA_CALL(
+            @Field("video_id") String video_id
+    );
+    @FormUrlEncoded
+    @POST("view_announcement")
+    Call<_Student_Announcement_Model> STUDENT_ANNOUNCEMENTS_MODEL(
+            @Field("class_id") String class_id,
+            @Field("batch_id") String batch_id
+    );
+
+    @FormUrlEncoded
+    @POST("getcommunity")
+    Call<_Student_Chat_Public_Community> STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(
+            @Field("user_id") String user_id
+    );
+
+    @FormUrlEncoded
+    @POST("addcommunity")
+    Call<_Student_Public_Message> STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(
+            @Field("message") String  message,
+            @Field("school_id") String school_id,
+            @Field("user_id") String  user_id
+    );
+
 }

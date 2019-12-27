@@ -78,8 +78,6 @@ public class OTPActivity  extends AppCompatActivity {
         getotpbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if(getotpbtn.getText().toString().equals("Login")) {
                     if(who.equals("none")) {
                         Toast.makeText(OTPActivity.this, ""+who, Toast.LENGTH_SHORT).show();
@@ -116,7 +114,7 @@ public class OTPActivity  extends AppCompatActivity {
                 postDataParams.put("mobile", Mobile_Number);
 
 
-                Log.e("postDataParams", postDataParams.toString());
+                Log.e("postDataParams", "Adminapi/sendotp"+postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /*milliseconds*/);
@@ -178,10 +176,11 @@ public class OTPActivity  extends AppCompatActivity {
                     if(!jsonObject.getBoolean("responce")){
                         cancel(true);
                         who = "student";
-                        ShowDialognow(Mobile_Number);
+                        new GETOPTPSTUDENT(Mobile_Number).execute();
+//                        ShowDialognow(Mobile_Number);
 //                       Intent intent = new Intent(OTPActivity.this , LoginActivity.class);
 //                       startActivity(intent);
-                        Toast.makeText(getApplication(),"You are not registerd", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplication(),"You are not registerd", Toast.LENGTH_SHORT).show();
                     }else {
                         who = "none";
                         getotp.setVisibility(View.VISIBLE);
@@ -229,8 +228,7 @@ public class OTPActivity  extends AppCompatActivity {
     private void ShowDialognow(String mobile_Number) {
 //        new FancyGifDialog.Builder(OTPActivity.this).
         DialogSheet dialogSheet = new DialogSheet(this);
-        dialogSheet.setTitle("We can't find you")
-                .setMessage("Are you a")
+        dialogSheet.setTitle("Register as")
                 .setColoredNavigationBar(true)
                 .setCancelable(true)
                 .setBackgroundColor(Color.WHITE) // Your custom background color
@@ -244,19 +242,29 @@ public class OTPActivity  extends AppCompatActivity {
         parenttxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OTPActivity.this, "You have chosen ", Toast.LENGTH_SHORT).show();
+                Intent intent  = new Intent(OTPActivity.this , _StudentRegistration.class);
+                startActivity(intent);
+//                Toast.makeText(OTPActivity.this, "You have chosen ", Toast.LENGTH_SHORT).show();
                 dialogSheet.dismiss();
-                who = "student";
-                new GETOPTPSTUDENT(mobile_Number).execute();
+//                who = "student";
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    RegisterDialogshow();
+//                }
+//                new GETOPTPSTUDENT(mobile_Number).execute();
             }
         });
         studenttxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OTPActivity.this, " chose 1 ", Toast.LENGTH_SHORT).show();
-                dialogSheet.dismiss();
-                who = "student";
-                new GETOPTPSTUDENT(mobile_Number).execute();
+                Intent intent  = new Intent(OTPActivity.this , _StudentRegistration.class);
+                startActivity(intent);
+//                Toast.makeText(OTPActivity.this, " chose 1 ", Toast.LENGTH_SHORT).show();
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    RegisterDialogshow();
+//                }
+//                dialogSheet.dismiss();
+//                who = "student";
+//                new GETOPTPSTUDENT(mobile_Number).execute();
             }
         });
 //        String [] strings = {"Parent" , "Student"};
@@ -303,7 +311,7 @@ public class OTPActivity  extends AppCompatActivity {
                 postDataParams.put("mobile", mobile.getText().toString());
 
 
-                Log.e("postDataParams", postDataParams.toString());
+                Log.e("postDataParams", "admin_login"+postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /*milliseconds*/);
@@ -364,7 +372,7 @@ public class OTPActivity  extends AppCompatActivity {
                     jsonObject = new JSONObject(result);
                     if(!jsonObject.getBoolean("responce")){
                         getotp.setVisibility(View.VISIBLE);
-                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
 //                        Intent intent = new Intent(OTPActivity.this , StudentDashboardActivity.class);
 //                        startActivity(intent);
 //                        finish();
@@ -440,7 +448,7 @@ public class OTPActivity  extends AppCompatActivity {
                 postDataParams.put("mobile", Mobile_Number);
 
 
-                Log.e("postDataParams", postDataParams.toString());
+                Log.e("postDataParams", "Studentapi/sendotp"+postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /*milliseconds*/);
@@ -503,9 +511,16 @@ public class OTPActivity  extends AppCompatActivity {
                         cancel(true);
 //                       Intent intent = new Intent(OTPActivity.this , LoginActivity.class);
 //                       startActivity(intent);
-                        Toast.makeText(getApplication(),"You are not registerd", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplication(),"You are not registerd", Toast.LENGTH_SHORT).show();
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            RegisterDialogshow();
+                            if(jsonObject.getString("error").equals("Your account currently inactive"))
+                            {
+                                //Not active
+                                UserNotActivedialog();
+                            }else {
+                                ShowDialognow(Mobile_Number);
+
+                            }
                         }else {
                             Toast.makeText(OTPActivity.this, "Your version is too low", Toast.LENGTH_SHORT).show();
                         }
@@ -545,6 +560,21 @@ public class OTPActivity  extends AppCompatActivity {
             }
         }
 
+        private void UserNotActivedialog() {
+            new SweetAlertDialog(OTPActivity.this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("You are currently inactive!")
+                     .setContentText("Please contact to admin")
+                    .setConfirmText("Ok")
+                    .showCancelButton(true)
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
+
         public String getPostDataString(JSONObject params) throws Exception {
 
             StringBuilder result = new StringBuilder();
@@ -576,7 +606,7 @@ public class OTPActivity  extends AppCompatActivity {
     private void RegisterDialogshow() {
         // Simple Material Dialog
         new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("Do you want to register?")
+                .setTitleText("Can't find you!Do you want to register")
                 .setCancelText("Not Now")
                 .setConfirmText("Register Now")
                 .showCancelButton(true).
@@ -584,7 +614,8 @@ public class OTPActivity  extends AppCompatActivity {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         // reuse previous dialog instance, keep widget user state, reset them if you need
-                        Toast.makeText(OTPActivity.this, "You have cansdfgdf", Toast.LENGTH_SHORT).show();
+                        sDialog.dismiss();
+//                        Toast.makeText(OTPActivity.this, "You have ", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -681,30 +712,17 @@ public class OTPActivity  extends AppCompatActivity {
                 try {
 
                     jsonObject = new JSONObject(result);
-                    if(!jsonObject.getBoolean("responce")){
+                    if(jsonObject.getBoolean("responce")){
                         getotp.setVisibility(View.VISIBLE);
-                        Toast.makeText(getApplication(),"wrong OTP", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplication(),"wrong OTP", Toast.LENGTH_SHORT).show();
+                        shared_preference.setschool_id(OTPActivity.this ,jsonObject.getJSONObject("data").getString("school_id"));
+                        shared_preference.setStudent_info(OTPActivity.this ,jsonObject.getJSONObject("data").getString("id"),jsonObject.getJSONObject("data").getString("class_id"),jsonObject.getJSONObject("data").getString("course_id"),jsonObject.getJSONObject("data").getString("batch_id"));
                         Intent intent = new Intent(OTPActivity.this , StudentDashboardActivity.class);
                         startActivity(intent);
                         finish();
                     }else {
-                        Toast.makeText(OTPActivity.this, "Student Success", Toast.LENGTH_SHORT).show();
-//                        shared_preference=new Shared_Preference();
-//                        String type = jsonObject.getJSONObject("data").getString("type");
-//                        String Admin_id = jsonObject.getJSONObject("data").getString("user_id");
-//                        if(type.equals("1")) {
-//
-//                            shared_preference.setId(OTPActivity.this,Admin_id,"Admin",true);
-//                            Intent intent = new Intent(OTPActivity.this, AdminActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }else if(type.equals("2")) {
-//                            String Faculty_id = jsonObject.getJSONObject("data").getString("addedby");
-//                            shared_preference.setId(OTPActivity.this,Faculty_id,"Faculty",true);
-//                            shared_preference.setFacultyId(OTPActivity.this,Admin_id);
-//                            Intent intent1 = new Intent(OTPActivity.this, Faculty_Dashoard.class);
-//                            startActivity(intent1);
-//                            finish();
+                        Toast.makeText(OTPActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+
 //                        }
                     }
                 } catch (JSONException e) {

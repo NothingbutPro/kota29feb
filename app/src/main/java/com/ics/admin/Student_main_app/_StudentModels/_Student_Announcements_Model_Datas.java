@@ -3,7 +3,7 @@ package com.ics.admin.Student_main_app._StudentModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class _Student_Announcements {
+public class _Student_Announcements_Model_Datas {
     @SerializedName("id")
     @Expose
     private String id;
@@ -50,7 +50,7 @@ public class _Student_Announcements {
      * @param userId
      * @param status
      */
-    public _Student_Announcements(String id, String userId, String classId, String batchId, String notification, String date, String crDate, String status, String _class, String batch) {
+    public _Student_Announcements_Model_Datas(String id, String userId, String classId, String batchId, String notification, String date, String crDate, String status, String _class, String batch) {
         super();
         this.id = id;
         this.userId = userId;
