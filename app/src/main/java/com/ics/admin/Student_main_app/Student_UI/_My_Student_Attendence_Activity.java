@@ -1,5 +1,6 @@
 package com.ics.admin.Student_main_app.Student_UI;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.ics.admin.Api_Retrofit.Retro_urls;
 import com.ics.admin.Api_Retrofit.StudentApis;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
+import com.ics.admin.Student_main_app.LovelyProgressDialogs;
 import com.ics.admin.Student_main_app.Student_Adapters._MY_Attendence_Adapter;
 import com.ics.admin.Student_main_app._StudentModels._My_Student_Attendence_Model;
 import com.ics.admin.Student_main_app._StudentModels._My_Student_Attendence_Data;
@@ -41,18 +44,23 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class _My_Student_Attendence_Activity extends Fragment {
+public class _My_Student_Attendence_Activity extends AppCompatActivity {
     private HorizontalCalendar horizontalCalendar;
     HorizontalCalendarView horizontalCalendarView;
     RecyclerView _my_attendenc_rec;
     _MY_Attendence_Adapter student_attendance_adapter;
     ArrayList<_My_Student_Attendence_Data> studentAttendenceDataArrayList = new ArrayList<>();
+    LovelyProgressDialogs lovelyProgressDialogs;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout._my_student_attende_activity , container,false);
-        _my_attendenc_rec = view.findViewById(R.id._my_attendenc_rec);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout._my_student_attende_activity);
+//        View view = ((Activity)this).getWindow().getDecorView().findViewById(R.layout._my_student_attende_activity);
+        _my_attendenc_rec = findViewById(R.id._my_attendenc_rec);
+        lovelyProgressDialogs = new LovelyProgressDialogs(_My_Student_Attendence_Activity.this);
+        lovelyProgressDialogs.StartDialog("Attending Announcememt");
 //        horizontalCalendarView = view.findViewById(R.id.attenddateview);
         //++++++++++++++++Calenderwa+++++++++++++++++++++++++++
         /* start 2 months ago from now */
@@ -66,7 +74,7 @@ public class _My_Student_Attendence_Activity extends Fragment {
         // Default Date set to Today.
         final Calendar defaultSelectedDate = Calendar.getInstance();
 //        horizontalCalendar = view.findViewById(R.id.attendcalendarView);
-        horizontalCalendar = new HorizontalCalendar.Builder(view,R.id.attendcalendarView)
+        horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.attendcalendarView)
                 .range(startDate, endDate)
                 .datesNumberOnScreen(7)
                 .configure()
@@ -82,7 +90,7 @@ public class _My_Student_Attendence_Activity extends Fragment {
                 .build();
 //        String selectedDateStr = DateFormat.format("yyyy-MM-dd, ", horizontalCalendar.getSelectedDate().).toString();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            GetAllMyAttendence(new Shared_Preference().getStudent_id(view.getContext()) , LocalDate.now().toString());
+            GetAllMyAttendence(new Shared_Preference().getStudent_id(this), LocalDate.now().toString());
         }
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
@@ -92,13 +100,12 @@ public class _My_Student_Attendence_Activity extends Fragment {
                 Log.i("onDateSelected", selectedDateStr + " - Position = " + position);
                 try {
                     _my_attendenc_rec.setVisibility(View.VISIBLE);
-                    if(studentAttendenceDataArrayList.size() !=0) {
+                    if (studentAttendenceDataArrayList.size() != 0) {
                         studentAttendenceDataArrayList.clear();
                         student_attendance_adapter.notifyDataSetChanged();
                     }
-                    GetAllMyAttendence(new Shared_Preference().getStudent_id(view.getContext()) , selectedDateStr);
-                }catch (Exception e)
-                {
+                    GetAllMyAttendence(new Shared_Preference().getStudent_id(_My_Student_Attendence_Activity.this), selectedDateStr);
+                } catch (Exception e) {
                     _my_attendenc_rec.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
@@ -109,16 +116,16 @@ public class _My_Student_Attendence_Activity extends Fragment {
 
         Log.i("Default Date", DateFormat.format("EEE, MMM d, yyyy", defaultSelectedDate).toString());
         //+++++++++++++++++++++
-        return  view;
+
 //        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     private void GetAllMyAttendence(String Student_id , String attdate) {
-        LovelyProgressDialog lovelyProgressDialog =  new LovelyProgressDialog(getActivity())
-                .setIcon(R.drawable.asr_logo)
-                .setTitle("Registering Please wait")
-                .setTopColorRes(R.color.red);
-        lovelyProgressDialog.setCancelable(false);
+//        LovelyProgressDialog lovelyProgressDialog =  new LovelyProgressDialog(getActivity())
+//                .setIcon(R.drawable.asr_logo)
+//                .setTitle("Registering Please wait")
+//                .setTopColorRes(R.color.red);
+//        lovelyProgressDialog.setCancelable(false);
         Log.e("Student_id" , "is"+Student_id);
         Log.e("attdate" , "is"+attdate);
         OkHttpClient client = new OkHttpClient.Builder()
@@ -136,32 +143,32 @@ public class _My_Student_Attendence_Activity extends Fragment {
                 Log.d("attendence string" , ""+gson.toJson(response.body()) );
                 if(response.body().getResponce()) {
                      studentAttendenceDataArrayList = response.body().getData();
-                     student_attendance_adapter = new _MY_Attendence_Adapter(getActivity(), studentAttendenceDataArrayList);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                     student_attendance_adapter = new _MY_Attendence_Adapter(_My_Student_Attendence_Activity.this, studentAttendenceDataArrayList);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(_My_Student_Attendence_Activity.this);
                     _my_attendenc_rec.setLayoutManager(linearLayoutManager);
                     _my_attendenc_rec.setAdapter(student_attendance_adapter);
-                    lovelyProgressDialog.dismiss();
+
 //                            Log.d("string" , ""+response.body().getData().getEmail());
                     if (response != null) {
-                        lovelyProgressDialog.dismiss();
-                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        lovelyProgressDialogs.DismissDialog();
+                        Toast.makeText(_My_Student_Attendence_Activity.this, "Success", Toast.LENGTH_SHORT).show();
                     } else {
-                        lovelyProgressDialog.dismiss();
-                        Toast.makeText(getActivity(), "Either Email is duplicate or Password", Toast.LENGTH_SHORT).show();
+                        lovelyProgressDialogs.DismissDialog();
+                        Toast.makeText(_My_Student_Attendence_Activity.this, "Either Email is duplicate or Password", Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    lovelyProgressDialog.dismiss();
-                    Toast.makeText(getActivity(), "No attendance found", Toast.LENGTH_SHORT).show();
+                    lovelyProgressDialogs.DismissDialog();
+                    Toast.makeText(_My_Student_Attendence_Activity.this, "No attendance found", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<_My_Student_Attendence_Model> call, Throwable t) {
-                lovelyProgressDialog.dismiss();
+                lovelyProgressDialogs.DismissDialog();
                 Log.d("local cause" , ""+t.getLocalizedMessage());
                 Log.d("local cause" , ""+t.getMessage());
-                Toast.makeText(getActivity(), "No Attendance Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(_My_Student_Attendence_Activity.this, "No Attendance Found", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ics.admin.Fragment.AdminEFragment;
 import com.ics.admin.Fragment.BatchFragment;
 import com.ics.admin.Fragment.CommunityFragment;
 import com.ics.admin.Fragment.EnquiryFragment;
@@ -60,7 +61,7 @@ public class AdminActivity extends AppCompatActivity
                         fragment = new BatchFragment();
                         break;
                     case R.id.navi_student_material:
-                        fragment = new EnquiryFragment();
+                         fragment = new AdminEFragment();
 //                        loadFragment(fragment);
                         break;
                 }

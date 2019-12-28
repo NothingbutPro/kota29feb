@@ -30,7 +30,7 @@ import com.ics.admin.BasicAdmin.AdminActivity;
 import com.ics.admin.Fragment.AdminAFragment;
 import com.ics.admin.Fragment.AdminBFragment;
 import com.ics.admin.Fragment.AdminCFragment;
-import com.ics.admin.Fragment.AdminDFragment;
+import com.ics.admin.Student_main_app.Student_UI._Student_HomeWork_Fragment;
 import com.ics.admin.Fragment.AdminEFragment;
 import com.ics.admin.Model.MenuPermisssion;
 import com.ics.admin.Model.SubMenuPermissions;
@@ -116,7 +116,7 @@ TextView faculty_logout;
                         fragment = new AdminCFragment();
                         break;
                     case R.id.navigation_Batch:
-                        fragment = new AdminDFragment();
+                        fragment = new _Student_HomeWork_Fragment();
                         break;
                     case R.id.navigation_student_material:
                         fragment = new AdminEFragment();

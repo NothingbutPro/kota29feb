@@ -23,6 +23,45 @@ public  class _Student_Chat_Public_Community_Data {
     @SerializedName("school_id")
     @Expose
     private String schoolId;
+    @SerializedName("type")
+    @Expose
+    private String type;
+
+    @SerializedName("student_name")
+    @Expose
+    private String student_name;
+
+    @SerializedName("admin_name")
+    @Expose
+    private String admin_name;
+
+
+    public String getAdmin_name() {
+        return admin_name;
+    }
+
+    public void setAdmin_name(String admin_name) {
+        this.admin_name = admin_name;
+    }
+
+    public String getStudent_name() {
+        return student_name;
+    }
+
+    public void setStudent_name(String student_name) {
+        this.student_name = student_name;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
 
     /**
      * No args constructor for use in serialization

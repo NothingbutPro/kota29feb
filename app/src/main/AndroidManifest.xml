@@ -53,6 +53,7 @@
 
         <activity android:name=".BasicAdmin.Masters.StudyMaterial.EditStudyMaterial" />
         <activity android:name=".BasicAdmin.Attendence.ViewAttendenceActivity" />
+        <activity android:name=".Student_main_app.Student_UI._My_Student_Attendence_Activity" />
         <activity android:name=".BasicAdmin.FeesStructure.PayFeesActivity" />
         <activity android:name=".BasicAdmin.FeesStructure.AddFeesActivity" />
         <activity android:name=".BasicAdmin.Enquiry.ViewEnquiryActivity" />

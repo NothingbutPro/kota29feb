@@ -39,20 +39,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class _Student_Community_Chat_Fragment extends Fragment {
     RecyclerView all_chat_community;
     EditText myquestedit;
-    ImageView send_myque_btn;
+    Button send_myque_btn;
     Public_Community_Chat_Adapter public_community_chat_adapter;
     ArrayList<_Student_Chat_Public_Community_Data> student_chat_public_community_data_list = new ArrayList<_Student_Chat_Public_Community_Data>();
     _Student_Video_Lecture_Activity student_chat_public_community_data ;
     LovelyProgressDialogs lovelyProgressDialogs;
+    View view;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout._student_community_chat , container,false);
-        getallCommunityMesages(new Shared_Preference().getStudent_id(getActivity()));
+         view = inflater.inflate(R.layout._student_community_chat , container,false);
+        Toast.makeText(getActivity(), "_Student_Community_Chat_Fragment", Toast.LENGTH_SHORT).show();
         all_chat_community = view.findViewById(R.id.all_chat_community);
         myquestedit = view.findViewById(R.id.myquestedit);
         send_myque_btn = view.findViewById(R.id.send_myque_btn);
         lovelyProgressDialogs = new LovelyProgressDialogs(getActivity());
+        getallCommunityMesages(new Shared_Preference().getSchoolId(getActivity()));
         send_myque_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +68,9 @@ public class _Student_Community_Chat_Fragment extends Fragment {
             }
 
             private void SendMyQuery(String Message , String school_id , String user_id) {
+                Log.e("messages" , ""+Message);
+                Log.e("school_id" , ""+school_id);
+                Log.e("user_id" , ""+user_id);
 
                 OkHttpClient client = new OkHttpClient.Builder()
                         .connectTimeout(100, TimeUnit.SECONDS)
@@ -74,7 +80,7 @@ public class _Student_Community_Chat_Fragment extends Fragment {
                         .build();
                 StudentApis RegApi = RetroLogin.create(StudentApis.class);
 //        Call<_Student_PDF_Material_Model> RegisterCall = RegApi.STUDENT_PDF_MATERIAL_MODEL_CALL(id , courseId);
-                Call<_Student_Public_Message> RegisterCall = RegApi.STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(Message,school_id ,user_id);
+                Call<_Student_Public_Message> RegisterCall = RegApi.STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(Message,school_id ,"1",user_id);
                 RegisterCall.enqueue(new Callback<_Student_Public_Message>() {
                     @Override
                     public void onResponse(Call<_Student_Public_Message> call, Response<_Student_Public_Message> response) {
@@ -85,13 +91,15 @@ public class _Student_Community_Chat_Fragment extends Fragment {
                             try {
                                 student_chat_public_community_data_list.clear();
                                 public_community_chat_adapter.notifyDataSetChanged();
-                                getallCommunityMesages(user_id);
+                                lovelyProgressDialogs.Dismissspecial();
+                                getallCommunityMesages(school_id);
                             }catch (Exception e)
                             {
-                                getallCommunityMesages(user_id);
+                                lovelyProgressDialogs.Dismissspecial();
+                                getallCommunityMesages(school_id);
                                 e.printStackTrace();
                             }
-                            lovelyProgressDialogs.DismissDialog();
+
 
                         }else {
                             Toast.makeText(getActivity(), "No StudyMaterial found", Toast.LENGTH_SHORT).show();
@@ -105,7 +113,7 @@ public class _Student_Community_Chat_Fragment extends Fragment {
                         Log.d("local cause" , ""+t.getLocalizedMessage());
                         Log.d("local cause" , ""+t.getMessage());
                         Toast.makeText(getActivity(), "Failed to publish the Query", Toast.LENGTH_SHORT).show();
-                        lovelyProgressDialogs.DismissDialog();
+                        lovelyProgressDialogs.Dismissspecial();
                     }
                 });
 
@@ -116,10 +124,82 @@ public class _Student_Community_Chat_Fragment extends Fragment {
         return  view;
 //        return super.onCreateView(inflater, container, savedInstanceState);
     }
-
-    private void getallCommunityMesages(String id) {
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        Toast.makeText(getActivity(), "_Student_Community_Chat_Fragment", Toast.LENGTH_SHORT).show();
+//        getallCommunityMesages(new Shared_Preference().getSchoolId(getActivity()));
+//        all_chat_community = view.findViewById(R.id.all_chat_community);
+//        myquestedit = view.findViewById(R.id.myquestedit);
+//        send_myque_btn = view.findViewById(R.id.send_myque_btn);
+//        lovelyProgressDialogs = new LovelyProgressDialogs(getActivity());
+//        send_myque_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(myquestedit.getText().toString().length() !=0) {
+//                    lovelyProgressDialogs.StartDialog("Sending Your Query Please wait");
+//                    SendMyQuery(myquestedit.getText().toString() , new Shared_Preference().getSchoolId(getActivity()),new Shared_Preference().getStudent_id(getActivity()));
+//                }else {
+//                    Toast.makeText(getActivity(), "You Must specify your query", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            private void SendMyQuery(String Message , String school_id , String user_id) {
+//                Log.e("messages" , ""+Message);
+//                Log.e("school_id" , ""+school_id);
+//                Log.e("user_id" , ""+user_id);
+//
+//                OkHttpClient client = new OkHttpClient.Builder()
+//                        .connectTimeout(100, TimeUnit.SECONDS)
+//                        .readTimeout(300, TimeUnit.SECONDS).writeTimeout(100, TimeUnit.SECONDS).build();
+//                Retrofit RetroLogin = new Retrofit.Builder().client(client)
+//                        .baseUrl(Retro_urls.The_Base).addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                StudentApis RegApi = RetroLogin.create(StudentApis.class);
+////        Call<_Student_PDF_Material_Model> RegisterCall = RegApi.STUDENT_PDF_MATERIAL_MODEL_CALL(id , courseId);
+//                Call<_Student_Public_Message> RegisterCall = RegApi.STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(Message,school_id ,"1",user_id);
+//                RegisterCall.enqueue(new Callback<_Student_Public_Message>() {
+//                    @Override
+//                    public void onResponse(Call<_Student_Public_Message> call, Response<_Student_Public_Message> response) {
+//                        Gson gson = new Gson();
+//                        Log.d("attendence string" , ""+gson.toJson(response.body()) );
+//                        if(response.body().getResponce()) {
+//                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+//                            try {
+//                                student_chat_public_community_data_list.clear();
+//                                public_community_chat_adapter.notifyDataSetChanged();
+//                                getallCommunityMesages(user_id);
+//                            }catch (Exception e)
+//                            {
+//                                getallCommunityMesages(school_id);
+//                                e.printStackTrace();
+//                            }
+//                            lovelyProgressDialogs.DismissDialog();
+//
+//                        }else {
+//                            Toast.makeText(getActivity(), "No StudyMaterial found", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<_Student_Public_Message> call, Throwable t) {
+//
+//                        Log.d("local cause" , ""+t.getLocalizedMessage());
+//                        Log.d("local cause" , ""+t.getMessage());
+//                        Toast.makeText(getActivity(), "Failed to publish the Query", Toast.LENGTH_SHORT).show();
+//                        lovelyProgressDialogs.DismissDialog();
+//                    }
+//                });
+//
+//
+//
+//            }
+//        });
+//        super.onViewCreated(view, savedInstanceState);
+//    }
+    private void getallCommunityMesages(String id ) {
         Log.e("id" , "is"+id);
-
+        lovelyProgressDialogs.StartDialog("Getting Your Query Please wait");
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(300, TimeUnit.SECONDS).writeTimeout(100, TimeUnit.SECONDS).build();
@@ -128,7 +208,7 @@ public class _Student_Community_Chat_Fragment extends Fragment {
                 .build();
         StudentApis RegApi = RetroLogin.create(StudentApis.class);
 //        Call<_Student_PDF_Material_Model> RegisterCall = RegApi.STUDENT_PDF_MATERIAL_MODEL_CALL(id , courseId);
-        Call<_Student_Chat_Public_Community> RegisterCall = RegApi.STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(id);
+        Call<_Student_Chat_Public_Community> RegisterCall = RegApi.STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(id ,"1");
         RegisterCall.enqueue(new Callback<_Student_Chat_Public_Community>() {
             @Override
             public void onResponse(Call<_Student_Chat_Public_Community> call, Response<_Student_Chat_Public_Community> response) {
@@ -141,15 +221,17 @@ public class _Student_Community_Chat_Fragment extends Fragment {
                     linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                     all_chat_community.setLayoutManager(linearLayoutManager);
                     all_chat_community.setAdapter(public_community_chat_adapter);
+                    lovelyProgressDialogs.Dismissspecial();
                 }else {
                     Toast.makeText(getActivity(), "No StudyMaterial found", Toast.LENGTH_SHORT).show();
+                    lovelyProgressDialogs.Dismissspecial();
                 }
 
             }
 
             @Override
             public void onFailure(Call<_Student_Chat_Public_Community> call, Throwable t) {
-
+                lovelyProgressDialogs.Dismissspecial();
                 Log.d("local cause" , ""+t.getLocalizedMessage());
                 Log.d("local cause" , ""+t.getMessage());
                 Toast.makeText(getActivity(), "Network problem", Toast.LENGTH_SHORT).show();
@@ -159,4 +241,6 @@ public class _Student_Community_Chat_Fragment extends Fragment {
 
 
     }
+
+
 }

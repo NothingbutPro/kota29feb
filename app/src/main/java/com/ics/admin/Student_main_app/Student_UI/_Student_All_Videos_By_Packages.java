@@ -50,7 +50,7 @@ public class _Student_All_Videos_By_Packages  extends AppCompatActivity {
     TextView dem_title,dem_des;
     String Actual_Title;
     ArrayList<_Student_All_Packages_data> studentAllPackagesDatalist = new ArrayList<>();
-    LovelyProgressDialogs lovelyProgressDialogs = new LovelyProgressDialogs(this);
+    LovelyProgressDialogs lovelyProgressDialogs;
     _Student_All_Videos_Package_Adapter student_video_material_adapter;
 
     @Override
@@ -58,6 +58,7 @@ public class _Student_All_Videos_By_Packages  extends AppCompatActivity {
         setContentView(R.layout._student_all_video_packgaes);
 //        View view = inflater.inflate(R.layout._student_all_video_packgaes ,container ,false);
         all_vid_packeges_rec = findViewById(R.id.all_vid_packeges_rec);
+        lovelyProgressDialogs = new LovelyProgressDialogs(this);
         demo_li = findViewById(R.id.demo_li);
 
         dem_title = findViewById(R.id.dem_title);
@@ -84,6 +85,7 @@ public class _Student_All_Videos_By_Packages  extends AppCompatActivity {
         Log.e("dem_vid_ids" , "is"+ dem_vid_ids);
 //        Log.e("classId" , "is"+classId);
 //        Log.e("courseId" , "is"+courseId);
+
         lovelyProgressDialogs.StartDialog("Getting Video Packages");
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)

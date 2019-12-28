@@ -133,7 +133,7 @@ public class _Student_Pay_Fee extends Fragment {
         protected void onPostExecute(String result) {
             if (result != null) {
 //                dialog.dismiss();
-
+                student_pay_fee_models.clear();
                 JSONObject jsonObject = null;
                 Log.e("PostRegistration", result.toString());
                 try {

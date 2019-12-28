@@ -16,9 +16,9 @@
         android:icon="@drawable/ic_fee_student"
         android:title="Fee Details" />
     <item
-        android:id="@+id/navi_attendence"
+        android:id="@+id/navi_homework"
         android:icon="@drawable/ic_attendence_date"
-        android:title="Attendance" />
+        android:title="Homework" />
     <item
         android:id="@+id/navi_community"
         android:icon="@drawable/ic_community_people"

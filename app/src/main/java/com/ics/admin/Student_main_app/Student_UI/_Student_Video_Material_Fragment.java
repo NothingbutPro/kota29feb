@@ -64,7 +64,7 @@ public class _Student_Video_Material_Fragment extends Fragment {
         Toast.makeText(getActivity(), "_Student_Video_Material_Fragment created", Toast.LENGTH_SHORT).show();
         lovelyProgressDialogs = new LovelyProgressDialogs(getActivity());
         lovelyProgressDialogs.StartDialog("Getting Your Packages");
-        GETALLVIDEOS("py", new Shared_Preference().getSchoolId(getActivity()), new Shared_Preference().getClassId(getActivity()), new Shared_Preference().getCourseId(getActivity()));
+        GETALLVIDEOS("", new Shared_Preference().getSchoolId(getActivity()), new Shared_Preference().getClassId(getActivity()), new Shared_Preference().getCourseId(getActivity()));
         searchloc.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -73,10 +73,12 @@ public class _Student_Video_Material_Fragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.length() ==0) {
+                if(newText.length() !=0) {
+                    Toast.makeText(getActivity(), "Searching for"+newText, Toast.LENGTH_SHORT).show();
                     GETALLVIDEOS(newText, new Shared_Preference().getSchoolId(getActivity()), new Shared_Preference().getClassId(getActivity()), new Shared_Preference().getCourseId(getActivity()));
                 }else {
-                    GETALLVIDEOS("py", new Shared_Preference().getSchoolId(getActivity()), new Shared_Preference().getClassId(getActivity()), new Shared_Preference().getCourseId(getActivity()));
+//                    Toast.makeText(getActivity(), "Searching for"+newText, Toast.LENGTH_SHORT).show();
+                    GETALLVIDEOS("", new Shared_Preference().getSchoolId(getActivity()), new Shared_Preference().getClassId(getActivity()), new Shared_Preference().getCourseId(getActivity()));
                 }
                 return false;
             }
@@ -97,7 +99,7 @@ public class _Student_Video_Material_Fragment extends Fragment {
                 .build();
         StudentApis RegApi = RetroLogin.create(StudentApis.class);
 //        Call<_Student_PDF_Material_Model> RegisterCall = RegApi.STUDENT_PDF_MATERIAL_MODEL_CALL(id , courseId);
-        Call<_Student_Video_Materials_Model> RegisterCall = RegApi.STUDENT_VIDEO_MATERIALS_MODEL_CALL(schoolId);
+        Call<_Student_Video_Materials_Model> RegisterCall = RegApi.STUDENT_VIDEO_MATERIALS_MODEL_CALL(newText);
         RegisterCall.enqueue(new Callback<_Student_Video_Materials_Model>() {
             @Override
             public void onResponse(Call<_Student_Video_Materials_Model> call, Response<_Student_Video_Materials_Model> response) {

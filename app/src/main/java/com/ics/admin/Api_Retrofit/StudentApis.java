@@ -8,6 +8,7 @@ import com.ics.admin.Student_main_app._StudentModels._Student_Announcement_Model
 import com.ics.admin.Student_main_app._StudentModels._Student_Announcements_Model_Datas;
 import com.ics.admin.Student_main_app._StudentModels._Student_Chat_Public_Community;
 import com.ics.admin.Student_main_app._StudentModels._Student_Demo_Videos;
+import com.ics.admin.Student_main_app._StudentModels._Student_Homeworks_Model;
 import com.ics.admin.Student_main_app._StudentModels._Student_PDF_Material_Model;
 import com.ics.admin.Student_main_app._StudentModels._Student_Profile_Model;
 import com.ics.admin.Student_main_app._StudentModels._Student_Public_Message;
@@ -36,6 +37,13 @@ public interface StudentApis {
     );
 
     @FormUrlEncoded
+    @POST("view_homework")
+    Call<_Student_Homeworks_Model> STUDENT_HOMEWORKS_MODEL_CALL(
+            @Field("class_id") String class_id,
+            @Field("batch_id") String batch_id
+    );
+
+    @FormUrlEncoded
     @POST("studymateriallist")
     Call<_Student_PDF_Material_Model> STUDENT_PDF_MATERIAL_MODEL_CALL(
             @Field("user_id") String user_id,
@@ -58,8 +66,9 @@ public interface StudentApis {
     @FormUrlEncoded
     @POST("getpackages")
     Call<_Student_Video_Materials_Model> STUDENT_VIDEO_MATERIALS_MODEL_CALL(
-            @Field("school_id") String user_id
+            @Field("search") String search
     );
+
 
     @FormUrlEncoded
     @POST("viewallvideo")
@@ -81,7 +90,8 @@ public interface StudentApis {
     @FormUrlEncoded
     @POST("getcommunity")
     Call<_Student_Chat_Public_Community> STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(
-            @Field("user_id") String user_id
+            @Field("school_id") String user_id,
+            @Field("type") String type
     );
 
     @FormUrlEncoded
@@ -89,6 +99,7 @@ public interface StudentApis {
     Call<_Student_Public_Message> STUDENT_CHAT_PUBLIC_COMMUNITY_CALL(
             @Field("message") String  message,
             @Field("school_id") String school_id,
+            @Field("type") String type,
             @Field("user_id") String  user_id
     );
 

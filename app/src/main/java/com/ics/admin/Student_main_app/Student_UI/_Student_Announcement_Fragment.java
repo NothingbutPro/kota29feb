@@ -54,6 +54,7 @@ public class _Student_Announcement_Fragment  extends Fragment {
 
     private void GETALLANNOUNCEMENTS(String classId, String batchId) {
         {
+            lovelyProgressDialogs=new LovelyProgressDialogs(getActivity());
         lovelyProgressDialogs.StartDialog("Getting Your Announcements");
             Log.e("classId" , "is"+classId);
             Log.e("batchId" , "is"+batchId);
