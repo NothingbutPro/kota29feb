@@ -30,6 +30,11 @@ import com.ics.admin.BasicAdmin.AdminActivity;
 import com.ics.admin.Fragment.AdminAFragment;
 import com.ics.admin.Fragment.AdminBFragment;
 import com.ics.admin.Fragment.AdminCFragment;
+import com.ics.admin.Fragment.BatchFragment;
+import com.ics.admin.Fragment.CommunityFragment;
+import com.ics.admin.Fragment.FacultyFragment;
+import com.ics.admin.Fragment.VideoFragment;
+import com.ics.admin.Fragment.VideoLibraryFragment;
 import com.ics.admin.Student_main_app.Student_UI._Student_HomeWork_Fragment;
 import com.ics.admin.Fragment.AdminEFragment;
 import com.ics.admin.Model.MenuPermisssion;
@@ -102,30 +107,42 @@ TextView faculty_logout;
         bottom_nav_faculty.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
                 Fragment fragment = null;
 
                 switch (menuItem.getItemId()) {
-                    case R.id.navigation_Home:
-                        fragment = new AdminAFragment();
-                        break;
-                    case R.id.navigation_faculty:
-                        fragment = new AdminBFragment();
-                        break;
-
-                    case R.id.navigation_video_libary:
-                        fragment = new AdminCFragment();
-                        break;
-                    case R.id.navigation_Batch:
-                        fragment = new _Student_HomeWork_Fragment();
-                        break;
-                    case R.id.navigation_student_material:
-                        fragment = new AdminEFragment();
+                    case R.id.navi_fact_home:
+//                        Toast.makeText(Faculty_Dashoard.this, "navi_fact_home selected", Toast.LENGTH_SHORT).show();
+//                        fragment = new CommunityFragment();
 //                        loadFragment(fragment);
+//                        Toast.makeText(Faculty_Dashoard.this, "Not allowed", Toast.LENGTH_SHORT).show();
+                        fragment = new VideoLibraryFragment();
+                        loadFragment(fragment);
+                        break;
+                    case R.id.navi_fact_faculty:
+//                        Toast.makeText(Faculty_Dashoard.this, "navi_vid_lib selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Faculty_Dashoard.this, "Not allowed", Toast.LENGTH_SHORT).show();
+                        fragment = new VideoLibraryFragment();
+                        loadFragment(fragment);
+                        break;
+                    case R.id.navi__fact_Batch:
+                        Toast.makeText(Faculty_Dashoard.this, "navi__fact_Batch selected", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(getAc)
+//                        fragment = new BatchFragment();
+//                        loadFragment(fragment);
+                        break;
+                    case R.id.nav_fact_commun:
+//                        Toast.makeText(Faculty_Dashoard.this, "nav_fact_commun selected", Toast.LENGTH_SHORT).show();
+                        fragment = new AdminEFragment();
+                        loadFragment(fragment);
+                        break;
+                        case R.id.navi_vid_lib:
+//                        Toast.makeText(Faculty_Dashoard.this, "nav_fact_commun selected", Toast.LENGTH_SHORT).show();
+                        fragment = new VideoFragment();
+                        loadFragment(fragment);
                         break;
                 }
                 return loadFragment(fragment);
-
-
             }
         });
 
@@ -137,7 +154,8 @@ TextView faculty_logout;
         navigationView.setNavigationItemSelectedListener(this);
 
         toolbar.setTitle("Faculty");
-        loadFragment(new AdminAFragment());
+        loadFragment(new VideoLibraryFragment());
+        bottom_nav_faculty.setSelectedItemId( R.id.navi_fact_home);
 
     }
 
@@ -147,7 +165,7 @@ TextView faculty_logout;
         if (fragmentAdmin != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    //  .replace(R.id.frame_container_fuculty,fragmentAdmin)
+                      .replace(R.id.frame_fact_container,fragmentAdmin)
                     .commit();
             return true;
         }

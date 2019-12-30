@@ -136,7 +136,7 @@ public class PayFeesActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(PayFeesActivity.this, " paybyspinwithout Nothing selected", Toast.LENGTH_SHORT).show();
             }
         });
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -448,6 +448,7 @@ public class PayFeesActivity extends AppCompatActivity {
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             // Apply the adapter to the spinner
                             batch_fee_id.setAdapter(adapter);
+
                             batch_fee_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -459,8 +460,10 @@ public class PayFeesActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onNothingSelected(AdapterView<?> parent) {
-
+                                    Toast.makeText(PayFeesActivity.this, "batch_fee_id nothing selected", Toast.LENGTH_SHORT).show();
                                 }
+
+
                             });
 
                         }
@@ -632,7 +635,7 @@ public class PayFeesActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onNothingSelected(AdapterView<?> parent) {
-
+                                        Toast.makeText(PayFeesActivity.this, "student_fee_id nothing selected", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -779,7 +782,12 @@ public class PayFeesActivity extends AppCompatActivity {
                                 emimnthstr.setFocusable(true);
                                 payinamt.setFocusable(true);
                                 installs.setFocusable(true);
-                                student_fee_id.setAdapter(null);
+//                                try {
+//                                    student_fee_id.setSelection(student_fee_id.getSelectedItemPosition()+1);
+//                                }catch (Exception e)
+//                                {
+//                                    e.printStackTrace();
+//                                }
                                 feeamount.setText("");
                                 new AlertDialog.Builder(PayFeesActivity.this)
                                         .setTitle("Alert")
@@ -790,6 +798,12 @@ public class PayFeesActivity extends AppCompatActivity {
                                         .setPositiveButton("Ok Got It", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 // Continue with delete operation
+                                                try {
+                                                    student_fee_id.setSelection(student_fee_id.getSelectedItemPosition() + 1);
+                                                }catch (Exception e)
+                                                {
+                                                    Toast.makeText(PayFeesActivity.this, "All Student are paid", Toast.LENGTH_SHORT).show();
+                                                }
                                                 dialog.dismiss();
                                             }
                                         })

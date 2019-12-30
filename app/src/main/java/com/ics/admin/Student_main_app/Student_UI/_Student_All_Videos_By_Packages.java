@@ -103,7 +103,7 @@ public class _Student_All_Videos_By_Packages  extends AppCompatActivity {
                 Log.d("_Student_Demo_Videos st" , ""+response);
                 if(response !=null) {
                     _Student_Demo_Videos student_demo_videos = response.body();
-                    Log.e("student_demo_videos" , ""+student_demo_videos.getData().get(0).getDescription());
+//                    Log.e("student_demo_videos" , ""+student_demo_videos.getData().get(0).getDescription());
 
                     dem_title.setText(student_demo_videos.getData().get(0).getDescription());
                     dem_des.setText(student_demo_videos.getData().get(0).getCourse());
