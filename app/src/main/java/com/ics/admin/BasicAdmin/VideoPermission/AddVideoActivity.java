@@ -6,11 +6,14 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,7 +22,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +40,7 @@ import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 import com.ics.admin.Utils.Utilities;
+import com.marcoscg.dialogsheet.DialogSheet;
 
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -65,15 +72,18 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class AddVideoActivity extends AppCompatActivity {
     Button capturestartbtn,sendbtn;
+    CheckBox sharewithlinkbtn;
     static final int REQUEST_VIDEO_CAPTURE = 1;
+    int Gallery_view = 2;
     private Uri fileUri;
-    EditText studyedt_name_sdesv;
+    EditText studyedt_name_sdesv,link_url;
     public static final int MEDIA_TYPE_VIDEO = 3;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS =1 ;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
     public static AddVideoActivity ActivityContext =null;
     String selected_batch , sel_batch;
     File mediaFile;
+
    TextView fliename;
     private ArrayList<ClassNAmes> class_names;
     private ArrayList<String> batch_names = new ArrayList<>();
@@ -90,17 +100,61 @@ public class AddVideoActivity extends AppCompatActivity {
         studyedt_name_sdesv = findViewById(R.id.studyedt_name_sdesv);
         class_spiner_assign = findViewById(R.id.class_spiner_vid);
         batch_spin_assign = findViewById(R.id.batch_spiner);
+        sharewithlinkbtn = findViewById(R.id.sharewithlinkbtn);
 //        videoView.setZOrderOnTop(true);
         ActivityContext = this;
         super.onCreate(savedInstanceState);
         capturestartbtn = findViewById(R.id.capturestartbtn);
         sendbtn = findViewById(R.id.sendbtn);
+        link_url = findViewById(R.id.link_url);
+        sharewithlinkbtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    link_url.setVisibility(View.VISIBLE);
+                }else {
+                    link_url.setVisibility(View.GONE);
+                }
+            }
+        });
+//        sharewithlinkbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                link_url.setVisibility(View.VISIBLE);
+//            }
+//        });
         new  GETAllClasses(new Shared_Preference().getId(this)).execute();
         capturestartbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if( checkAndRequestPermissions()) {
-                    startcrecording();
+//                    link_url.setVisibility(View.GONE);
+                    DialogSheet dialogSheet = new DialogSheet(v.getContext());
+                    dialogSheet.setTitle("Choose one")
+                            .setColoredNavigationBar(true)
+                            .setCancelable(true)
+                            .setBackgroundColor(Color.WHITE) // Your custom background color
+                            .setButtonsColorRes(R.color.colorAccent) // You can use dialogSheetAccent style attribute instead
+                            .show();
+                    dialogSheet.setView(R.layout._ask_for_how_to_upload);
+                    View inflatedView = dialogSheet.getInflatedView();
+                    LinearLayout uploadfromsd = inflatedView.findViewById(R.id.uploadfromsd);
+                    LinearLayout recordfromli = inflatedView.findViewById(R.id.recordfromli);
+                    uploadfromsd.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialogSheet.dismiss();
+                            OpenCHooser();
+                        }
+                    });
+                    recordfromli.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialogSheet.dismiss();
+                            startcrecording();
+                        }
+                    });
+
                 }
             }
         });
@@ -133,6 +187,15 @@ public class AddVideoActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void OpenCHooser() {
+        Intent from_gallery = new Intent();
+        from_gallery.setType("video/*");
+        from_gallery.addCategory(Intent.CATEGORY_OPENABLE);
+        from_gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        from_gallery.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(from_gallery , "Select File"),Gallery_view);
     }
 
     private boolean checkAndRequestPermissions() {
@@ -245,20 +308,147 @@ public class AddVideoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (resultCode == RESULT_OK) {
+            if(requestCode == Gallery_view) {
+                Intent data = intent;
+                try {
+//                Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                    Uri pickedImage = data.getData();
+                    File pdfFile = null;
+                    String[] filePath = {MediaStore.Images.Media.DATA};
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
+                        //     getRealPathFromURI(Single_user_act_TRD.this , pickedImage);
 
-            Log.e("Video File : ","" +intent.getData());
 
-            // Video captured and saved to fileUri specified in the Intent
-            Toast.makeText(this, "Video saved to: " + intent.getData(), Toast.LENGTH_LONG).show();
+//                  pickedImage =   FileProvider.getUriForFile(Single_user_act_TRD.this, BuildConfig.APPLICATION_ID + ".provider",pdfFile);
+                        //   pickedImage =   FileProvider.getUriForFile(Single_user_act_TRD.this, getApplicationContext().getPackageName() + ".provider",pdfFile);
 
+                        Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+                        cursor.moveToFirst();
+                        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                        Log.e("Gallery image path is:", "" + imagePath);
+
+                        pdfFile = new File(imagePath);
+
+                        cursor.close();
+                        if (pdfFile != null) {
+
+                            if (pdfFile.exists()) {
+                                Log.e("PDF ", "" + pdfFile.exists());
+                                //   new ImageUploadPDF(pdfFile).execute();
+                                mediaFile = pdfFile;
+//                            selepdftxt.setText("Selected :"+pdfFile.getName());
+                                Toast.makeText(this, "Selected " + pdfFile.getName(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                            }
+                            //   new ImageCompression().execute(imagePath);
+                            //   select_registrationplate.setImageURI(Uri.fromFile(imgFile));
+                            //  show(imgFile);
+                            // new ImageUploadTask(new File(imagePath)).execute();
+                            //   Toast.makeText(ReportSummary.this, "data:=" + imgFile, Toast.LENGTH_LONG).show();
+                        }
+
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        File extStore = Environment.getExternalStorageDirectory();
+//                    File myFile = new File(extStore.getAbsolutePath() + "/book1/page2.html");
+                        String pdf_file_path;
+                        Uri uri = data.getData();
+                        pdfFile = new File(uri.getPath());//create path from uri
+                        final String[] split = pdfFile.getPath().split(":");//split the path.
+                        pdf_file_path = split[1];
+                        Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+                        cursor.moveToFirst();
+                        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                        Log.e("Gallery image path is:", "" + imagePath);
+
+                        pdfFile = new File(extStore.getAbsolutePath(), pdf_file_path);
+
+                        cursor.close();
+                        if (pdfFile != null) {
+
+                            if (pdfFile.exists()) {
+                                Log.e("PDF ", "" + pdfFile.exists());
+                                //   new ImageUploadPDF(pdfFile).execute();
+                                mediaFile = pdfFile;
+                                Toast.makeText(this, "Selected " + pdfFile.getName(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+//                    File extStore = Environment.getExternalStorageDirectory();
+////                    File myFile = new File(extStore.getAbsolutePath() + "/book1/page2.html");
+//                    String pdf_file_path;
+//                    Uri uri = data.getData();
+//                    pdfFile = new File(uri.getPath());//create path from uri
+//                    final String[] split = pdfFile.getPath().split(":");//split the path.
+//                    pdf_file_path = split[0];
+//                    String path = data.uri.toString() // "file:///mnt/sdcard/FileName.mp3"
+////                    File file = new File(new URI(path));
+//                    Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+//                    cursor.moveToFirst();
+//                    String imagePath = cursor.getString(cursor.getColumnIndex(pdf_file_path));
+//                    Log.e("Gallery image path is:" , ""+path);
+//                    pdfFile = new File(extStore.getAbsolutePath(),path);
+////                    pdfFile = new File(imagePath);
+//                    cursor.close();
+//                    if (pdfFile!=null) {
+//                        if (pdfFile.exists()) {
+//                            Log.e("PDF ", "" + pdfFile.exists());
+//                            //   new ImageUploadPDF(pdfFile).execute();
+//                            MYDOC = pdfFile;
+//                            selepdftxt.setText("Selected :"+pdfFile.getName());
+//                        }else {
+//                            Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+                    } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
+                        Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+                        cursor.moveToFirst();
+                        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                        Log.e("Gallery image path is:", "" + imagePath);
+                        pdfFile = new File(imagePath);
+                        if (pdfFile != null) {
+
+                            if (pdfFile.exists()) {
+                                Log.e("PDF ", "" + pdfFile.exists());
+//                            selepdftxt.setText("Selected :"+pdfFile.getName());
+                                //   new ImageUploadPDF(pdfFile).execute();
+                                mediaFile = pdfFile;
+                                Toast.makeText(this, "Selected " + pdfFile.getName(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Failed to retrieve PDF", Toast.LENGTH_SHORT).show();
+                            }
+                            //   new ImageCompression().execute(imagePath);
+                            //   select_registrationplate.setImageURI(Uri.fromFile(imgFile));
+                            //  show(imgFile);
+                            // new ImageUploadTask(new File(imagePath)).execute();
+                            //   Toast.makeText(ReportSummary.this, "data:=" + imgFile, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Not getting file from phone please upload valid .pdf", Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                Log.e("Video File : ", "" + intent.getData());
+
+                // Video captured and saved to fileUri specified in the Intent
+                Toast.makeText(this, "Video saved to: " + intent.getData(), Toast.LENGTH_LONG).show();
+            }
         } else if (resultCode == RESULT_CANCELED) {
 
 
             Log.e("Video File : ","Cancleded" );
 
             // User cancelled the video capture
-            Toast.makeText(this, "User cancelled the video capture.",
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "User cancelled the video capture.",
+//                    Toast.LENGTH_LONG).show();
+            fliename.setText("");
 
         } else {
 
@@ -306,20 +496,14 @@ public class AddVideoActivity extends AppCompatActivity {
 
             String r_mob_take = getIntent().getStringExtra("to_the_last_mob");
             String r_e_take = getIntent().getStringExtra("to_the_last_email");
-
-
-
-
             try {
-
-
                 MultipartEntity entity = new MultipartEntity(
                         HttpMultipartMode.BROWSER_COMPATIBLE);
 
                 entity.addPart("title", new StringBody("" + Title));
                 entity.addPart("class_id", new StringBody("" + class_id));
                 entity.addPart("course_id", new StringBody("" + batch_id));
-                entity.addPart("video_url", new StringBody("" + fliename.getText().toString()));
+                entity.addPart("video_url", new StringBody("" + link_url.getText().toString()));
                 entity.addPart("description", new StringBody("" + studyedt_name_sdesv.getText().toString()));
                 entity.addPart("school_id", new StringBody("" + new Shared_Preference().getId(AddVideoActivity.this)));
                 entity.addPart("video", new FileBody(mediaFile));
@@ -350,7 +534,8 @@ public class AddVideoActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject1  = new JSONObject(result1);
                     if(jsonObject1.getBoolean("responce")){
-                        Toast.makeText(AddVideoActivity.this, ""+jsonObject1.getString("data").toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddVideoActivity.this, "Video Added Successfully", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(AddVideoActivity.this, ""+jsonObject1.getString("data").toString(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddVideoActivity.this , AddVideoActivity.class);
                         startActivity(intent);
                         finish();

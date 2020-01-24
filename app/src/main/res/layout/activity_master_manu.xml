@@ -10,7 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/red">
+        <TextView
+            android:padding="10dp"
+            android:text="Sub Menu"
+            android:textColor="@color/white"
+            android:id="@+id/allsubname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+        </TextView>
     </androidx.appcompat.widget.Toolbar>
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/imageSlider"

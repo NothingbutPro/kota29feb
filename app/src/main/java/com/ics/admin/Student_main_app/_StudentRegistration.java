@@ -33,7 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class _StudentRegistration extends AppCompatActivity {
     TextView _st_regist;
-    EditText _st_nameed ,_st_emailed,_st_passworded,_st_mobileed,_st_added;
+    EditText _st_nameed ,_st_emailed,_st_passworded,_st_mobileed,_st_added,_st_father_name,_st_mothers_name,_st_parents_mobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +44,9 @@ public class _StudentRegistration extends AppCompatActivity {
         _st_mobileed =findViewById(R.id.st_mobileed);
         _st_added =findViewById(R.id._st_added);
         _st_regist =findViewById(R.id._st_regist);
+        _st_father_name =findViewById(R.id._st_father_name);
+        _st_mothers_name =findViewById(R.id._st_mothers_name);
+        _st_parents_mobile =findViewById(R.id._st_parents_mobile);
         _st_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +73,8 @@ public class _StudentRegistration extends AppCompatActivity {
                 .baseUrl(Retro_urls.The_Base).addConverterFactory(GsonConverterFactory.create())
                 .build();
         StudentApis RegApi = RetroLogin.create(StudentApis.class);
-        Call<_StudentRegistrationModel> RegisterCall = RegApi.Register_to_Student(_st_nameed.getText().toString(),_st_emailed.getText().toString(),_st_passworded.getText().toString(),_st_mobileed.getText().toString(),_st_added.getText().toString());
+        Call<_StudentRegistrationModel> RegisterCall = RegApi.Register_to_Student(_st_nameed.getText().toString(),_st_emailed.getText().toString(),_st_passworded.getText().toString(),_st_mobileed.getText().toString(),_st_added.getText().toString()
+        ,_st_father_name.getText().toString() , _st_father_name.getText().toString() ,_st_parents_mobile.getText().toString());
         RegisterCall.enqueue(new Callback<_StudentRegistrationModel>() {
             @Override
             public void onResponse(Call<_StudentRegistrationModel> call, Response<_StudentRegistrationModel> response) {

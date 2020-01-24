@@ -178,10 +178,8 @@
             android:layout_marginTop="10dp"
 
             />
-
-
         <EditText
-            android:visibility="gone"
+
             android:id="@+id/_st_added"
             android:padding="10dp"
             android:layout_width="match_parent"
@@ -195,8 +193,48 @@
             android:background="#00000000"
 
             />
+
         <LinearLayout
-            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/red"
+            android:layout_marginTop="10dp"
+
+            />
+        <EditText
+
+            android:id="@+id/_st_father_name"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Father's Name"
+            android:maxLines="1"
+            android:inputType="textPostalAddress"
+            android:textColorHint="#a9b0c3"
+            android:layout_marginTop="32dp"
+            android:textSize="16dp"
+            android:background="#00000000"
+
+            />
+
+
+        <EditText
+
+            android:id="@+id/_st_mothers_name"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mother's Name"
+            android:maxLines="1"
+            android:inputType="textPostalAddress"
+            android:textColorHint="#a9b0c3"
+            android:layout_marginTop="32dp"
+            android:textSize="16dp"
+            android:background="#00000000"
+
+            />
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/red"
@@ -204,7 +242,21 @@
             />
 
 
+        <EditText
 
+            android:id="@+id/_st_parents_mobile"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Parent's Number"
+            android:maxLines="1"
+            android:inputType="textPostalAddress"
+            android:textColorHint="#a9b0c3"
+            android:layout_marginTop="32dp"
+            android:textSize="16dp"
+            android:background="#00000000"
+
+            />
         <TextView
 
             android:id="@+id/_st_regist"

@@ -35,11 +35,8 @@ import javax.net.ssl.HttpsURLConnection;
 public class Studentadnviewactivty extends AppCompatActivity {
     LinearLayout stdli;
     FloatingActionButton addstdfab;
-    EditText nameed,emailtxt,passworded,mobileed,addressed;
+    EditText nameed,emailtxt,passworded,mobileed,addressed,edt_father_name,edt_m_name,edt_parent_number;
     Button addstudentsbtn;
-//    ArrayList<Students> studentsList = new ArrayList<>();
-//    StudentAdapter studentAdapter;
-//    RecyclerView stuview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +58,8 @@ public class Studentadnviewactivty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new AddStudentsFOrAmin(new Shared_Preference().getId(v.getContext()) ,nameed.getText().toString() , emailtxt.getText().toString(),
-                        passworded.getText().toString() , mobileed.getText().toString(),addressed.getText().toString()).execute();
+                        passworded.getText().toString() , mobileed.getText().toString(),addressed.getText().toString()
+                ,edt_father_name.getText().toString() ,edt_m_name.getText().toString() , edt_parent_number.getText().toString()).execute();
             }
         });
     }
@@ -75,6 +73,9 @@ public class Studentadnviewactivty extends AppCompatActivity {
         addstudentsbtn = findViewById(R.id.addstudentsbtn);
         //+++++++++++++++++
         nameed = findViewById(R.id.nameed);
+        edt_father_name = findViewById(R.id.edt_father_name);
+        edt_m_name = findViewById(R.id.edt_m_name);
+        edt_parent_number = findViewById(R.id.edt_parent_number);
         emailtxt = findViewById(R.id.emailtxt);
         passworded = findViewById(R.id.passworded);
         mobileed = findViewById(R.id.mobileed);
@@ -90,15 +91,19 @@ public class Studentadnviewactivty extends AppCompatActivity {
         String userid;
         // String Faculty_id;
         private Dialog dialog;
-        String name; String email; String password; String mobile; String address;
-        public AddStudentsFOrAmin(String id, String name, String email, String password, String mobile, String address) {
+        String name; String email; String password; String mobile; String address,father_name,mother_name,parent_number;
+        public AddStudentsFOrAmin(String id, String name, String email, String password, String mobile, String address, String father_name, String mother_name, String parent_number) {
             this.userid = id;
             this.name = name;
             this.email = email;
             this.password = password;
             this.mobile = mobile;
             this.address = address;
+            this.father_name = father_name;
+            this.mother_name = mother_name;
+            this.parent_number = parent_number;
         }
+
 
 
         @Override
@@ -116,6 +121,9 @@ public class Studentadnviewactivty extends AppCompatActivity {
                 postDataParams.put("password", password);
                 postDataParams.put("mobile", mobile);
                 postDataParams.put("address", address);
+                postDataParams.put("father_name", father_name);
+                postDataParams.put("mother_name", mother_name);
+                postDataParams.put("parent_mobile", parent_number);
 
 
                 Log.e("postDataParams", postDataParams.toString());

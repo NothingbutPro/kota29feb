@@ -36,6 +36,7 @@
 
         </TextView>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/student_name"
                 android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
             android:layout_weight="0.50"
@@ -212,8 +213,29 @@
                     </LinearLayout>
 
                 </LinearLayout>
-        </LinearLayout>
 
+        </LinearLayout>
+    //++++++++++++++++++++++++++For how many has been paid===============
+
+            <LinearLayout
+                android:background="@android:color/holo_red_dark"
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <TextView
+
+                android:id="@+id/_tx_howmuchpayed"
+                android:text="You haven't payed yet"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            </LinearLayout>
+            //+++++++++++++++++++
 <!--            if not payed at all-->
             <LinearLayout
                 android:visibility="gone"
@@ -221,6 +243,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
             <LinearLayout
                 android:visibility="gone"
                 android:layout_marginTop="5dp"
@@ -281,7 +304,7 @@
 <!--            if emi selected-->
 
             <LinearLayout
-                android:visibility="gone"
+
                 android:id="@+id/emiselecli"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -294,6 +317,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+
+                        android:padding="4dp"
+                        android:text="Next Instalment Remainder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <LinearLayout
+
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:inputType="number"
+                            android:id="@+id/installs_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </EditText>
+
+                    </LinearLayout>
+<!--        //++++++++++++++++++For NExt remainder+++++++++++++++++++++++++            -->
                     <TextView
 
                         android:padding="4dp"
@@ -316,6 +362,7 @@
                         </EditText>
 
                     </LinearLayout>
+<!--                    //+++++++++++++++++++++++++++++++++++++-->
                     <TextView
 
                         android:padding="4dp"

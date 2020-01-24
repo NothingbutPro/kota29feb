@@ -49,8 +49,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class AnnouncementActivity extends AppCompatActivity {
 //    RecyclerView announcerecy;
-
-    Button announcementbtn;
+    Button announcementbtn,viewannounce_btn;
     EditText notificationedt, seldates;
 //    com.github.clans.fab.FloatingActionButton announcefabid;
     String selected_batch, sel_batch;
@@ -70,7 +69,15 @@ public class AnnouncementActivity extends AppCompatActivity {
         notificationedt = findViewById(R.id.notificationedt);
 //        announcefabid = findViewById(R.id.announcefabid);
         class_announce_spin = findViewById(R.id.class_announce_spin);
+        viewannounce_btn = findViewById(R.id.viewannounce_btn);
         batch_id_announce_spin = findViewById(R.id.batch_id_announce_spin);
+        viewannounce_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent0= new Intent(v.getContext(), ViewAllAnnouncements.class);
+                v.getContext().startActivity(intent0);
+            }
+        });
         new GetAllClassesForannounce(new Shared_Preference().getId(this)).execute();
         seldates.setOnClickListener(new View.OnClickListener() {
             @Override

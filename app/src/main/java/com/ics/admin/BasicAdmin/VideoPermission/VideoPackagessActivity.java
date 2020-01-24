@@ -1,8 +1,9 @@
 package com.ics.admin.BasicAdmin.VideoPermission;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -130,7 +132,13 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 dialog.getWindow().setAttributes(lp);
                 Button doneselect = dialog.findViewById(R.id.doneselect);
                 grivideorec = dialog.findViewById(R.id.grivideorec);
-                sele_vidtxt.setText("Please Select Packages Video");
+                try {
+                    sele_vidtxt.setText("Please Select Packages Video");
+                }catch (Exception e)
+                {
+                    Toast.makeText(VideoPackagessActivity.this, "Please select demo video first", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 new GETALLVIDEOSPackages(new Shared_Preference().getId(v.getContext())).execute();
                 doneselect.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -202,6 +210,29 @@ public class VideoPackagessActivity extends AppCompatActivity {
                                 Toast.makeText(VideoPackagessActivity.this, "More than 1 video has been checked", Toast.LENGTH_LONG).show();
                                 Log.e("More than " + i, "" + videoDemoPackagesArrayList.get(i).getPackage_select());
                                 Selected_Demo_video = "";
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(v.getContext());
+                                builder1.setMessage("You can only choose 1 video for demo ");
+                                builder1.setCancelable(false);
+                                builder1.setPositiveButton(
+                                        "Select again",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialogs, int id) {
+                                                dialog.show();
+                                                dialogs.cancel();
+                                                demo_checked =0;
+                                            }
+                                        });
+                                builder1.setNegativeButton("Dismiss all", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogs, int which) {
+                                        dialogs.cancel();
+                                        demo_checked =0;
+                                    }
+                                });
+
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+
                                 i= videoDemoPackagesArrayList.size();
                             }else {
                                 demo_checked =demo_checked+1;

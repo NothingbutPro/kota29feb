@@ -34,18 +34,22 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <androidx.cardview.widget.CardView
                     android:orientation="horizontal"
                     android:layout_alignParentRight="true"
                     app:cardCornerRadius="10dp"
                     android:elevation="40dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <Button
+                        android:layout_weight="1"
                         android:id="@+id/viewhomes"
                         android:padding="5dp"
                         android:background="@color/red"
@@ -164,14 +168,43 @@
 
 
         </TextView>
-        <EditText
-            android:id="@+id/homework"
-           android:inputType="textMultiLine"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="Home work overview"
+                    android:layout_weight="1"
+                    android:id="@+id/homework"
+                    android:inputType="textMultiLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
-        </EditText>
+                </EditText>
+                <Button
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:id="@+id/upload_pdf"
+                    android:padding="5dp"
+                    android:background="@color/red"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white1"
+                    android:text="Upload  PDF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+
+            </LinearLayout>
+        </LinearLayout>
+
 
         <TextView
             android:padding="10dp"
@@ -183,20 +216,20 @@
 
 
         </TextView>
-        <EditText
+        <Spinner
             android:id="@+id/worktype"
-           android:inputType="textMultiLine"
+            android:entries="@array/worktype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
-        </EditText>
+        </Spinner>
 
         <TextView
             android:padding="10dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/red"
-            android:text="Specify Number of Days:"
+            android:text="Home work submission date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

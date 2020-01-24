@@ -139,19 +139,22 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_weight="0.50"
                     android:hint="Enquiry Type"
+                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <EditText
 
+                    <Spinner
+                        android:entries="@array/enquiry_types"
                         android:id="@+id/enqtype"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                    </EditText>
+                    </Spinner>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:visibility="gone"
                     android:hint="Followup Type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

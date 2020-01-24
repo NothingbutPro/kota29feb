@@ -36,11 +36,18 @@
 
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_gravity="center"
             android:background="@drawable/backgraund"
             android:layout_width="320dp"
             android:layout_margin="10dp"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Select Class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <Spinner
                 android:id="@+id/class_spiner_vid"
                 android:layout_width="match_parent"
@@ -53,11 +60,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_gravity="center"
             android:background="@drawable/backgraund"
             android:layout_width="320dp"
             android:layout_margin="10dp"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Select Course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <Spinner
                 android:id="@+id/coursespin"
                 android:layout_width="match_parent"

@@ -12,13 +12,92 @@
         android:background="@color/red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    <TextView
+        android:padding="4dp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:text="Student Fees"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </TextView>
     </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"
+            android:padding="4dp"
+            android:text="Search by Class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+        </TextView>
+    <LinearLayout
+        android:padding="5dp"
+        android:background="@drawable/backgraund"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/spin_class"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+    </LinearLayout>
+        <TextView
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"
+            android:padding="4dp"
+            android:text="Search by Batch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+    <LinearLayout
+        android:padding="5dp"
+        android:background="@drawable/backgraund"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/spin_batch"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="1dp"
+        android:background="@drawable/backgraund"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchbystudent"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search by student name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.appcompat.widget.SearchView>
+    </LinearLayout>
+
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/studentfeespin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
     </androidx.recyclerview.widget.RecyclerView>

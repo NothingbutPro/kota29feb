@@ -14,8 +14,8 @@
         android:layout_height="wrap_content">
 
         <TextView
-
-            android:text="Recorded Video"
+            android:textColor="@color/white"
+            android:text="Video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
     </androidx.appcompat.widget.Toolbar>
@@ -55,7 +55,15 @@
             android:background="@drawable/backgraund"
             android:layout_width="320dp"
             android:layout_margin="10dp"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_margin="8dp"
+                android:text="Select Class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <Spinner
                 android:id="@+id/class_spiner_vid"
                 android:layout_width="match_parent"
@@ -66,11 +74,19 @@
                 android:textSize="15dp" />
         </LinearLayout>
         <LinearLayout
+            android:orientation="vertical"
             android:layout_gravity="center"
             android:background="@drawable/backgraund"
             android:layout_width="320dp"
             android:layout_margin="10dp"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="8dp"
+                android:text="Select Course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <Spinner
                 android:id="@+id/batch_spiner"
                 android:layout_width="match_parent"
@@ -143,7 +159,7 @@
        </ImageView>
 
        <TextView
-           android:text=""
+           android:textAlignment="center"
            android:id="@+id/fliename"
            android:layout_weight="0.20"
            android:layout_width="match_parent"
@@ -162,19 +178,48 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-    <Button
+            <CheckBox
+                android:layout_marginLeft="10dp"
+                android:textAllCaps="false"
+                android:id="@+id/sharewithlinkbtn"
+                android:textColor="@color/red"
+                android:text="Share with link"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+            </CheckBox>
+    <Button
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"
         android:id="@+id/capturestartbtn"
-        android:layout_margin="10dp"
         android:textColor="@color/white1"
         android:background="@color/red"
-        android:text="Start Video Recording"
+        android:text="Select Video"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
     </Button>
+
         </RelativeLayout>
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/backgraund"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:visibility="gone"
+            android:hint="Write url here"
+            android:id="@+id/link_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </EditText>
+        </LinearLayout>
     <Button
 
         android:id="@+id/sendbtn"

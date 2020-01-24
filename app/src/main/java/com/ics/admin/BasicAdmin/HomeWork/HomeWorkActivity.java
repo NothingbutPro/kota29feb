@@ -1,15 +1,26 @@
 package com.ics.admin.BasicAdmin.HomeWork;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,6 +38,8 @@ import android.widget.Toast;
 
 import com.ics.admin.Adapter.AdminAdapters.FacultyAdapter;
 import com.ics.admin.Adapter.AdminAdapters.StudentAdapter;
+import com.ics.admin.BasicAdmin.Masters.StudyMaterial.EditStudyMaterial;
+import com.ics.admin.BasicAdmin.Masters.StudyMaterial.StudyMaterialActivity;
 import com.ics.admin.BasicAdmin.SelectFacultyActivity;
 import com.ics.admin.BasicAdmin.StudentDetails.AssignStudentActivity;
 import com.ics.admin.Fragment.FacultyFragment;
@@ -36,13 +49,19 @@ import com.ics.admin.Model.Faculties;
 import com.ics.admin.Model.Students;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
+import com.ics.admin.Utils.Utilities;
 
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -52,21 +71,27 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class HomeWorkActivity extends AppCompatActivity {
-     TextView selectdatae,homework,worktype,dayshome;
+     TextView selectdatae,homework,dayshome;
      LinearLayout dateli,dtechli;
      public static TextView selectteacher;
      public static String selectteacherStrings ,teacher_id;
      Button give_work_btn;
     String selected_class , sel_id;
-    Spinner batch_spin_assign;
+    Spinner batch_spin_assign,worktype;
     String selected_batch , sel_batch;
-    Button viewhomes;
+    Button viewhomes,upload_pdf;
     RecyclerView facultyrec;
     String dates;
+    //++++++++++++++++++++++++++++For PDF Upload
+    int Gallery_view = 2;
+    public  File MYDOC;
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS =1 ;
+    //++++++++++++++++++++++++++
     private ArrayList<ClassNAmes> class_names;
     private ArrayList<String> batch_names = new ArrayList<>();
     private Spinner class_spiner_assign;
@@ -82,6 +107,7 @@ public class HomeWorkActivity extends AppCompatActivity {
         dtechli= findViewById(R.id.dtechli);
         homework= findViewById(R.id.homework);
         worktype= findViewById(R.id.worktype);
+        upload_pdf= findViewById(R.id.upload_pdf);
         viewhomes= findViewById(R.id.viewhomes);
         dayshome= findViewById(R.id.dayshome);
         selectteacher= findViewById(R.id.selectteacher);
@@ -90,6 +116,14 @@ public class HomeWorkActivity extends AppCompatActivity {
         batch_spin_assign= findViewById(R.id.class_batch_spinner);
         class_spiner_assign= findViewById(R.id.class_home_spinner);
         new GETCLASSFORHOMe(new Shared_Preference().getId(this)).execute();
+        upload_pdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( checkAndRequestPermissions()) {
+                    getOpenFileChooserPdf();
+                }
+            }
+        });
         viewhomes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +136,11 @@ public class HomeWorkActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(sel_batch !=null) {
                     if(!batch_spin_assign.getSelectedItem().equals("No Batch Found")) {
-                        new POSTHOMEWORK(selected_class, selected_batch, sel_id, sel_batch, dates, selectteacherStrings, homework.getText().toString(), worktype.getText().toString(), dayshome.getText().toString()).execute();
+                        if(MYDOC ==null) {
+                            new POSTHOMEWORK(selected_class, selected_batch, sel_id, sel_batch, dates, selectteacherStrings, homework.getText().toString(), worktype.getSelectedItem().toString(), dayshome.getText().toString()).execute();
+                        }else {
+                            new POSTWITHPDF(selected_class, selected_batch, sel_id, sel_batch, dates, selectteacherStrings, homework.getText().toString(), worktype.getSelectedItem().toString(), dayshome.getText().toString()).execute();
+                        }
                     }else {
                         Toast.makeText(HomeWorkActivity.this, "Batch selection is wrong", Toast.LENGTH_SHORT).show();
                     }
@@ -218,6 +256,182 @@ public class HomeWorkActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    private void getOpenFileChooserPdf() {
+        Intent from_gallery = new Intent();
+        from_gallery.setType("application/pdf");
+        from_gallery.addCategory(Intent.CATEGORY_OPENABLE);
+        from_gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        from_gallery.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(from_gallery , "Select File"),Gallery_view);
+    }
+
+    //++++++++++++++++++++++++++++++++++++++++++For PDF+++++++++++++++++++++
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == Gallery_view && data != null) {
+            try{
+//                Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                Uri pickedImage = data.getData();
+                File pdfFile = null;
+                String[] filePath = { MediaStore.Images.Media.DATA };
+                if(Build.VERSION.SDK_INT == Build.VERSION_CODES.N){
+                    //     getRealPathFromURI(Single_user_act_TRD.this , pickedImage);
+
+
+//                  pickedImage =   FileProvider.getUriForFile(Single_user_act_TRD.this, BuildConfig.APPLICATION_ID + ".provider",pdfFile);
+                    //   pickedImage =   FileProvider.getUriForFile(Single_user_act_TRD.this, getApplicationContext().getPackageName() + ".provider",pdfFile);
+
+                    Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+                    cursor.moveToFirst();
+                    String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                    Log.e("Gallery image path is:" , ""+imagePath);
+
+                    pdfFile = new File(imagePath);
+
+                    cursor.close();
+                    if (pdfFile!=null) {
+
+                        if(pdfFile.exists()){
+                            Log.e("PDF ",""+pdfFile.exists());
+                            //   new ImageUploadPDF(pdfFile).execute();
+                            MYDOC = pdfFile;
+//                            selepdftxt.setText("Selected :"+pdfFile.getName());
+                            Toast.makeText(this, "Selected "+pdfFile.getName(), Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                        }
+                        //   new ImageCompression().execute(imagePath);
+                        //   select_registrationplate.setImageURI(Uri.fromFile(imgFile));
+                        //  show(imgFile);
+                        // new ImageUploadTask(new File(imagePath)).execute();
+                        //   Toast.makeText(ReportSummary.this, "data:=" + imgFile, Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    File extStore = Environment.getExternalStorageDirectory();
+//                    File myFile = new File(extStore.getAbsolutePath() + "/book1/page2.html");
+                    String pdf_file_path;
+                    Uri uri = data.getData();
+                    pdfFile = new File(uri.getPath());//create path from uri
+                    final String[] split = pdfFile.getPath().split(":");//split the path.
+                    pdf_file_path = split[1];
+                    Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+                    cursor.moveToFirst();
+                    String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                    Log.e("Gallery image path is:" , ""+imagePath);
+
+                    pdfFile = new File(extStore.getAbsolutePath(),pdf_file_path);
+
+                    cursor.close();
+                    if (pdfFile!=null) {
+
+                        if (pdfFile.exists()) {
+                            Log.e("PDF ", "" + pdfFile.exists());
+                            //   new ImageUploadPDF(pdfFile).execute();
+                            MYDOC = pdfFile;
+                            Toast.makeText(this, "Selected "+pdfFile.getName(), Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+//                    File extStore = Environment.getExternalStorageDirectory();
+////                    File myFile = new File(extStore.getAbsolutePath() + "/book1/page2.html");
+//                    String pdf_file_path;
+//                    Uri uri = data.getData();
+//                    pdfFile = new File(uri.getPath());//create path from uri
+//                    final String[] split = pdfFile.getPath().split(":");//split the path.
+//                    pdf_file_path = split[0];
+//                    String path = data.uri.toString() // "file:///mnt/sdcard/FileName.mp3"
+////                    File file = new File(new URI(path));
+//                    Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+//                    cursor.moveToFirst();
+//                    String imagePath = cursor.getString(cursor.getColumnIndex(pdf_file_path));
+//                    Log.e("Gallery image path is:" , ""+path);
+//                    pdfFile = new File(extStore.getAbsolutePath(),path);
+////                    pdfFile = new File(imagePath);
+//                    cursor.close();
+//                    if (pdfFile!=null) {
+//                        if (pdfFile.exists()) {
+//                            Log.e("PDF ", "" + pdfFile.exists());
+//                            //   new ImageUploadPDF(pdfFile).execute();
+//                            MYDOC = pdfFile;
+//                            selepdftxt.setText("Selected :"+pdfFile.getName());
+//                        }else {
+//                            Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+                } else if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.N){
+                    Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+                    cursor.moveToFirst();
+                    String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                    Log.e("Gallery image path is:" , ""+imagePath);
+                    pdfFile = new File(imagePath);
+                    if (pdfFile!=null) {
+
+                        if(pdfFile.exists()){
+                            Log.e("PDF ",""+pdfFile.exists());
+//                            selepdftxt.setText("Selected :"+pdfFile.getName());
+                            //   new ImageUploadPDF(pdfFile).execute();
+                            MYDOC = pdfFile;
+                            Toast.makeText(this, "Selected "+pdfFile.getName(), Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(this, "Failed to retrieve PDF", Toast.LENGTH_SHORT).show();
+                        }
+                        //   new ImageCompression().execute(imagePath);
+                        //   select_registrationplate.setImageURI(Uri.fromFile(imgFile));
+                        //  show(imgFile);
+                        // new ImageUploadTask(new File(imagePath)).execute();
+                        //   Toast.makeText(ReportSummary.this, "data:=" + imgFile, Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(this, "Not getting file from phone please upload valid .pdf", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    private boolean checkAndRequestPermissions() {
+        int permissionStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        int permissionStorage1 = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
+        int permissionStorage3 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionStorage4 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        // int permissionAnswerCall = ContextCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS);
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+
+        if (permissionStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }if (permissionStorage1 != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.RECORD_AUDIO);
+        }
+        if (permissionStorage3 != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }if (permissionStorage4 != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+//    if (permissionAnswerCall != PackageManager.PERMISSION_GRANTED) {
+//        listPermissionsNeeded.add(Manifest.permission.ANSWER_PHONE_CALLS);
+//    }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+
+        return true;
     }
 
     private class GETCLASSFORHOMe extends AsyncTask<String, Void, String> {
@@ -875,6 +1089,119 @@ public class HomeWorkActivity extends AppCompatActivity {
 
             }
             return result.toString();
+        }
+    }
+
+    private class POSTWITHPDF extends AsyncTask<Void, Void, String> {
+
+        ProgressDialog dialog;
+        String Title;
+        String SpinnerId;
+        String id, class_id;
+        File mydoc;
+        String result = "";
+        String Mobile_Number;
+        String Faculty_id;
+        private String batch_id;
+        private String work_date;
+        private String school_id;
+        private String teachers_id;
+        private String homeworkstr;
+        private String work_type;
+        private String daysforwok;
+
+        public POSTWITHPDF(String selected_class, String selected_batch, String sel_id, String sel_batch, String dates, String selectteacherStrings, String home, String work, String days) {
+            this.class_id = sel_id;
+            this.batch_id = sel_batch;
+            this.work_date = dates;
+            this.homeworkstr = dates;
+            this.homeworkstr = home;
+            this.work_type = work;
+            this.daysforwok = days;
+//            this.teacher_id = teacher_id;
+
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(HomeWorkActivity.this);
+            dialog.setMessage("Processing");
+
+            dialog.setCancelable(true);
+            dialog.show();
+            dialog.setCanceledOnTouchOutside(false);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            String r_mob_take = getIntent().getStringExtra("to_the_last_mob");
+            String r_e_take = getIntent().getStringExtra("to_the_last_email");
+
+
+
+
+            try {
+
+
+                MultipartEntity entity = new MultipartEntity(
+                        HttpMultipartMode.BROWSER_COMPATIBLE);
+
+                entity.addPart("class_id", new StringBody("" + class_id));
+                entity.addPart("batch_id", new StringBody("" + batch_id));
+                entity.addPart("work_date", new StringBody("" +  work_date));
+                entity.addPart("school_id", new StringBody("" +  school_id));
+                entity.addPart("teacher_id", new StringBody("" +  teacher_id));
+                entity.addPart("homework", new StringBody("" +  homework));
+                entity.addPart("work_type", new StringBody("" +  work_type));
+                entity.addPart("daysforwok", new StringBody("" +  daysforwok));
+                entity.addPart("pdf_file", new FileBody(MYDOC));
+
+//                    entity.addPart("ret_mobile", new StringBody("" + r_mob));
+//                    entity.addPart("reference_referal_code", new StringBody(""+ref_co));
+
+                result = Utilities.postEntityAndFindJson("http://ihisaab.in/school_lms/api/add_homework", entity);
+
+                return result;
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            String result1 = result;
+            if (result1 != null) {
+                dialog.dismiss();
+                Log.e("result1", result1);
+                try {
+                    JSONObject jsonObject1  = new JSONObject(result1);
+                    if(jsonObject1.getBoolean("responce")){
+                        Toast.makeText(HomeWorkActivity.this, ""+jsonObject1.getString("data").toString(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(HomeWorkActivity.this , StudyMaterialActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                Toast.makeText(Single_user_act_TRD.this, "Documents Uploaded Successfully ", Toast.LENGTH_LONG).show();
+
+                //   Intent in=new Intent(MainActivity.this,NextActivity.class);
+                //  in.putExtra("doc",doc);
+                //     startActivity(in);
+
+            } else {
+                dialog.dismiss();
+//                Toast.makeText(Single_user_act_TRD.this, "Some Problem", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 }

@@ -62,7 +62,6 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-
 public class Faculty_Dashoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottom_nav_faculty;

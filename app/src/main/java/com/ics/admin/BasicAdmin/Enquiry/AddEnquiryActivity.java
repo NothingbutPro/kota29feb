@@ -45,8 +45,9 @@ public class AddEnquiryActivity extends AppCompatActivity {
     Spinner class_enq_spin;
      ArrayList<String> list_batch  = new ArrayList<>();;
     String selected_class, sel_id;
-    EditText enquiname, mob_enq, enqtype, folltype, followdate, remark, enquiryby;
-    Spinner course;
+    EditText enquiname, mob_enq, folltype, followdate, remark, enquiryby;
+
+    Spinner course ,enqtype;
 
     Button submitenque;
     String selected_batch, sel_batch;
@@ -83,8 +84,9 @@ public class AddEnquiryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String enquinames = enquiname.getText().toString();
                 String mob_enqs = mob_enq.getText().toString();
-                String enqtypes = enqtype.getText().toString();
-                String folltypes = folltype.getText().toString();
+                String enqtypes = enqtype.getSelectedItem().toString();
+//                String folltypes = folltype.getText().toString();
+                String folltypes = "None";
                 String followdates = followdate.getText().toString();
                 String remarks = remark.getText().toString();
                 String enquirybys = enquiryby.getText().toString();

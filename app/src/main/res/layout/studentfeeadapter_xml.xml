@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:visibility="gone"
                     android:src="@drawable/teacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -28,13 +29,19 @@
                 </ImageView>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_marginTop="10dp"
                         android:weightSum="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
                         <TextView
                             android:layout_weight="0.50"
                             android:id="@+id/name"
@@ -46,6 +53,18 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginLeft="15dp"
                             />
+                        <TextView
+                            android:layout_weight="0.50"
+                            android:id="@+id/iv_mob"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ABCD"
+                            android:layout_gravity="left|center"
+                            android:textSize="15sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="15dp"
+                            />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_marginLeft="10dp"
                             android:padding="4dp"
@@ -53,7 +72,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/mainclass"
+                                android:id="@+id/main_add"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
@@ -72,6 +91,27 @@
                                 android:textSize="15sp"
                                 android:layout_marginLeft="15dp"
                                 android:textColor="@color/brown"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:padding="4dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/iv_date"
+                                android:layout_weight="1"
+                                android:text="Date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/iv_time"
+                                android:text="Time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </TextView>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -103,17 +143,23 @@
                         android:id="@+id/add_class"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Address:"
+                        android:text=""
                         android:layout_gravity="left|center"
                         android:textSize="14sp"
                         android:layout_marginLeft="15dp"
                         android:textColor="@color/brown"/>
 
                 </LinearLayout>
+
             </LinearLayout>
-            <Button
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:background="@drawable/backgraund"
                 android:layout_gravity="right"
-                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Button
+
                 android:textColor="@color/white1"
                 android:background="@color/red"
                 android:text="View Details"
@@ -123,6 +169,7 @@
                 android:layout_height="wrap_content">
 
             </Button>
+            </LinearLayout>
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/hide_li"

@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ics.admin.Adapter.SliderAdapter;
@@ -42,6 +43,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class MasterManuActivity extends AppCompatActivity {
     SliderView imageSlider;
     private RecyclerView subrec;
+    TextView allsubname;
     public static ArrayList<String> Myproducttiles = new ArrayList<>();
     public List<SubMenuPermissions> menuPermisssionList;
     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -62,9 +64,10 @@ public class MasterManuActivity extends AppCompatActivity {
         shared_preference = new Shared_Preference();
         mContext = this;
         imageSlider = (SliderView) findViewById(R.id.imageSlider);
+        allsubname = (TextView) findViewById(R.id.allsubname);
         admin_recyclerView = (RecyclerView) findViewById(R.id.admin_recyclerView);
         SliderAdapter adapter;
-
+        allsubname.setText(getIntent().getStringExtra("ids"));
         new GETALLMYPERMISSIONS(shared_preference.getId(MasterManuActivity.this)).execute();
         adapter = new SliderAdapter(getApplication());
         imageSlider.setSliderAdapter(adapter);
@@ -172,7 +175,7 @@ public class MasterManuActivity extends AppCompatActivity {
                         if(!jsonObject.getBoolean("responce")){
 //                       Intent intent = new Intent(OTPActivity.this , LoginActivity.class);
 //                       startActivity(intent);
-                            Toast.makeText(getApplication(),"You are not registerd"+result, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(),"You are not registered"+result, Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -185,7 +188,9 @@ public class MasterManuActivity extends AppCompatActivity {
                                 for (int px=0;px<jsonArray.length();px++)
                                 {
                                     String menu_id = jsonArray.getJSONObject(px).getString("menu_id");
+
                                     menu_name = jsonArray.getJSONObject(px).getString("menu_name");
+
                                      submenu = jsonArray.getJSONObject(px).getString("submenu");
                                     sUbMenuModel = new SubMenuPermissions(menu_id,menu_name,submenu);
 
@@ -198,7 +203,9 @@ public class MasterManuActivity extends AppCompatActivity {
                                             menuPermissionsSubList.add(new SubMenuPermissions(menu_id,menu_name,"View Fees") );
                                             menuPermissionsSubList.add(new SubMenuPermissions(menu_id,menu_name,"Student Fee Details") );
 //                                            menuPermissionsSubList.add(sUbMenuModel);
-                                        }else {
+                                        }
+                                        else
+                                            {
 //                                            menuPermissionsSubList.add(sUbMenuModel);
                                             Toast.makeText(mContext, "It Does not contains", Toast.LENGTH_SHORT).show();
                                         }
@@ -207,18 +214,53 @@ public class MasterManuActivity extends AppCompatActivity {
                                             menuPermissionsSubList.add(new SubMenuPermissions(menu_id,menu_name,"View Announcements") );
 
                                         }
+                                        try {
+                                            if (submenu.contains("Export")) {
+                                                Toast.makeText(mContext, "Contain ", Toast.LENGTH_SHORT).show();
+                                                menuPermissionsSubList.remove(menuPermissionsSubList.size() -1);
+                                                menuPermissionsSubList.remove(menuPermissionsSubList.size() -1);
+                                            }
+                                        }catch (Exception e)
+                                        {
+                                            Toast.makeText(mContext, "Doe snot contain "+submenu, Toast.LENGTH_SHORT).show();
+                                            e.printStackTrace();
+                                        }
 //                                        }
                                     }
-//                                    _MenuPermisssionslistDataHeader.add(menu_name);
 
 //                                }
 
                                 }
-//                            _ListHashMaplistDataChild.put(sUbMenuModel,menuPermissionsSubList);
-
                             }
-//                        Log.e("full hash map",""+_ListHashMaplistDataChild.entrySet());
+                            try {
+                                //+++++++++++++++++++++++++++++++For Sequence Add Class,Add Batch, Add Subject, Add Course
+                                SubMenuPermissions Add_from;
+                                SubMenuPermissions Add_to;
+                                //++++++++++++++++Change Class to Batch
+                                Add_from = menuPermissionsSubList.get(2);
+                                Add_to = menuPermissionsSubList.get(0);
+                                menuPermissionsSubList.set(0, Add_from);
+                                menuPermissionsSubList.set(2, Add_to);
+                                //+++++++++++++++++++++++++++++++++++++++++++++++++Change Subject to Batch
+                                Add_from = menuPermissionsSubList.get(2);
+                                Add_to = menuPermissionsSubList.get(1);
+                                menuPermissionsSubList.set(1, Add_from);
+                                menuPermissionsSubList.set(2, Add_to);
+                                //++++++++++++++++++++++Change Add COurse with Study material
+                                Add_from = menuPermissionsSubList.get(3);
+                                Add_to = menuPermissionsSubList.get(4);
+                                menuPermissionsSubList.set(4, Add_from);
+                                menuPermissionsSubList.set(3, Add_to);
+                                menuPermissionsSubList.remove(4);
+                         //+++++++++++++++++++Remove Teacehr export++++++++++++++++++++++++
 
+
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(MasterManuActivity.this,2, RecyclerView.VERTICAL,false);
                             gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             admin_recyclerView.setLayoutManager(gridLayoutManager);

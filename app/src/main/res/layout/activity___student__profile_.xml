@@ -109,10 +109,17 @@
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
+                    <LinearLayout
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    <EditText
+                        android:background="@color/white"
+                        android:enabled="false"
                         android:id="@+id/student_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,8 +127,19 @@
                         android:text="Sanskar Tiwari"
                         android:textColor="@color/red"
                         android:textSize="21sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" >
 
+                    </EditText>
+
+                        <ImageView
+                            android:id="@+id/std_name_edt_img"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/ic_edit_black_24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </ImageView>
+                    </LinearLayout>
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/institute_name"
@@ -227,6 +245,7 @@
                     android:paddingBottom="10dp">
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -393,7 +412,8 @@
                                 app:srcCompat="@drawable/ic_call_24dp" />
 
                             <EditText
-                                android:focusable="false"
+                                android:textColor="@color/black"
+                                android:enabled="false"
                                 android:background="@null"
                                 android:layout_weight="1"
                                 android:id="@+id/profile_mob"
@@ -406,6 +426,8 @@
                                 />
 
                             <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/stu_mob_edit_img"
                                 android:layout_gravity="right"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
@@ -428,8 +450,9 @@
                                 app:srcCompat="@drawable/ic_email_24dp" />
 
                             <EditText
-                                android:background="@null"
-                                android:focusable="false"
+                                android:textColor="@color/black"
+                                android:background="@color/white"
+                                android:enabled="false"
                                 android:layout_weight="1"
                                 android:id="@+id/pro_email"
                                 android:layout_width="wrap_content"
@@ -440,6 +463,7 @@
                                 />
 
                             <ImageView
+                                android:id="@+id/stu_email_edit_img"
                                 android:layout_gravity="right"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
@@ -462,8 +486,9 @@
                                 app:srcCompat="@drawable/ic_location_24dp" />
 
                             <EditText
-                                android:background="@null"
-                                android:focusable="false"
+                                android:textColor="@color/black"
+                                android:background="@color/white"
+                                android:enabled="false"
                                 android:layout_weight="1"
                                 android:id="@+id/pro_address"
                                 android:layout_width="wrap_content"
@@ -474,6 +499,7 @@
 
                                 />
                             <ImageView
+                                android:id="@+id/stu_address_edt_img"
                                 android:layout_gravity="right"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
@@ -495,25 +521,27 @@
                                 app:srcCompat="@drawable/passwords" />
 
                             <EditText
-                                android:background="@null"
-                                android:focusable="false"
+                                android:textColor="@color/black"
+                                android:background="@color/white"
+                                android:enabled="false"
                                 android:layout_weight="1"
-                                android:id="@+id/pro_parent_name"
+                                android:id="@+id/pro_father_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="Edit Parent Name"
+                                android:text="Father Name"
                                 android:textSize="15sp"
                                 />
 
                             <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/stu_parent_edt_img"
                                 android:layout_gravity="right"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:padding="5dp"
                                 app:srcCompat="@drawable/ic_edit_black_24dp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -528,8 +556,44 @@
                                 app:srcCompat="@drawable/passwords" />
 
                             <EditText
-                                android:background="@null"
-                                android:focusable="false"
+                                android:textColor="@color/black"
+                                android:background="@color/white"
+                                android:enabled="false"
+                                android:layout_weight="1"
+                                android:id="@+id/pro_mother_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="Mother Name"
+                                android:textSize="15sp"
+                                />
+
+                            <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/stu_mother_edt"
+                                android:layout_gravity="right"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="5dp"
+                                app:srcCompat="@drawable/ic_edit_black_24dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:paddingRight="8dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="10dp"
+                                app:srcCompat="@drawable/passwords" />
+
+                            <EditText
+                                android:textColor="@color/black"
+                                android:background="@color/white"
+                                android:enabled="false"
                                 android:layout_weight="1"
                                 android:id="@+id/pro_parent_number"
                                 android:layout_width="wrap_content"
@@ -540,6 +604,8 @@
                                 />
 
                             <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/stu_parent_number_img"
                                 android:layout_gravity="right"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"

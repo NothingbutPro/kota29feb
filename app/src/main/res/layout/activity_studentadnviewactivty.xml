@@ -155,6 +155,73 @@
             </EditText>
         </LinearLayout>
 
+        <LinearLayout
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Father's Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                android:id="@+id/edt_father_name"
+                android:padding="5dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Mother Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                android:id="@+id/edt_m_name"
+                android:padding="5dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Parent's  Number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                android:id="@+id/edt_parent_number"
+                android:padding="5dp"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </EditText>
+        </LinearLayout>
         <Button
             android:text="Add Student"
             android:id="@+id/addstudentsbtn"

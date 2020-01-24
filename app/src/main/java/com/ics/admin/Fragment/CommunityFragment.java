@@ -207,7 +207,21 @@ public class CommunityFragment extends Fragment {
                             {
                                 String menu_id = jsonArray.getJSONObject(px).getString("menu_id");
                                 menu_name = jsonArray.getJSONObject(px).getString("menu_name");
+//                                Toast.makeText(getActivity(), "Menus"+menu_name, Toast.LENGTH_SHORT).show();
                                 String submenu = jsonArray.getJSONObject(px).getString("submenu");
+                                if(menu_name.equals("Home Work"))
+                                {
+                                    Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);
+                                    menu_name =  "Home Work description";
+                                }
+                                if(menu_name.equals("Teacher Export"))
+                                {
+                                    Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);
+                                    menu_name =  "Home Work description";
+                                }else {
+
+                                }
+
                                 sUbMenuModel = new SubMenuPermissions(menu_id,menu_name,submenu);
 
 //                                menuPermissionsSubListString.

@@ -56,13 +56,14 @@ public class AdminActivity extends AppCompatActivity
 
                     case R.id.navi_video_libary:
                         fragment = new VideoLibraryFragment();
+//                        loadFragment(fragment);
                         break;
                     case R.id.navi_Batch:
                         fragment = new BatchFragment();
                         break;
                     case R.id.navi_student_material:
                          fragment = new AdminEFragment();
-//                        loadFragment(fragment);
+
                         break;
                 }
                 return loadFragment(fragment);

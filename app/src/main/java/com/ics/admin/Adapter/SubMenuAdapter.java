@@ -138,6 +138,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<SubMenuAdapter.MyViewHo
                         Toast.makeText(v.getContext(), ""+namestff, Toast.LENGTH_SHORT).show();
                 }  else  if(namestff.getSubmenu().contains("Student List"))
                 {
+//                    Intent intent0= new Intent(v.getContext(), AllStudentListActivity.class);
                     Intent intent0= new Intent(v.getContext(), AllStudentListActivity.class);
                         v.getContext().startActivity(intent0);
                         Toast.makeText(v.getContext(), ""+namestff, Toast.LENGTH_SHORT).show();

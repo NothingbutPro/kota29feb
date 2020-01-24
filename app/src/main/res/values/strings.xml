@@ -56,4 +56,20 @@
         <item>Without EMI</item>
 
     </array>
+
+    <array name="worktype">
+        <item>Home Work</item>
+        <item>Assignment</item>
+
+    </array>
+    <array name="enquiry_types">
+        <item>Facebook</item>
+        <item>Walk-in</item>
+        <item>Online Promotion</item>
+        <item>Online Promotion</item>
+        <item>Offline promotion</item>
+        <item>News paper ad</item>
+        <item>Mouth Publicity</item>
+
+    </array>
 </resources>

@@ -1,5 +1,6 @@
 package com.ics.admin.Api_Retrofit;
 
+import com.ics.admin.Model.Student_Fee_Details;
 import com.ics.admin.Student_main_app._StudentModels._My_Student_Attendence_Model;
 import com.ics.admin.Student_main_app._StudentModels._StudentRegistrationModel;
 import com.ics.admin.Student_main_app._StudentModels._Student_All_Packages;
@@ -10,6 +11,7 @@ import com.ics.admin.Student_main_app._StudentModels._Student_Chat_Public_Commun
 import com.ics.admin.Student_main_app._StudentModels._Student_Demo_Videos;
 import com.ics.admin.Student_main_app._StudentModels._Student_Homeworks_Model;
 import com.ics.admin.Student_main_app._StudentModels._Student_PDF_Material_Model;
+import com.ics.admin.Student_main_app._StudentModels._Student_Profile_Data;
 import com.ics.admin.Student_main_app._StudentModels._Student_Profile_Model;
 import com.ics.admin.Student_main_app._StudentModels._Student_Public_Message;
 import com.ics.admin.Student_main_app._StudentModels._Student_Video_Materials_Model;
@@ -27,6 +29,9 @@ public interface StudentApis {
             @Field("email") String email,
             @Field("password") String password,
             @Field("mobile") String mobile,
+            @Field("_st_father_name") String _st_father_name,
+            @Field("_st_mothers_name") String _st_mothers_name,
+            @Field("_st_parents_mobile") String _st_parents_mobile,
             @Field("address") String address
     );
     @FormUrlEncoded
@@ -54,6 +59,17 @@ public interface StudentApis {
     @POST("view_profile")
     Call<_Student_Profile_Model> STUDENT_PROFILE_MODEL_CALL(
             @Field("student_id") String user_id
+    );
+    @FormUrlEncoded
+    @POST("update_student")
+    Call<_Student_Profile_Data> STUDENT_PROFILE_DATA_CALL(
+            @Field("id") String id,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("address") String address,
+            @Field("father_name") String father_name,
+            @Field("mother_name") String mother_name,
+            @Field("parent_mobile") String parent_mobile
     );
 //    @FormUrlEncoded
 //    @POST("view_video")
@@ -101,6 +117,25 @@ public interface StudentApis {
             @Field("school_id") String school_id,
             @Field("type") String type,
             @Field("user_id") String  user_id
+    );
+
+    @FormUrlEncoded
+    @POST("checkfeedetail/")
+    Call<Student_Fee_Details> STUDENT_FEE_DETAILS_BY_STUDENT_CALL(
+            @Field("school_id") String  school_id ,
+            @Field("student_name") String student_name
+    );
+
+    @FormUrlEncoded
+    @POST("checkfeedetail/")
+    Call<Student_Fee_Details> STUDENT_FEE_DETAILS_BY_CLASS_CALL(
+            @Field("school_id") String  school_id ,
+            @Field("class_id") String class_id
+    );    @FormUrlEncoded
+    @POST("checkfeedetail/")
+    Call<Student_Fee_Details> STUDENT_FEE_DETAILS_BY_BATCH_ID_CALL(
+            @Field("school_id") String  school_id ,
+            @Field("batch_id") String batch_id
     );
 
 }

@@ -46,7 +46,7 @@ public class PayFeesActivity extends AppCompatActivity {
     Spinner class_fee_id,batch_fee_id,student_fee_id;
     LinearLayout nonemiselecli,emiselecli;
     private ArrayList<ClassNAmes> class_names;
-    TextView student_name;
+    TextView student_name,_tx_howmuchpayed;
     private ArrayList<ABBCoursemodel> stud_class_names = new ArrayList<>();
     private ArrayList<String> batch_names = new ArrayList<>();
     private ArrayList<String> stud_spinner_class_names = new ArrayList<>();
@@ -75,6 +75,7 @@ public class PayFeesActivity extends AppCompatActivity {
         emiselecli = findViewById(R.id.emiselecli);
         submitfee = findViewById(R.id.submitfee);
         installs = findViewById(R.id.installs);
+        _tx_howmuchpayed = findViewById(R.id._tx_howmuchpayed);
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++If NOt payed at all++++++++++++++++++++++++++++++++++++++++
         feeamount = findViewById(R.id.feeamount);
         paybyspinwithout = findViewById(R.id.paybyspinwithout);
@@ -97,14 +98,22 @@ public class PayFeesActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(Integer.valueOf(installs.getText().toString()) <Integer.valueOf(feeamount.getText().toString())) {
-                    float actualpayamount = Float.parseFloat(feeamount.getText().toString()) / Float.valueOf(installs.getText().toString());
-                    payinamt.setText(String.valueOf(actualpayamount));
-                    emimonthamt.setText(String.valueOf(actualpayamount));
-                    emimnthstr.setText(installs.getText().toString());
-                }else {
-                    Toast.makeText(PayFeesActivity.this, "Wrong instalments ", Toast.LENGTH_SHORT).show();
-                }
+              try {
+                  if (Integer.valueOf(installs.getText().toString()) < Integer.valueOf(feeamount.getText().toString())) {
+                      float actualpayamount = Float.parseFloat(feeamount.getText().toString()) / Float.valueOf(installs.getText().toString());
+                      payinamt.setText(String.valueOf(actualpayamount));
+                      emimonthamt.setText(String.valueOf(actualpayamount));
+                      emimnthstr.setText(installs.getText().toString());
+                  } else {
+                      Toast.makeText(PayFeesActivity.this, "Wrong instalments ", Toast.LENGTH_SHORT).show();
+                  }
+              }catch (Exception e)
+              {
+                  emimonthamt.setText("");
+                  emimnthstr.setText("");
+                  payinamt.setText("");
+                  e.printStackTrace();
+              }
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -630,6 +639,7 @@ public class PayFeesActivity extends AppCompatActivity {
                                         selected_student_id_class = "" + stud_class_names.get(position).getStud_id();
                                         Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + selected_student_id_class);
                                         installs.setFocusable(true);
+                                        _tx_howmuchpayed.setText("You haven't payed yet");
                                         new CheckForStudents(new Shared_Preference().getId(PayFeesActivity.this),sel_course,sel_id,selected_student_id_class).execute();
                                     }
 
@@ -762,6 +772,8 @@ public class PayFeesActivity extends AppCompatActivity {
                         installs.setText(jsonObject1.getJSONObject("data").getString("instalment_no"));
                         installs.setFocusable(false);
                         emimnthstr.setText(jsonObject1.getJSONObject("data").getString("month"));
+                        _tx_howmuchpayed.setText("You need to pay "+jsonObject1.getJSONObject("data").getString("amount")
+                        +" of Installment "+jsonObject1.getJSONObject("data").getString("instalment_no"));
                         payinamt.setText(jsonObject1.getJSONObject("data").getString("amount"));
                     }
                     else
@@ -776,19 +788,13 @@ public class PayFeesActivity extends AppCompatActivity {
                                 installs.setFocusable(true);
                             }else {
                                 Payed_or_not = 0;
+                                _tx_howmuchpayed.setText("Already Paid");
 //                                nonemiselecli.setVisibility(View.GONE);
 //                                emiselecli.setVisibility(View.GONE);
                                 emimonthamt.setFocusable(true);
                                 emimnthstr.setFocusable(true);
                                 payinamt.setFocusable(true);
                                 installs.setFocusable(true);
-//                                try {
-//                                    student_fee_id.setSelection(student_fee_id.getSelectedItemPosition()+1);
-//                                }catch (Exception e)
-//                                {
-//                                    e.printStackTrace();
-//                                }
-                                feeamount.setText("");
                                 new AlertDialog.Builder(PayFeesActivity.this)
                                         .setTitle("Alert")
                                         .setMessage("You Have already paid for this course,Please select course again!")

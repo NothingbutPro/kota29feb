@@ -2,6 +2,7 @@ package com.ics.admin;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -104,6 +105,15 @@ public class OTPActivity  extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(OTPActivity.this);
+            dialog.show();
+            dialog.setTitle("Please wait getting OTP");
+            dialog.setCancelable(false);
+            super.onPreExecute();
+        }
+
+        @Override
         protected String doInBackground(String... arg0) {
 
             try {
@@ -166,8 +176,7 @@ public class OTPActivity  extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-//                dialog.dismiss();
-
+                dialog.dismiss();
                 JSONObject jsonObject = null;
                 Log.e("PostRegistration", result.toString());
                 try {
