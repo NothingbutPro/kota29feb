@@ -116,6 +116,30 @@ public class HomeWorkActivity extends AppCompatActivity {
         batch_spin_assign= findViewById(R.id.class_batch_spinner);
         class_spiner_assign= findViewById(R.id.class_home_spinner);
         new GETCLASSFORHOMe(new Shared_Preference().getId(this)).execute();
+        dayshome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int  mDay   = c.get(Calendar.DAY_OF_MONTH);
+                //launch datepicker modal
+                DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                selectdatae.setText("");
+                                Log.d("LOG_APP", "DATE SELECTED "+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                dates = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                                selectdatae.setText(String.valueOf(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
+                                //PUT YOUR LOGING HERE
+                                //UNCOMMENT THIS LINE TO CALL TIMEPICKER
+                                //openTimePicker();
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
         upload_pdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

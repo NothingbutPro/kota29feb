@@ -18,10 +18,8 @@
             android:text="Teachers"
             android:layout_marginTop="10dp"
             android:textSize="30dp"
-            android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/white1"
-
             />
     </androidx.appcompat.widget.Toolbar>
     <com.github.clans.fab.FloatingActionButton
@@ -30,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20pt"
         android:layout_gravity="right|bottom"
-        android:src="@drawable/ic_add"
+        fab:srcCompat="@drawable/ic_add"
         fab:fab_colorNormal="@color/red"
         fab:fab_colorPressed="#FAF1996A"
         fab:fab_colorRipple="#FAF88545" />

@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.BasicAdmin.Masters.Batch.AddStudentActivity;
 import com.ics.admin.BasicAdmin.StudentDetails.AssignStudentActivity;
-import com.ics.admin.DeleteDialog;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Interfaces.ProgressDialogs;
 import com.ics.admin.Model.Students;
 import com.ics.admin.Model.StudentsFeesEmi;

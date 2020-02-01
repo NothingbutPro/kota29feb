@@ -11,7 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,9 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.ics.admin.BasicAdmin.EditStuffs;
-import com.ics.admin.BasicAdmin.VideoPermission.VideoPackagessActivity;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.Fragment.CommunityFragment;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.VideoAdminPackages;
 import com.ics.admin.Model.VideoPackages;
 import com.ics.admin.R;
@@ -45,7 +42,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -322,8 +318,9 @@ public class VideosAdminPackageAdapter extends RecyclerView.Adapter<VideosAdminP
                             String status = jsonObject.getString("status");
                             String Class = jsonObject.getString("Class");
                             String Course = jsonObject.getString("Course");
+                            String video_time = jsonObject.getString("video_time");
                             String package_select = "Checked";
-                            videoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select));
+                            videoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select,video_time));
                         }
                         videoPackagesAdapter = new VideoPackagesAdapter(activity,videoPackagesArrayList);
 //                        LinearLayoutManager layoutManager = new LinearLayoutManager(VideoPackagessActivity.this);

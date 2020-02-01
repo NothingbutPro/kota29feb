@@ -14,8 +14,10 @@
         android:layout_height="wrap_content">
 
         <TextView
+
+            android:padding="10dp"
             android:textColor="@color/white"
-            android:text="Video"
+            android:text="Add Video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
     </androidx.appcompat.widget.Toolbar>
@@ -29,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Video Material"
@@ -41,7 +44,7 @@
         <EditText
             android:id="@+id/studyedt_name_sdesv"
             android:layout_width="320dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:inputType="text"
@@ -58,6 +61,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:visibility="gone"
                 android:layout_margin="8dp"
                 android:text="Select Class"
                 android:layout_width="match_parent"
@@ -70,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint=" Class"
-                android:paddingLeft="8dp"
+
                 android:textSize="15dp" />
         </LinearLayout>
         <LinearLayout
@@ -81,6 +85,7 @@
             android:layout_margin="10dp"
             android:layout_height="wrap_content">
             <TextView
+                android:visibility="gone"
                 android:layout_margin="8dp"
                 android:text="Select Course"
                 android:layout_width="match_parent"
@@ -93,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint=" Class"
-                android:paddingLeft="8dp"
+
                 android:inputType="number"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -150,18 +155,20 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
        <ImageView
-           android:visibility="gone"
+
            android:src="@drawable/video"
            android:layout_weight="0.80"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
+           android:layout_width="90dp"
+           android:layout_height="40dp">
 
        </ImageView>
 
        <TextView
-           android:textAlignment="center"
+
+           android:text="No video file selected"
            android:id="@+id/fliename"
            android:layout_weight="0.20"
+           android:layout_gravity="center_vertical"
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
 
@@ -204,6 +211,8 @@
 
         </RelativeLayout>
         <LinearLayout
+            android:id="@+id/linkli"
+            android:visibility="gone"
             android:padding="10dp"
             android:layout_margin="10dp"
             android:background="@drawable/backgraund"
@@ -212,7 +221,7 @@
 
 
         <EditText
-            android:visibility="gone"
+
             android:hint="Write url here"
             android:id="@+id/link_url"
             android:layout_width="match_parent"

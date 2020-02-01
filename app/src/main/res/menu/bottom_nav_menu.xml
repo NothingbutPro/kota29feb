@@ -5,7 +5,7 @@
     <item
         android:id="@+id/navi_fact_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="Home Work" />
     <item
         android:visible="false"
         android:id="@+id/navi_fact_faculty"
@@ -13,14 +13,14 @@
         android:title="Faculty" />
 
     <item
-        android:id="@+id/navi_vid_lib"
+        android:id="@+id/navi_vid_atten"
         android:icon="@drawable/ic_video_library"
-        android:title="Video Library" />
+        android:title="Attendance" />
     <item
         android:visible="false"
         android:id="@+id/navi__fact_Batch"
         android:icon="@drawable/ic_batches"
-        android:title="Batches" />
+        android:title="Attendence" />
     <item
         android:id="@+id/nav_fact_commun"
         android:icon="@drawable/ic_enquary"

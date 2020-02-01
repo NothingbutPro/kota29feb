@@ -5,17 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ics.admin.BasicAdmin.EditStuffs;
-import com.ics.admin.DeleteDialog;
 import com.ics.admin.Model.AttendenceList;
-import com.ics.admin.Model.Enqiries;
 import com.ics.admin.R;
 
 import java.util.ArrayList;
@@ -45,7 +41,7 @@ public class AttendenceListAdapter extends RecyclerView.Adapter<AttendenceListAd
         myViewHolder.attendencetxt.setText(""+classArrayList.get(i).getAttendance());
         myViewHolder.attendbatch.setText(""+classArrayList.get(i).getBatch());
         myViewHolder.attenddate.setText(""+classArrayList.get(i).getDate());
-
+        myViewHolder.delannounce.setVisibility(View.GONE);
 
     }
 
@@ -56,7 +52,7 @@ public class AttendenceListAdapter extends RecyclerView.Adapter<AttendenceListAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView attendstudent,attendclass,attendencetxt,attendbatch,attenddate;
-        Button delhome,edit_btn_save,edit_btn;
+        Button delannounce,edit_btn_save,edit_btn;
         LinearLayout hideli;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +62,7 @@ public class AttendenceListAdapter extends RecyclerView.Adapter<AttendenceListAd
             attendencetxt = (TextView) itemView.findViewById(R.id.attendencetxt);
             attendbatch = (TextView) itemView.findViewById(R.id.attendbatch);
             attenddate = (TextView) itemView.findViewById(R.id.attenddate);
+            delannounce =  itemView.findViewById(R.id.delannounce);
 
         }
 

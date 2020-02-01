@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:background="#fff"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+   >
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/permissiontool"
+    android:background="@color/red"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="Assign Job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+    </TextView>
+</androidx.appcompat.widget.Toolbar>
     <androidx.cardview.widget.CardView
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:padding="0dp"
-        app:cardCornerRadius="10dp">
+        android:padding="5dp"
+        >
 
         <LinearLayout
-            android:padding="10dp"
+
+            android:background="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1">
             <RelativeLayout
+                android:background="@drawable/background_layout_white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -30,14 +47,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.19"
                     android:padding="10dp"
-                    android:background="@color/red"
+
                     android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
                     android:text="Basic Information"
-                    android:textColor="@color/white1"
+                    android:textColor="@color/black"
                     android:textSize="17dp" />
 
                 <ToggleButton
-                    android:visibility="gone"
+
                     android:padding="15dp"
                     android:layout_alignParentRight="true"
                     android:id="@+id/maintoggel"

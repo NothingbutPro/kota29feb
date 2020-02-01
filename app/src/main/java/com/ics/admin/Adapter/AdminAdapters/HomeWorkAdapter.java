@@ -13,8 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ics.admin.BasicAdmin.EditStuffs;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.Fragment.CommunityFragment;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.HomeWorks;
 import com.ics.admin.R;
 

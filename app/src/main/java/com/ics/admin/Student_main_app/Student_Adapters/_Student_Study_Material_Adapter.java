@@ -1,39 +1,19 @@
 package com.ics.admin.Student_main_app.Student_Adapters;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ics.admin.BasicAdmin.Masters.StudyMaterial.EditStudyMaterial;
-import com.ics.admin.BasicAdmin.Masters.StudyMaterial.StudyMaterialActivity;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.Model.StudyMaterials;
 import com.ics.admin.R;
-import com.ics.admin.ShareRefrance.Shared_Preference;
 import com.ics.admin.Student_main_app._StudentModels._Student_PDF_Material_Model_Data;
-import com.ics.admin.Utils.Utilities;
 
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;

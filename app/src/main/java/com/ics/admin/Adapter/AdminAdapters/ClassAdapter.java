@@ -11,12 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ics.admin.BasicAdmin.Masters.Forclass.ClassViewActivity;
-import com.ics.admin.DeleteDialog;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
 
@@ -38,7 +37,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyViewHolder>{
@@ -126,10 +124,10 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView add_class;
-        Button btnsaveedt,deleli;
+        Button btnsaveedt;
         EditText edtclass;
         LinearLayout claseditli;
-        Button edtli;
+        ImageView edtli,deleli;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 

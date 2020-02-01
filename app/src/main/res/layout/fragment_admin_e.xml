@@ -81,19 +81,30 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:maxLines="6"/>
+          />
 
-        <Button
+        <ImageView
+            android:padding="10dp"
             android:id="@+id/ansthequeryimg"
             android:text="SEND"
             android:textSize="14dp"
+            app:srcCompat="@drawable/ic_menu_send"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
+            android:layout_width="38dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:layout_gravity="bottom" />
-
+<!--        <Button-->
+<!--            android:id="@+id/ansthequeryimg"-->
+<!--            android:text="SEND"-->
+<!--            android:textSize="14dp"-->
+<!--            android:background="?attr/selectableItemBackground"-->
+<!--            android:clickable="true"-->
+<!--            android:layout_width="64dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_gravity="bottom" />-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

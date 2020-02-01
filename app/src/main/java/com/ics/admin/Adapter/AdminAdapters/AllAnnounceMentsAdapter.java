@@ -13,13 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ics.admin.BasicAdmin.HomeWork.ViewAllAnnouncements;
-import com.ics.admin.DeleteDialog;
 import com.ics.admin.Model.AllAnnouncemet;
-import com.ics.admin.Model.AttendenceList;
 import com.ics.admin.R;
 
 import org.json.JSONException;

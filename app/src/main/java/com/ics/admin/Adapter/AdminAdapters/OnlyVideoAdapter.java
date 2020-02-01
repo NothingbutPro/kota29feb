@@ -8,14 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,11 +22,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ics.admin.BasicAdmin.EditStuffs;
-import com.ics.admin.BasicAdmin.VideoPermission.AddVideoActivity;
-import com.ics.admin.DeleteDialog;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.ABBCoursemodel;
 import com.ics.admin.Model.ClassNAmes;
-import com.ics.admin.Model.VideoAdminPackages;
 import com.ics.admin.Model.VideoPackages;
 import com.ics.admin.Model.VideosOnly;
 import com.ics.admin.R;
@@ -280,8 +274,9 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
                             String status = jsonObject.getString("status");
                             String Class = jsonObject.getString("Class");
                             String Course = jsonObject.getString("Course");
+                            String video_time = jsonObject.getString("video_time");
                             String package_select = "Checked";
-                            videoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select));
+                            videoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select,video_time));
                         }
                         videoPackagesAdapter = new VideoPackagesAdapter(activity,videoPackagesArrayList);
 //                        LinearLayoutManager layoutManager = new LinearLayoutManager(VideoPackagessActivity.this);

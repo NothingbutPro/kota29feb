@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasicAdmin.Attendence.Addattendactivity"
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".BasicAdmin.Attendence.Addattendactivity"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red">
+
+            <TextView
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="Add Attendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:background="@drawable/backgraund"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/studentattendbtn"
+                    android:padding="10dp"
+                    android:layout_gravity="right"
+                    android:background="@color/red"
+                    android:textColor="@color/white1"
+                    android:textAllCaps="true"
+                    android:text="View Students"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+        <TextView
+            android:padding="5dp"
+            android:textColor="@color/red"
+            android:text="Select Class:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
+        <Spinner
+            android:id="@+id/attenclass_home_spinner"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+        <TextView
+            android:padding="5dp"
+
+            android:textColor="@color/red"
+            android:text="Select Batch:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
+        <Spinner
+            android:id="@+id/attenclass_batch_spinner"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+
+
+        <TextView
+            android:background="@drawable/backgraund"
+            android:id="@+id/attenselectteacher"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/red"
+            android:padding="10dp"
+            android:text="Teacher:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+        <LinearLayout
+
+            android:id="@+id/attenrec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/attendancegrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:textSize="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/red"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:text="No More Students Found"
+                android:id="@+id/nosdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+        <Button
+            android:textAllCaps="false"
+            android:text="Submit Attendance"
+            android:id="@+id/attenbtn"
+            android:background="@color/red"
+            android:textColor="@color/white1"
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </Button>
+    </LinearLayout>
+</ScrollView>

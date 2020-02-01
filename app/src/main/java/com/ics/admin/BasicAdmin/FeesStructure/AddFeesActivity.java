@@ -58,7 +58,17 @@ public class AddFeesActivity extends AppCompatActivity {
         addfeesave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SENDFEES(new Shared_Preference().getId(v.getContext()) , enterfees.getText().toString()).execute();
+                if(coursespin.getSelectedItemPosition() !=0) {
+                    if(!enterfees.getText().toString().isEmpty()) {
+                        new SENDFEES(new Shared_Preference().getId(v.getContext()), enterfees.getText().toString()).execute();
+                    }else {
+                        enterfees.setError("Please Enter Fees");
+                    }
+                }else if(class_spiner_assign.getSelectedItemPosition() ==0) {
+                    Toast.makeText(AddFeesActivity.this, "Please select class", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(AddFeesActivity.this, "Please select course", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -160,8 +170,9 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                     }
 
                     final ArrayList <String> list_class = new ArrayList<>();
+                    list_class.add("--Select Class--");
                     for (int k=0 ; k<class_names.size() ; k++){
-                        list_class.add(class_names.get(k).getClass_name());
+                        list_class.add(k+1 ,class_names.get(k).getClass_name());
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddFeesActivity.this, android.R.layout.simple_spinner_item
@@ -173,12 +184,19 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                     class_spiner_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            selected_class = list_class.get(position);
-                            sel_id =""+class_names.get(position).getUserId();
-                            Log.e("Spinner Selected "," Items >>> _______"+selected_class+" --- "+sel_id);
-                            batch_names.clear();
-                            batchArrayList.clear();
-                            new GETAllBathces(new Shared_Preference().getId(AddFeesActivity.this),sel_id).execute();
+                            if(position ==0)
+                            {
+                                batch_names.clear();
+                                batchArrayList.clear();
+                                new GETAllBathces(new Shared_Preference().getId(AddFeesActivity.this),"").execute();
+                            }else {
+                                selected_class = list_class.get(position-1);
+                                sel_id = class_names.get(position-1).getUserId();
+                                Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                batch_names.clear();
+                                batchArrayList.clear();
+                                new GETAllBathces(new Shared_Preference().getId(AddFeesActivity.this), sel_id).execute();
+                            }
                         }
 
                         @Override
@@ -320,9 +338,11 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                             batchArrayList.clear();
 //                        batch_names.clear();
                             coursespin.setAdapter(null);
+                            batch_names.add("--Select Course--");
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                         }else {
+                            batch_names.add("--Select Course--");
                             for(int i=0;i<jsonObject1.getJSONArray("data").length();i++)
                             {
                                 JSONObject jsonObject2 = jsonObject1.getJSONArray("data").getJSONObject(i);
@@ -337,31 +357,31 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                                 batchArrayList.add(new ABBCoursemodel(id,Class,title,"Course :","Class:",class_id));
 
                             }
-
-//                            batchArrayList.add(new ABBBatch(userid,Class,Batch,"Class","Batch"));
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddFeesActivity.this, android.R.layout.simple_spinner_item
-                                    ,batch_names);
-
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            // Apply the adapter to the spinner
-                            coursespin.setAdapter(adapter);
-                            coursespin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    selected_batch = batch_names.get(position);
-                                    sel_batch =""+batchArrayList.get(position).getUserId();
-                                    Log.e("Spinner Selected "," Items >>> _______"+selected_class+" --- "+sel_id);
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-
-                                }
-                            });
-
                         }
 
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddFeesActivity.this, android.R.layout.simple_spinner_item
+                                ,batch_names);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        coursespin.setAdapter(adapter);
+                        coursespin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if(position ==0) {
+//                                        Toast.makeText(AddFeesActivity.this, "Please select", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    selected_batch = batch_names.get(position-1);
+                                    sel_batch = "" + batchArrayList.get(position-1).getUserId();
+                                    Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
 
                     } catch (JSONException e) {
 

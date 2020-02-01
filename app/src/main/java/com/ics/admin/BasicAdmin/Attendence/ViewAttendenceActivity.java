@@ -358,7 +358,7 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 if (position == 0) {
                                     selected_class = list_class.get(position);
-
+                                    new GETAllBathcesForAttendence(new Shared_Preference().getId(ViewAttendenceActivity.this), sel_id).execute();
                                 } else {
                                     try {
                                         selected_class = list_class.get(position);
@@ -368,7 +368,7 @@ public class ViewAttendenceActivity extends AppCompatActivity {
 
 //                                        selected_class = list_class.get(position);
 //                                        sel_id = "" + class_names.get(position-1).getUserId();
-//                                        new GETAllBathces(new Shared_Preference().getId(HomeWorkActivity.this),sel_id).execute();
+                                        new GETAllBathcesForAttendence(new Shared_Preference().getId(ViewAttendenceActivity.this), sel_id).execute();
                                         e.printStackTrace();
                                     }
                                     Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
@@ -515,7 +515,7 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                             batch_names.clear();
                             batchArrayList.clear();
                             batchattend.setAdapter(null);
-                            batch_names.add("None");
+                            batch_names.add("--Select Batch");
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(ViewAttendenceActivity.this, android.R.layout.simple_spinner_item
                                     , batch_names);
 
@@ -547,7 +547,7 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     if (position == 0) {
                                         selected_batch = batch_names.get(position);
-
+//                                        new GETALLMYATTENDENCES(new Shared_Preference().getId(ViewAttendenceActivity.this) ,sel_id,sel_batch,attenddate.getText().toString()).execute();
                                     } else {
                                         try {
 

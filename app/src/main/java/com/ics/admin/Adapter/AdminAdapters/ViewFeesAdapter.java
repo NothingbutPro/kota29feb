@@ -20,10 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ics.admin.BasicAdmin.TeachersDetails.ViewTeachersActivity;
-import com.ics.admin.DeleteDialog;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Interfaces.ProgressDialogs;
-import com.ics.admin.Model.Faculties;
 import com.ics.admin.Model.MenuPermisssion;
 import com.ics.admin.Model.SubMenuPermissions;
 import com.ics.admin.Model.ViewFees;

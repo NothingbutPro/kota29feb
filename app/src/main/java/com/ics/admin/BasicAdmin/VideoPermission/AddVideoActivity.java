@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -67,14 +68,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class AddVideoActivity extends AppCompatActivity {
     Button capturestartbtn,sendbtn;
     CheckBox sharewithlinkbtn;
-    static final int REQUEST_VIDEO_CAPTURE = 1;
+    ArrayList <String> list_class = new ArrayList<>();
     int Gallery_view = 2;
+    LinearLayout linkli;
     private Uri fileUri;
     EditText studyedt_name_sdesv,link_url;
     public static final int MEDIA_TYPE_VIDEO = 3;
@@ -83,7 +86,6 @@ public class AddVideoActivity extends AppCompatActivity {
     public static AddVideoActivity ActivityContext =null;
     String selected_batch , sel_batch;
     File mediaFile;
-
    TextView fliename;
     private ArrayList<ClassNAmes> class_names;
     private ArrayList<String> batch_names = new ArrayList<>();
@@ -92,6 +94,7 @@ public class AddVideoActivity extends AppCompatActivity {
     private Spinner class_spiner;
     String selected_class , sel_id;
     private Spinner batch_spin_assign;
+    private String video_time;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +102,7 @@ public class AddVideoActivity extends AppCompatActivity {
         fliename = findViewById(R.id.fliename);
         studyedt_name_sdesv = findViewById(R.id.studyedt_name_sdesv);
         class_spiner_assign = findViewById(R.id.class_spiner_vid);
+        linkli = findViewById(R.id.linkli);
         batch_spin_assign = findViewById(R.id.batch_spiner);
         sharewithlinkbtn = findViewById(R.id.sharewithlinkbtn);
 //        videoView.setZOrderOnTop(true);
@@ -111,9 +115,9 @@ public class AddVideoActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    link_url.setVisibility(View.VISIBLE);
+                    linkli.setVisibility(View.VISIBLE);
                 }else {
-                    link_url.setVisibility(View.GONE);
+                    linkli.setVisibility(View.GONE);
                 }
             }
         });
@@ -171,7 +175,30 @@ public class AddVideoActivity extends AppCompatActivity {
                         bMap.compress(Bitmap.CompressFormat.JPEG, 100, os);
                         os.flush();
                         os.close();
-                        new OKSENDVIDEO(mediaFile.getName(), sel_batch, sel_id, mediaFile, imageFile).execute();
+                        //++++++++++++++++++++++++++++++++++++++++Get Video timewa+++++++++
+                        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+                            //use one of overloaded setDataSource() functions to set your data source
+                        retriever.setDataSource(AddVideoActivity.this, Uri.fromFile(mediaFile));
+                        String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                        long timeInMillisec = Long.parseLong(time);
+                        retriever.release();
+                        video_time = String.valueOf(TimeUnit.MILLISECONDS.toMinutes(timeInMillisec));
+                        if(!studyedt_name_sdesv.getText().toString().isEmpty()) {
+                            if(class_spiner_assign.getSelectedItemPosition() !=0) {
+                                if(batch_spin_assign.getSelectedItemPosition() !=0) {
+                                    new OKSENDVIDEO(mediaFile.getName(), sel_batch, sel_id, mediaFile, imageFile).execute();
+                                }else {
+                                    Toast.makeText(AddVideoActivity.this, "Please select course", Toast.LENGTH_SHORT).show();
+                                }
+                            }else {
+
+                                Toast.makeText(AddVideoActivity.this, "Please select class", Toast.LENGTH_SHORT).show();
+                                class_spiner_assign.callOnClick();
+                            }
+                        }else {
+                            studyedt_name_sdesv.setError("Title can not be empty");
+                            Toast.makeText(AddVideoActivity.this, "Title can not be empty", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (Exception e) {
                         Toast.makeText(AddVideoActivity.this, "No Video found", Toast.LENGTH_SHORT).show();
                         Log.e(getClass().getSimpleName(), "Error writing bitmap", e);
@@ -300,6 +327,7 @@ public class AddVideoActivity extends AppCompatActivity {
             fliename.setText(mediaFile.getName());
 //            videoView.setVideoPath(mediaFile.getAbsolutePath());
         } else {
+//            fliename.setText("No video file selected");
             return null;
         }
 
@@ -336,9 +364,11 @@ public class AddVideoActivity extends AppCompatActivity {
                                 Log.e("PDF ", "" + pdfFile.exists());
                                 //   new ImageUploadPDF(pdfFile).execute();
                                 mediaFile = pdfFile;
+                                fliename.setText(mediaFile.getName());
 //                            selepdftxt.setText("Selected :"+pdfFile.getName());
                                 Toast.makeText(this, "Selected " + pdfFile.getName(), Toast.LENGTH_SHORT).show();
                             } else {
+//                                fliename.setText("No video file selected");
                                 Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
                             }
                             //   new ImageCompression().execute(imagePath);
@@ -370,8 +400,10 @@ public class AddVideoActivity extends AppCompatActivity {
                                 Log.e("PDF ", "" + pdfFile.exists());
                                 //   new ImageUploadPDF(pdfFile).execute();
                                 mediaFile = pdfFile;
+                                fliename.setText(mediaFile.getName());
                                 Toast.makeText(this, "Selected " + pdfFile.getName(), Toast.LENGTH_SHORT).show();
                             } else {
+//                                fliename.setText("No video file selected");
                                 Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -415,8 +447,10 @@ public class AddVideoActivity extends AppCompatActivity {
 //                            selepdftxt.setText("Selected :"+pdfFile.getName());
                                 //   new ImageUploadPDF(pdfFile).execute();
                                 mediaFile = pdfFile;
+                                fliename.setText(mediaFile.getName());
                                 Toast.makeText(this, "Selected " + pdfFile.getName(), Toast.LENGTH_SHORT).show();
                             } else {
+                                fliename.setText("No video file selected");
                                 Toast.makeText(this, "Failed to retrieve PDF", Toast.LENGTH_SHORT).show();
                             }
                             //   new ImageCompression().execute(imagePath);
@@ -448,10 +482,10 @@ public class AddVideoActivity extends AppCompatActivity {
             // User cancelled the video capture
 //            Toast.makeText(this, "User cancelled the video capture.",
 //                    Toast.LENGTH_LONG).show();
-            fliename.setText("");
+            fliename.setText("No video file selected");
 
         } else {
-
+            fliename.setText("No video file selected");
             Log.e("Video File : ","failed" );
 
 
@@ -503,6 +537,7 @@ public class AddVideoActivity extends AppCompatActivity {
                 entity.addPart("title", new StringBody("" + Title));
                 entity.addPart("class_id", new StringBody("" + class_id));
                 entity.addPart("course_id", new StringBody("" + batch_id));
+                entity.addPart("video_time", new StringBody("" + video_time));
                 entity.addPart("video_url", new StringBody("" + link_url.getText().toString()));
                 entity.addPart("description", new StringBody("" + studyedt_name_sdesv.getText().toString()));
                 entity.addPart("school_id", new StringBody("" + new Shared_Preference().getId(AddVideoActivity.this)));
@@ -647,6 +682,7 @@ public class AddVideoActivity extends AppCompatActivity {
 //                        Intent
                         JSONArray jarr = jsonObject.getJSONArray("data");
                         class_names = new ArrayList<>();
+
                         for (int i=0 ; i<jarr.length() ; i++){
 
                             String cl_id = jarr.getJSONObject(i).getString("id");
@@ -654,41 +690,50 @@ public class AddVideoActivity extends AppCompatActivity {
                             class_names.add(new ClassNAmes(cl_id,cl_name));
                         }
 
-                        final ArrayList <String> list_class = new ArrayList<>();
+                        list_class.add("--Select Class--");
                         for (int k=0 ; k<class_names.size() ; k++){
                             list_class.add(class_names.get(k).getClass_name());
                         }
-
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddVideoActivity.this, android.R.layout.simple_spinner_item
-                                ,list_class);
-
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        // Apply the adapter to the spinner
-                        class_spiner_assign.setAdapter(adapter);
-                        class_spiner_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                selected_class = list_class.get(position);
-                                sel_id =""+class_names.get(position).getUserId();
-                                Log.e("Spinner Selected "," Items >>> _______"+selected_class+" --- "+sel_id);
-                                batch_names.clear();
-                                batchArrayList.clear();
-                                new GETAllBathces(new Shared_Preference().getId(AddVideoActivity.this),sel_id).execute();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
-                        Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
-                        Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
 
                     }
                     else
                     {
 
                     }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddVideoActivity.this, android.R.layout.simple_spinner_item
+                            ,list_class);
+
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    // Apply the adapter to the spinner
+                    class_spiner_assign.setAdapter(adapter);
+                    class_spiner_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if(position ==0) {
+//                                selected_class = list_class.get(position);
+                                sel_id = "";
+                                Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                batch_names.clear();
+                                batchArrayList.clear();
+                                new GETAllBathces(new Shared_Preference().getId(AddVideoActivity.this), sel_id).execute();
+                            }else {
+                                selected_class = list_class.get(position);
+                                sel_id = class_names.get(position-1).getUserId();
+                                Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                batch_names.clear();
+                                batchArrayList.clear();
+                                new GETAllBathces(new Shared_Preference().getId(AddVideoActivity.this), sel_id).execute();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
+                    Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
 
 
                 } catch (JSONException e) {
@@ -808,7 +853,7 @@ public class AddVideoActivity extends AppCompatActivity {
                 JSONObject jsonObject1 = null;
                 Log.e("PostRegistration", result.toString());
                 try {
-
+                    batch_names.add("--Select Course--");
                     jsonObject1 = new JSONObject(result);
                     if(!jsonObject1.getBoolean("responce")){
                         Toast.makeText(AddVideoActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
@@ -816,6 +861,7 @@ public class AddVideoActivity extends AppCompatActivity {
                         batchArrayList.clear();
 //                        batch_names.clear();
                         batch_spin_assign.setAdapter(null);
+                        batch_names.add("--Select Course--");
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                     }else {
@@ -833,31 +879,30 @@ public class AddVideoActivity extends AppCompatActivity {
                             batchArrayList.add(new ABBCoursemodel(id,Class,title,"Course :","Class:",class_id));
 
                         }
-
-//                            batchArrayList.add(new ABBBatch(userid,Class,Batch,"Class","Batch"));
-
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddVideoActivity.this, android.R.layout.simple_spinner_item
-                                ,batch_names);
-
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        // Apply the adapter to the spinner
-                        batch_spin_assign.setAdapter(adapter);
-                        batch_spin_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                selected_batch = batch_names.get(position);
-                                sel_batch =""+batchArrayList.get(position).getUserId();
-                                Log.e("Spinner Selected "," Items >>> _______"+selected_class+" --- "+sel_id);
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
-
                     }
 
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddVideoActivity.this, android.R.layout.simple_spinner_item
+                            ,batch_names);
+
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    // Apply the adapter to the spinner
+                    batch_spin_assign.setAdapter(adapter);
+                    batch_spin_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if(position !=0) {
+                                    selected_batch = batch_names.get(position-1);
+                                    sel_batch = "" + batchArrayList.get(position-1).getUserId();
+                                    Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                }
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
 
                 } catch (JSONException e) {
 

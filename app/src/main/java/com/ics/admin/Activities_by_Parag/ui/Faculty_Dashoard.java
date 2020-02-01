@@ -33,8 +33,10 @@ import com.ics.admin.Fragment.AdminCFragment;
 import com.ics.admin.Fragment.BatchFragment;
 import com.ics.admin.Fragment.CommunityFragment;
 import com.ics.admin.Fragment.FacultyFragment;
+import com.ics.admin.Fragment.Faculty_Fragments.AttendenceByFacultyFragment_;
+import com.ics.admin.Fragment.Faculty_Fragments.HomeWorkByFaculty;
 import com.ics.admin.Fragment.VideoFragment;
-import com.ics.admin.Fragment.VideoLibraryFragment;
+
 import com.ics.admin.Student_main_app.Student_UI._Student_HomeWork_Fragment;
 import com.ics.admin.Fragment.AdminEFragment;
 import com.ics.admin.Model.MenuPermisssion;
@@ -97,6 +99,7 @@ TextView faculty_logout;
             @Override
             public void onClick(View v) {
                 shared_preference.setId(Faculty_Dashoard.this, "", "", false);
+
                 Intent in = new Intent(Faculty_Dashoard.this, OTPActivity.class);
                 startActivity(in);
                 finish();
@@ -115,30 +118,35 @@ TextView faculty_logout;
 //                        fragment = new CommunityFragment();
 //                        loadFragment(fragment);
 //                        Toast.makeText(Faculty_Dashoard.this, "Not allowed", Toast.LENGTH_SHORT).show();
-                        fragment = new VideoLibraryFragment();
+                        fragment = new HomeWorkByFaculty();
                         loadFragment(fragment);
                         break;
-                    case R.id.navi_fact_faculty:
-//                        Toast.makeText(Faculty_Dashoard.this, "navi_vid_lib selected", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Faculty_Dashoard.this, "Not allowed", Toast.LENGTH_SHORT).show();
-                        fragment = new VideoLibraryFragment();
-                        loadFragment(fragment);
-                        break;
-                    case R.id.navi__fact_Batch:
-                        Toast.makeText(Faculty_Dashoard.this, "navi__fact_Batch selected", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(getAc)
-//                        fragment = new BatchFragment();
+//                    case R.id.navi_fact_faculty:
+////                        Toast.makeText(Faculty_Dashoard.this, "navi_vid_lib selected", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Faculty_Dashoard.this, "Not allowed", Toast.LENGTH_SHORT).show();
+//                        fragment = new AttendenceByFacultyFragment_();
 //                        loadFragment(fragment);
-                        break;
+//                        break;
+
                     case R.id.nav_fact_commun:
 //                        Toast.makeText(Faculty_Dashoard.this, "nav_fact_commun selected", Toast.LENGTH_SHORT).show();
                         fragment = new AdminEFragment();
                         loadFragment(fragment);
                         break;
-                        case R.id.navi_vid_lib:
+
+
+                        case R.id.navi_vid_atten:
 //                        Toast.makeText(Faculty_Dashoard.this, "nav_fact_commun selected", Toast.LENGTH_SHORT).show();
-                        fragment = new VideoFragment();
+                        fragment = new AttendenceByFacultyFragment_();
                         loadFragment(fragment);
+                        break;
+
+
+                    case R.id.navi__fact_Batch:
+                        Toast.makeText(Faculty_Dashoard.this, "navi__fact_Batch selected", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(getAc)
+//                        fragment = new BatchFragment();
+//                        loadFragment(fragment);
                         break;
                 }
                 return loadFragment(fragment);
@@ -153,7 +161,7 @@ TextView faculty_logout;
         navigationView.setNavigationItemSelectedListener(this);
 
         toolbar.setTitle("Faculty");
-        loadFragment(new VideoLibraryFragment());
+        loadFragment(new HomeWorkByFaculty());
         bottom_nav_faculty.setSelectedItemId( R.id.navi_fact_home);
 
     }

@@ -47,12 +47,14 @@ public class Public_Community_Admin_Chat_Adapter extends RecyclerView.Adapter<Pu
 
             myViewHolder.left_mess.setText("" + student_pay_fee_models.get(i).getMessage());
 //            myViewHolder.yourmesstxt.setText("");
-            myViewHolder.left_name.setText(student_pay_fee_models.get(i).getStudent_name());
+            myViewHolder.right_name.setText(student_pay_fee_models.get(i).getStudent_name());
             myViewHolder.left_time.setText(student_pay_fee_models.get(i).getDateTime());
             myViewHolder.right_mess_li.setVisibility(View.GONE);
+//            myViewHolder.left_name.setText();
         }else {
             myViewHolder.right_mess.setText("" + student_pay_fee_models.get(i).getMessage());
 //            myViewHolder.yourmesstxt.setText("");
+            myViewHolder.right_name.setText(student_pay_fee_models.get(i).getAdmin_name());
             if(!new Shared_Preference().getId(activity).equals(student_pay_fee_models.get(i).getUserId())) {
                 myViewHolder.right_name.setText(student_pay_fee_models.get(i).getAdmin_name());
             }

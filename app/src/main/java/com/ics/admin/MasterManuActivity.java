@@ -111,8 +111,6 @@ public class MasterManuActivity extends AppCompatActivity {
                     postDataParams.put("user_id",Faculty_id);
 //                postDataParams.put("user_id",Faculty_id);
 //                postDataParams.put("teacher_id", "4");
-
-
                     Log.e("postDataParams", postDataParams.toString());
 
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -233,32 +231,61 @@ public class MasterManuActivity extends AppCompatActivity {
                                 }
                             }
                             try {
-                                //+++++++++++++++++++++++++++++++For Sequence Add Class,Add Batch, Add Subject, Add Course
-                                SubMenuPermissions Add_from;
-                                SubMenuPermissions Add_to;
-                                //++++++++++++++++Change Class to Batch
-                                Add_from = menuPermissionsSubList.get(2);
-                                Add_to = menuPermissionsSubList.get(0);
-                                menuPermissionsSubList.set(0, Add_from);
-                                menuPermissionsSubList.set(2, Add_to);
-                                //+++++++++++++++++++++++++++++++++++++++++++++++++Change Subject to Batch
-                                Add_from = menuPermissionsSubList.get(2);
-                                Add_to = menuPermissionsSubList.get(1);
-                                menuPermissionsSubList.set(1, Add_from);
-                                menuPermissionsSubList.set(2, Add_to);
-                                //++++++++++++++++++++++Change Add COurse with Study material
-                                Add_from = menuPermissionsSubList.get(3);
-                                Add_to = menuPermissionsSubList.get(4);
-                                menuPermissionsSubList.set(4, Add_from);
-                                menuPermissionsSubList.set(3, Add_to);
-                                menuPermissionsSubList.remove(4);
+//                                Log.e("Master 2" , "sub menu"+menuPermissionsSubList.get(2).getSubmenu());
+//                                Log.e("Master 0" , "sub menu"+menuPermissionsSubList.get(0).getMenu_name());
+                                if(menuPermissionsSubList.get(0).getMenu_name().equals("Master Menu")) {
+                                    //+++++++++++++++++++++++++++++++For Sequence Add Class,Add Batch, Add Subject, Add Course
+                                    SubMenuPermissions Add_from;
+                                    SubMenuPermissions Add_to;
+                                    //++++++++++++++++Change Class to Batch
+                                    Add_from = menuPermissionsSubList.get(2);
+                                    Add_to = menuPermissionsSubList.get(0);
+                                    menuPermissionsSubList.set(0, Add_from);
+                                    menuPermissionsSubList.set(2, Add_to);
+                                    //+++++++++++++++++++++++++++++++++++++++++++++++++Change Subject to Batch
+                                    Add_from = menuPermissionsSubList.get(2);
+                                    Add_to = menuPermissionsSubList.get(1);
+                                    menuPermissionsSubList.set(1, Add_from);
+                                    menuPermissionsSubList.set(2, Add_to);
+                                    //++++++++++++++++++++++Change Add COurse with Study material
+                                    Add_from = menuPermissionsSubList.get(3);
+                                    Add_to = menuPermissionsSubList.get(4);
+                                    menuPermissionsSubList.set(4, Add_from);
+                                    menuPermissionsSubList.set(3, Add_to);
+                                    menuPermissionsSubList.remove(4);
+                                }else
+                                    if(menuPermissionsSubList.get(0).getMenu_name().equals("Student Details")) {
+                                    SubMenuPermissions Add_from;
+                                    SubMenuPermissions Add_to;
+
+                                    Add_from = menuPermissionsSubList.get(1);
+                                    Add_to = menuPermissionsSubList.get(0);
+                                    menuPermissionsSubList.set(1, Add_from);
+                                    menuPermissionsSubList.set(0, Add_to);
+//                                    menuPermissionsSubList.remove(4);
+                                }
+                                else
+                                    if(menuPermissionsSubList.get(0).getMenu_name().equals("Video Library"))
+                                {
+                                    SubMenuPermissions Add_from;
+                                    SubMenuPermissions Add_to;
+
+                                    Add_from = menuPermissionsSubList.get(1);
+                                    Add_to = menuPermissionsSubList.get(0);
+                                    menuPermissionsSubList.set(1, Add_from);
+                                    menuPermissionsSubList.set(0, Add_to);
+                                    Add_from = menuPermissionsSubList.get(2);
+                                    Add_to = menuPermissionsSubList.get(1);
+                                    menuPermissionsSubList.set(2, Add_from);
+                                    menuPermissionsSubList.set(1, Add_to);
+                                }
                          //+++++++++++++++++++Remove Teacehr export++++++++++++++++++++++++
-
-
                             }catch (Exception e)
                             {
+
                                 e.printStackTrace();
                             }
+
 
                 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(MasterManuActivity.this,2, RecyclerView.VERTICAL,false);

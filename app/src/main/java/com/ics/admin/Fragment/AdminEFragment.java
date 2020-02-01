@@ -48,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AdminEFragment extends Fragment {
     RecyclerView all_admin_chatfrags;
     EditText ansqueryed;
-    Button ansthequeryimg;
+    ImageView ansthequeryimg;
     View view;
     Public_Community_Admin_Chat_Adapter public_community_admin_chat_adapter;
     ArrayList<_Student_Chat_Public_Community_Data> student_chat_public_community_data_list = new ArrayList<_Student_Chat_Public_Community_Data>();

@@ -30,6 +30,8 @@ public class VideoPackages {
 
     private String course;
 
+    private String video_time;
+
     private String package_select;
 
 
@@ -42,7 +44,7 @@ public class VideoPackages {
     }
 
 
-    public VideoPackages(String id, String schoolId, String addedby, String classId, String courseId, String date, String videoImage, String video, String videoUrl, String title, String description, String status, String _class, String course, String package_select) {
+    public VideoPackages(String id, String schoolId, String addedby, String classId, String courseId, String date, String videoImage, String video, String videoUrl, String title, String description, String status, String _class, String course, String package_select,String video_time) {
         this.id = id;
         this.schoolId = schoolId;
         this.addedby = addedby;
@@ -58,6 +60,15 @@ public class VideoPackages {
         this._class = _class;
         this.course = course;
         this.package_select = package_select;
+        this.video_time = video_time;
+    }
+
+    public String getVideo_time() {
+        return video_time;
+    }
+
+    public void setVideo_time(String video_time) {
+        this.video_time = video_time;
     }
 
     public String getId() {

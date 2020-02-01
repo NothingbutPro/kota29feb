@@ -2,6 +2,7 @@ package com.ics.admin.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,11 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.Toolbar;
 
 import com.ics.admin.Model.MenuPermisssion;
 import com.ics.admin.Model.SubMenuPermissions;
@@ -51,6 +54,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MyView
     private MenuPermisssion menuPermisssion;
     ProgressDialog progressDialog;
     private RecyclerView subrec;
+    TextView okdismisstxt;
 
     public MainMenuAdapter(Context context, List<MenuPermisssion> menuPermisssion) {
         mContext = context;
@@ -70,6 +74,12 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MyView
     public void onBindViewHolder(final MainMenuAdapter.MyViewHolder holder, final int position) {
         menuPermisssion = menuPermisssionList.get(position);
         this.pos_try = position;
+        if(position==0)
+        {
+            holder.permissiontool.setVisibility(View.VISIBLE);
+        }else {
+            holder.permissiontool.setVisibility(View.GONE);
+        }
         holder.namestff.setText(menuPermisssionList.get(position).getMenu_name());
 //        holder.namestff.setText("jhsgdjsydg");
 
@@ -92,13 +102,19 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MyView
             @Override
             public void onClick(View v) {
 //                subMenuPermisssionsList.clear();
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                LayoutInflater li = (LayoutInflater) v.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                Dialog dialog = new Dialog(v.getContext());
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.facultypermissiondialog);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+//                AlertDialog alertDialog = builder.create();
+//                LayoutInflater li = (LayoutInflater) v.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        LayoutInflater inflater = getLayoutInflater();
-                View dialogLayout = li.inflate(R.layout.facultypermissiondialog, null);
-                TextView roles = dialogLayout.findViewById(R.id.roles);
-                ToggleButton dialogtoggel = dialogLayout.findViewById(R.id.dialogtoggel);
-                subrec = dialogLayout.findViewById(R.id.subrec);
+//                View dialogLayout = li.inflate(R.layout.facultypermissiondialog, null);
+                TextView roles = dialog.findViewById(R.id.roles);
+                ToggleButton dialogtoggel = dialog.findViewById(R.id.dialogtoggel);
+                subrec = dialog.findViewById(R.id.subrec);
+                okdismisstxt = dialog.findViewById(R.id.okdismisstxt);
 
                 roles.setText(menuPermisssionList.get(position).getMenu_name());
 //                roles.setText(menuPermisssionList.get(position).getMenu_name());
@@ -145,9 +161,15 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MyView
                     }
                 });
 //        rolesexpand.setonc
-                builder.setPositiveButton("OK", null);
-                builder.setView(dialogLayout);
-                builder.show();
+                okdismisstxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
             }
         });
 //        searching_manufacturers_data = menuPermisssionList.get(pos_try);
@@ -172,6 +194,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MyView
         ImageView stffimg;
         TextView namestff, emailstff, stffid;
         ToggleButton maintoggel;
+        androidx.appcompat.widget.Toolbar permissiontool;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -179,6 +202,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MyView
             // manu_img =  itemView.findViewById(R.id.manu_img);
             namestff = itemView.findViewById(R.id.lblListHeader);
             maintoggel = itemView.findViewById(R.id.maintoggel);
+            permissiontool = itemView.findViewById(R.id.permissiontool);
 
             //     adddes =  itemView.findViewById(R.id.adddes);
 

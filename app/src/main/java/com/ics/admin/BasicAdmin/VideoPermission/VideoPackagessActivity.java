@@ -117,7 +117,6 @@ public class VideoPackagessActivity extends AppCompatActivity {
         seleallpacks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 videoPackagesArrayList.clear();
                 Selected_packages = null;
                 allselecctedvid.setText(null);
@@ -152,15 +151,18 @@ public class VideoPackagessActivity extends AppCompatActivity {
                                     Log.e("allselecctedvid "+i,""+videoPackagesArrayList.get(i).getPackage_select());
                                     allselecctedvid.setText(videoPackagesArrayList.get(i).getTitle());
                                     Selected_packages = videoPackagesArrayList.get(i).getId();
+                                    vidtime.setText(String.valueOf(Integer.valueOf(videoPackagesArrayList.get(i).getVideo_time())));
                                 }
                             }else {
                                 if(videoPackagesArrayList.get(i).getPackage_select().equals("Checked")) {
                                     Log.e("allselecctedvid "+i,""+videoPackagesArrayList.get(i).getPackage_select());
                                     allselecctedvid.setText(allselecctedvid.getText().toString()+","+videoPackagesArrayList.get(i).getTitle());
                                     Selected_packages = Selected_packages +","+videoPackagesArrayList.get(i).getId();
+                                    vidtime.setText(String.valueOf(Integer.valueOf(vidtime.getText().toString())+Integer.valueOf(videoPackagesArrayList.get(i).getVideo_time())));
                                 }
                             }
                         }
+                        vidtime.setText(Integer.valueOf(vidtime.getText().toString())+" min");
                     }
                 });
                 dialog.show();
@@ -349,8 +351,9 @@ public class VideoPackagessActivity extends AppCompatActivity {
                             String status = jsonObject.getString("status");
                             String Class = jsonObject.getString("Class");
                             String Course = jsonObject.getString("Course");
+                            String video_time = jsonObject.getString("video_time");
                             String package_select = "Checked";
-                            videoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select));
+                            videoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select,video_time));
                         }
                         videoPackagesAdapter = new VideoPackagesAdapter(VideoPackagessActivity.this,videoPackagesArrayList);
 //                        LinearLayoutManager layoutManager = new LinearLayoutManager(VideoPackagessActivity.this);
@@ -647,8 +650,9 @@ public class VideoPackagessActivity extends AppCompatActivity {
                             String status = jsonObject.getString("status");
                             String Class = jsonObject.getString("Class");
                             String Course = jsonObject.getString("Course");
+                            String video_time = jsonObject.getString("video_time");
                             String package_select = "Checked";
-                            videoDemoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select));
+                            videoDemoPackagesArrayList.add(new VideoPackages(id,school_id,addedby,class_id,course_id,date,video_image,video,video_url,title,description,status,Class,Course,package_select,video_time));
                         }
                         videoDemoPackagesAdapter = new VideoPackagesAdapter(VideoPackagessActivity.this,videoDemoPackagesArrayList);
 //                        LinearLayoutManager layoutManager = new LinearLayoutManager(VideoPackagessActivity.this);

@@ -419,7 +419,7 @@ public class AddTeachersActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 if(position ==0) {
                                     selected_class = list_class.get(position);
-
+                                    new GETAllBathces_Add_Staff(new Shared_Preference().getId(AddTeachersActivity.this),sel_id).execute();
                                 }else {
                                     try {
                                         selected_class = list_class.get(position);
@@ -580,7 +580,8 @@ public class AddTeachersActivity extends AppCompatActivity {
                             batch_names.clear();
                             batchArrayList.clear();
                             staff_batch_spin.setAdapter(null);
-                            batch_names.add("No Batch Found");
+                            batch_names.add("--Select Batch--");
+//                            batch_names.add("No Batch Found");
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddTeachersActivity.this, android.R.layout.simple_spinner_item
                                     ,batch_names);
 

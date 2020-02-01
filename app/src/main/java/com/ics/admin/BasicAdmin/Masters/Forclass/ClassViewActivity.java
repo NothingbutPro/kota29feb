@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -46,7 +47,7 @@ public class ClassViewActivity extends AppCompatActivity {
 
         shared_preference=new Shared_Preference();
 
-        FloatingActionButton class_fab=(FloatingActionButton)findViewById(R.id.class_fab);
+        TextView class_fab=findViewById(R.id.class_fab);
        class_recyclerView=(RecyclerView)findViewById(R.id.class_recyclerView);
 
         new Addclass(Shared_Preference.getId(ClassViewActivity.this)).execute();

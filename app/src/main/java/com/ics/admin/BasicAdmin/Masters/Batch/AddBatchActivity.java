@@ -14,14 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.ics.admin.Adapter.AdminAdapters.BatchAdapter;
+import com.ics.admin.CommonJavaClass.ProgressDialogs;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
+import com.taishi.flipprogressdialog.FlipProgressDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +63,7 @@ public class AddBatchActivity extends AppCompatActivity {
 
         shared_preference=new Shared_Preference();
 
-        FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.batchfab);
+        TextView fab=findViewById(R.id.batchfab);
         recyclerView1=(RecyclerView)findViewById(R.id.recyclerView1);
         batchli= findViewById(R.id.batchli);
         proedt_name_s= findViewById(R.id.proedt_name_s);
@@ -91,18 +94,24 @@ public class AddBatchActivity extends AppCompatActivity {
 //             //   new ADDBAtch( new  Shared_Preference().getId(AddBatchActivity.this).toString(),class_names.get(pro_class_spiner.getSelectedItemPosition()).getUserId().toString() ,proedt_name_s.getText().toString()).execute();
 //            }
 //        });
-
-
     }
     private class GetAllBatch extends AsyncTask<String, Void, String> {
-
+//        ProgressDialogs progressDialogs = new ProgressDialogs();
        String userid;
+        FlipProgressDialog flipProgressDialog;
        // String Faculty_id;
         private Dialog dialog;
 
 
         public GetAllBatch(String i) {
             this.userid = i;
+        }
+
+        @Override
+        protected void onPreExecute() {
+//            flipProgressDialog=   progressDialogs.SetProgress();
+//            flipProgressDialog.show(getFragmentManager() , "");
+            super.onPreExecute();
         }
 
         @Override
@@ -192,8 +201,6 @@ public class AddBatchActivity extends AppCompatActivity {
                             String Batch = jsonObject.getString("Batch");
                             String class_id = jsonObject.getString("class_id");
 //
-
-
                             batchArrayList.add(new ABBBatch(userid,Class,Batch,"Class","Batch" ,class_id));
                         }
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplication());
@@ -203,10 +210,10 @@ public class AddBatchActivity extends AppCompatActivity {
                         recyclerView1.setAdapter(batchAdapter); // set the Adapter to RecyclerView
 
                     }
-
+//                    flipProgressDialog.dismiss();
 
                 } catch (JSONException e) {
-
+                    flipProgressDialog.dismiss();
                     e.printStackTrace();
                 }
 

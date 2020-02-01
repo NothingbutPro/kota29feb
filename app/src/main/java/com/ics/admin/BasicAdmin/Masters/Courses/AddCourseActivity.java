@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -48,7 +49,7 @@ public class AddCourseActivity extends AppCompatActivity {
     Button btn_save;
     ArrayList<ClassNAmes> class_names;
     String selected_class , sel_id;
-    FloatingActionButton course_fab;
+    TextView course_fab;
     LinearLayout coursematerialli;
     RecyclerView getcoursemat;
     private CoursesAdapter addCourseActivity;

@@ -31,4 +31,14 @@
         android:layout_height="wrap_content">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:text="No more Enquires Found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </TextView>
 </LinearLayout>

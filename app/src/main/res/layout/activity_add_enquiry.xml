@@ -16,7 +16,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
+    <TextView
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="Add Enquiries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </TextView>
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:id="@+id/linearLayoutscroll"
@@ -81,6 +89,8 @@
                 android:layout_height="wrap_content">
                 <EditText
 
+                    android:enabled="false"
+                    android:editable="false"
                     android:id="@+id/enquiryby"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -199,7 +209,7 @@
 
                 android:text="Submit Enquiry"
                 android:textColor="@color/white1"
-                android:background="@color/red"
+                android:background="@drawable/button"
                 android:id="@+id/submitenque"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

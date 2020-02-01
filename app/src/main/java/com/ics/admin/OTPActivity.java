@@ -73,6 +73,7 @@ public class OTPActivity  extends AppCompatActivity {
                     Toast.makeText(OTPActivity.this, "Mobile number is too short", Toast.LENGTH_SHORT).show();
                     getotpbtn.setVisibility(View.VISIBLE);
                     getotp.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -194,9 +195,10 @@ public class OTPActivity  extends AppCompatActivity {
                         who = "none";
                         getotp.setVisibility(View.VISIBLE);
                         String otp= jsonObject.getString("data");
-                        getotp.setText(otp);
+                        getotp.setHint("Enter Otp here");
                         getotpbtn.setText("Login");
                         getotpbtn.setVisibility(View.VISIBLE);
+                        getotps.setText("Resent Otp");
                     }
 
 
@@ -392,13 +394,18 @@ public class OTPActivity  extends AppCompatActivity {
                         if(type.equals("1")) {
 
                             shared_preference.setId(OTPActivity.this,Admin_id,"Admin",true);
+                            String fact_name = jsonObject.getJSONObject("data").getString("name");
+                            shared_preference.setFactName(OTPActivity.this ,fact_name );
                             Intent intent = new Intent(OTPActivity.this, AdminActivity.class);
                             startActivity(intent);
                             finish();
                         }else if(type.equals("2")) {
                             String Faculty_id = jsonObject.getJSONObject("data").getString("addedby");
+                            String fact_name = jsonObject.getJSONObject("data").getString("name");
+
                             shared_preference.setId(OTPActivity.this,Faculty_id,"Faculty",true);
                             shared_preference.setFacultyId(OTPActivity.this,Admin_id);
+                            shared_preference.setFactName(OTPActivity.this ,fact_name );
                             Intent intent1 = new Intent(OTPActivity.this, Faculty_Dashoard.class);
                             startActivity(intent1);
                             finish();
@@ -555,8 +562,9 @@ public class OTPActivity  extends AppCompatActivity {
                     }else {
                         getotp.setVisibility(View.VISIBLE);
                         String otp= jsonObject.getString("data");
-                        getotp.setText(otp);
+                        getotp.setHint("Enter Otp Here");
                         getotpbtn.setText("Login");
+                        getotps.setText("Otp Sent Successfully");
                         getotpbtn.setVisibility(View.VISIBLE);
                     }
 

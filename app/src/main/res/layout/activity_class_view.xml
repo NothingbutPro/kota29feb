@@ -9,18 +9,19 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context=".BasicAdmin.Masters.Forclass.ClassViewActivity">
   <androidx.appcompat.widget.Toolbar
+      android:background="@color/red"
       android:id="@+id/classtool"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
       <TextView
+
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="List of Class"
           android:layout_marginTop="10dp"
           android:textSize="30dp"
-          android:layout_gravity="center"
           android:gravity="center"
-          android:textColor="@color/black"
+          android:textColor="@color/white"
 
           />
   </androidx.appcompat.widget.Toolbar>
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/class_fab"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="20pt"
             android:layout_gravity="right|top"
@@ -48,5 +49,20 @@
 
 
     </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/class_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:drawableLeft="@drawable/ic_add_attachment"
+            android:text="Add Class"
+            android:id="@+id/class_fab"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+        </TextView>
+    </LinearLayout>
 </RelativeLayout>

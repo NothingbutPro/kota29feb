@@ -14,24 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
-
-        android:layout_below="@+id/capturestartbtn"
-        android:orientation="vertical"
-        android:id="@+id/materialli"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add  Fee"
             android:textSize="20dp"
             android:layout_margin="5sp"
             android:paddingLeft="15dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_margin="25dp"
+        android:layout_below="@+id/capturestartbtn"
+        android:orientation="vertical"
+        android:id="@+id/materialli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
 
@@ -39,22 +40,16 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:background="@drawable/backgraund"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_margin="10dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Select Class"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="40sp">
 
-            </TextView>
             <Spinner
+
                 android:id="@+id/class_spiner_vid"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="match_parent"
                 android:hint=" Class"
-                android:paddingLeft="8dp"
                 android:inputType="number"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -63,82 +58,52 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:background="@drawable/backgraund"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_margin="10dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Select Course"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="40sp">
 
-            </TextView>
             <Spinner
                 android:id="@+id/coursespin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="match_parent"
                 android:hint=" Class"
-                android:paddingLeft="8dp"
                 android:inputType="number"
                 android:textSize="15dp" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:background="@drawable/backgraund"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="wrap_content">
+        <EditText
 
-        <RelativeLayout
-            android:visibility="gone"
+            android:background="@null"
+            android:id="@+id/enterfees"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:hint="Enter fees amount"
+            android:paddingLeft="8dp"
+            android:textSize="15dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageButton
-
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:id="@+id/pdfselect"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/selectfile"
-                android:hint="Enter Title"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:textSize="15dp">
-
-            </ImageButton>
-
-            <TextView
-                android:id="@+id/selepdftxt"
-                android:text="Please select file"
-                android:layout_below="@id/pdfselect"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            </TextView>
-
-        </RelativeLayout>
-
+            <Button
+                android:background="@drawable/button"
+                android:id="@+id/addfeesave"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:text="Add Fees"
+                android:textColor="@color/white"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/enterfees"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:inputType="text"
-        android:hint="Enter fees amount"
-        android:background="@drawable/backgraund"
-        android:paddingLeft="8dp"
-        android:textSize="15dp" />
 
-    <Button
 
-        android:id="@+id/addfeesave"
-        android:layout_width="300dp"
-        android:layout_height="50sp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:background="@drawable/button"
-        android:text="Add Fees"
-        android:textColor="@color/white1"/>
 </LinearLayout>

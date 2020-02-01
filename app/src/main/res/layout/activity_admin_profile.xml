@@ -99,12 +99,15 @@
                     app:cardCornerRadius="6dp"
                     app:cardElevation="0dp">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:src="@drawable/person1"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#FF000000" >
 
-                        android:layout_width="150dp"
-                        android:layout_height="90dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/teacherscientist" />
+                    </de.hdodenhof.circleimageview.CircleImageView>
 
                 </androidx.cardview.widget.CardView>
 
@@ -113,6 +116,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/admin_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +140,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingBottom="10dp">
@@ -148,14 +152,9 @@
                         android:gravity="center"
                         android:padding="8dp">
 
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/circular_grey_bordersolid"
-                            android:padding="10dp"
-                            android:src="@drawable/tickinsidecircle" />
 
                         <LinearLayout
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -170,11 +169,6 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -185,12 +179,6 @@
                         android:gravity="center"
                         android:padding="8dp">
 
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/circular_grey_bordersolid"
-                            android:padding="10dp"
-                            android:src="@drawable/star" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -207,11 +195,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:textSize="12sp" />
+
                         </LinearLayout>
                     </LinearLayout>
 

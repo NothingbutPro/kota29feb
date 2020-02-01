@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:layout_marginTop="10dp"
-    app:cardCornerRadius="30dp"
-    app:cardMaxElevation="50dp"
+    android:padding="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,5 +34,15 @@
         android:textOff=""
         android:text=""
         android:layout_gravity="start" />
+
+
+    <View
+        android:background="#010F0000"
+        android:layout_below="@+id/permtoggel"
+        android:layout_width="match_parent"
+        android:layout_height="3dp">
+
+    </View>
 </RelativeLayout>
+
 </androidx.cardview.widget.CardView>

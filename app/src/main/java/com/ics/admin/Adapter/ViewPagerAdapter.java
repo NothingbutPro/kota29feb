@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.ics.admin.Fragment.F_StudyFragment;
+import com.ics.admin.Fragment.Faculty_Fragments.AttendenceByFacultyFragment_;
 import com.ics.admin.Fragment.TabFragment;
 import com.ics.admin.Fragment.TimeTableFragment;
 import com.ics.admin.Fragment.VideoFragment;
@@ -22,7 +22,7 @@ public class ViewPagerAdapter  extends FragmentPagerAdapter {
         if (position == 0) {
             fragment = new TabFragment();
         } else if (position == 1) {
-            fragment = new F_StudyFragment();
+            fragment = new AttendenceByFacultyFragment_();
         } else if (position == 2) {
             fragment = new VideoFragment();
         } else if (position == 3) {

@@ -46,9 +46,7 @@ public class AddEnquiryActivity extends AppCompatActivity {
      ArrayList<String> list_batch  = new ArrayList<>();;
     String selected_class, sel_id;
     EditText enquiname, mob_enq, folltype, followdate, remark, enquiryby;
-
     Spinner course ,enqtype;
-
     Button submitenque;
     String selected_batch, sel_batch;
     ArrayList<String> selectcouser = new ArrayList<>();
@@ -72,6 +70,7 @@ public class AddEnquiryActivity extends AppCompatActivity {
         submitenque = findViewById(R.id.submitenque);
 
         new GETAllClasses(new Shared_Preference().getId(this)).execute();
+        enquiryby.setText(new Shared_Preference().getFactName(this));
         followdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +89,11 @@ public class AddEnquiryActivity extends AppCompatActivity {
                 String followdates = followdate.getText().toString();
                 String remarks = remark.getText().toString();
                 String enquirybys = enquiryby.getText().toString();
-                new SUBMITQUERY(enquinames, sel_batch, mob_enqs, enqtypes, folltypes, followdates, remarks, enquirybys).execute();
+                if(enqtype.getSelectedItemPosition() !=0) {
+                    new SUBMITQUERY(enquinames, sel_batch, mob_enqs, enqtypes, folltypes, followdates, remarks, enquirybys).execute();
+                }else {
+                    Toast.makeText(AddEnquiryActivity.this, "Please select right source", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

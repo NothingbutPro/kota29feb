@@ -19,11 +19,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.ics.admin.Adapter.AdminAdapters.AdminMenuExpandableAdapter;
 import com.ics.admin.Adapter.SliderAdapter;
 import com.ics.admin.BasicAdmin.AdminActivity;
+import com.ics.admin.Interfaces.GridSpacingItemDecoration;
 import com.ics.admin.Model.MenuPermisssion;
 import com.ics.admin.Model.SubMenuPermissions;
 import com.ics.admin.R;
@@ -92,7 +94,7 @@ public class CommunityFragment extends Fragment {
             }
         });
         imageSlider=(SliderView)view.findViewById(R.id.imageSlider);
-        admin_recyclerView=(RecyclerView)view.findViewById(R.id.admin_recyclerView);
+        admin_recyclerView= view.findViewById(R.id.admin_recyclerView);
         shared_preference=new Shared_Preference();
         menuPermissionsSubList.clear();
         new GETALLMYPERMISSIONS(shared_preference.getId(getActivity())).execute();
@@ -212,15 +214,17 @@ public class CommunityFragment extends Fragment {
                                 if(menu_name.equals("Home Work"))
                                 {
                                     Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);
-                                    menu_name =  "Home Work description";
+                                    menu_name =  "Home Work des";
                                 }
                                 if(menu_name.equals("Teacher Export"))
                                 {
                                     Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);
-                                    menu_name =  "Home Work description";
-                                }else {
-
-                                }
+                                    menu_name =  "Home Work des";
+                                }if(menu_name.contains("Fee"))
+                            {
+                                Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);
+                                menu_name =  "Fee Management";
+                            }
 
                                 sUbMenuModel = new SubMenuPermissions(menu_id,menu_name,submenu);
 
@@ -237,7 +241,10 @@ public class CommunityFragment extends Fragment {
                         }
 //                        Log.e("full hash map",""+_ListHashMaplistDataChild.entrySet());
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, LinearLayoutManager.VERTICAL,false);
-
+                        int spanCount = 2; // 3 columns
+                        int spacing = 4; // 50px
+                        boolean includeEdge = false;
+                        admin_recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
                         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
                         admin_recyclerView.setLayoutManager(gridLayoutManager);
                         menuExpandableAdapter = new AdminMenuExpandableAdapter(getActivity(), menuPermissionsSubList);

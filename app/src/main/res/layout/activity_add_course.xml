@@ -10,18 +10,18 @@
     tools:context=".BasicAdmin.Masters.Courses.AddCourseActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:background="@color/red"
         android:id="@+id/submatejectool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Video Course"
+            android:text="Add Course"
             android:layout_marginTop="10dp"
             android:textSize="30dp"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
             />
     </androidx.appcompat.widget.Toolbar>
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/course_fab"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="20pt"
             android:layout_gravity="right|bottom"
@@ -50,7 +50,7 @@
         android:layout_marginTop="50dp"
         android:orientation="vertical">
         <LinearLayout
-
+            android:visibility="gone"
             android:orientation="vertical"
             android:id="@+id/coursematerialli"
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Video Course"
+                android:text="Add  Course"
                 android:textSize="20dp"
                 android:layout_margin="5sp"
                 android:paddingLeft="15dp"
@@ -128,11 +128,27 @@
             android:id="@+id/getcoursemat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
         </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/subject_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:drawableLeft="@drawable/ic_add_attachment"
+                android:text="Add Course"
+                android:id="@+id/course_fab"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+
     </LinearLayout>
 
 
 
 </RelativeLayout>
+

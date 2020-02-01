@@ -6,55 +6,39 @@
 <!--    android:layout_height="match_parent"-->
 <!--    android:fillViewport="true"-->
 <!--    android:layerType="software">-->
-
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollViewDrawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="7dp"
+    app:cardCornerRadius="16dp"
+    android:layout_marginLeft="14dp"
+    android:layout_marginRight="14dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
-            android:id="@+id/lifo"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:focusedByDefault="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tobro">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:visibility="gone"
-                        android:id="@+id/subrec"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-
-                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
-
-        <androidx.appcompat.widget.Toolbar
             android:id="@+id/tobro"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+
+            android:background="@color/red"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/red">
+         >
 
             <LinearLayout
                 android:weightSum="1"
@@ -63,6 +47,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -92,14 +77,60 @@
                         android:checked="false"
                         android:textOn=""
                         android:textOff=""
+                        android:layout_marginRight="10dp"
                         android:text=""
                         android:layout_gravity="right" />
                 </RelativeLayout>
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lifo"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:focusedByDefault="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tobro">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+
+                        android:id="@+id/subrec"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/okdismisstxt"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/lifo"
+            android:text="OK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+
     </RelativeLayout>
 
 </LinearLayout><!--</ScrollView>-->
 
-
+</androidx.cardview.widget.CardView>

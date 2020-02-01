@@ -13,11 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ics.admin.BasicAdmin.EditStuffs;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.Fragment.CommunityFragment;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.Enqiries;
-import com.ics.admin.Model.HomeWorks;
 import com.ics.admin.R;
+import com.ics.admin.ShareRefrance.Shared_Preference;
 
 import java.util.ArrayList;
 
@@ -49,6 +48,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.MyViewHo
         myViewHolder.inq_type.setText(classArrayList.get(i).getEnquiryType());
         myViewHolder.enq_remark.setText(classArrayList.get(i).getRemark());
         myViewHolder.enq_name.setText(classArrayList.get(i).getName());
+        myViewHolder.enq_by_txt.setText(new Shared_Preference().getFactName(activity));
         myViewHolder.inid.setText("by");
         myViewHolder.delhome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +57,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.MyViewHo
 //                new CommunityFragment.DELETStuff("enquiry_id",activity,classArrayList.get(i).getEnquiryId() , "http://ihisaab.in/school_lms/api/delete_enquiry").execute();
             }
         });
+        myViewHolder.source_id.setText(classArrayList.get(i).getEnquiryType());
         myViewHolder.edit_btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +90,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView enq_nummber,factname,homedate,daysofwork,classname,batchname,inid,enq_name,inq_type,enq_remark;
+        TextView enq_nummber,factname,homedate,daysofwork,classname,batchname,inid,enq_name,inq_type,enq_remark,source_id,enq_by_txt;
         Button delhome,edit_btn_save,edit_btn;
         EditText newenquiry_by,newmobile,newenquiry_type,newfollowup_type,newfollowup_date,newremark;
         LinearLayout hideli;
@@ -107,6 +108,8 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.MyViewHo
             classname = (TextView) itemView.findViewById(R.id.classname);
             inq_type = (TextView) itemView.findViewById(R.id.inq_type);
             enq_remark = (TextView) itemView.findViewById(R.id.enq_remark);
+            source_id = (TextView) itemView.findViewById(R.id.source_id);
+            enq_by_txt = (TextView) itemView.findViewById(R.id.enq_by_txt);
 
             // For edit
             newenquiry_by = itemView.findViewById(R.id.newenquiry_by);

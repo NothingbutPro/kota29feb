@@ -290,6 +290,7 @@ public class Addattendactivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 if(position ==0) {
                                     selected_class = list_class.get(position);
+                                    new GETAllBathcess(new Shared_Preference().getId(Addattendactivity.this),sel_id).execute();
                                 }else {
                                     selected_class = list_class.get(position);
                                     sel_id =""+class_names.get(position-1).getUserId();
@@ -445,7 +446,7 @@ public class Addattendactivity extends AppCompatActivity {
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                         }else {
-                            batch_names.add("--Select--");
+                            batch_names.add("--Select Batch--");
                             for(int i=0;i<jsonObject1.getJSONArray("data").length();i++) {
                                 JSONObject jsonObject = jsonObject1.getJSONArray("data").getJSONObject(i);
                                 String userid = jsonObject.getString("id");

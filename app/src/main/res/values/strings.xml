@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Admin</string>
+    <string name="app_name">ASRKota</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -63,9 +63,9 @@
 
     </array>
     <array name="enquiry_types">
+        <item>--Select Source--</item>
         <item>Facebook</item>
         <item>Walk-in</item>
-        <item>Online Promotion</item>
         <item>Online Promotion</item>
         <item>Offline promotion</item>
         <item>News paper ad</item>

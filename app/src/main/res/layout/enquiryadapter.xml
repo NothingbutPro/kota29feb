@@ -27,81 +27,99 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+               >
+                <TextView
+                    android:id="@+id/remarksss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name:"
+                    android:textColor="@color/red"
+                    android:textSize="15dp"
+                    android:inputType="textMultiLine"
+                    android:textStyle="bold" />
+
                 <TextView
 
                     android:id="@+id/enq_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="20dp"
+                    android:layout_toEndOf="@+id/remarksss"
+                    android:inputType="textMultiLine"
                     android:text="Meeting with Adrian"
                     android:textColor="@color/red"
-                    android:textSize="24dp"
-                    android:inputType="textMultiLine"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
                 <TextView
                     android:layout_below="@+id/enq_name"
-                    android:id="@+id/enq_nummber"
+                    android:id="@+id/enq_nos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="Meeting with Adrian"
+                    android:text="Mobile: "
                     android:textColor="@color/blue"
                     android:textSize="16dp"
                     android:inputType="textMultiLine"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_below="@+id/enq_nummber"
-                    android:id="@+id/enq_remark"
+                    android:layout_below="@+id/enq_name"
+                    android:layout_toRightOf="@+id/enq_nos"
+                    android:id="@+id/enq_nummber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+
                     android:text="Meeting with Adrian"
-                    android:textColor="@color/yello"
+                    android:textColor="@color/blue"
                     android:textSize="16dp"
                     android:inputType="textMultiLine"
                     android:textStyle="bold" />
-
                 <LinearLayout
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/teacher"></ImageView>
-
+                    android:id="@+id/enq_remark_li"
+                    android:layout_below="@+id/enq_nummber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <TextView
-
-                        android:id="@+id/inq_type"
+                        android:layout_below="@+id/enq_nummber"
+                        android:id="@+id/enq_res"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="CONFIRMED"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14dp"
+                        android:text="Remark:"
+                        android:textColor="@color/yello"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/enq_remark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/enq_nummber"
+                        android:layout_marginLeft="4dp"
+                        android:inputType="textMultiLine"
+                        android:text="Meeting with Adrian"
+                        android:textColor="@color/yello"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_below="@+id/enq_remark"
+                    android:layout_below="@+id/enq_remark_li"
                     android:id="@+id/linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:orientation="horizontal">
+                    <TextView
+                        android:text="Date: "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
+                    </TextView>
                     <TextView
                         android:id="@+id/homedate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
                         android:text="Today : 5:40 pm"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14dp"
@@ -128,21 +146,47 @@
 
                 </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/source"
+                android:layout_below="@+id/linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Source:  "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+                <TextView
+                   android:id="@+id/source_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </LinearLayout>
+
                 <LinearLayout
+                    android:weightSum="6"
                     android:padding="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linear"
-
-                    android:orientation="horizontal">
-
+                    android:layout_below="@+id/source"
+                    android:orientation="vertical">
+                <LinearLayout
+                    android:weightSum="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <TextView
-
+                        android:layout_weight="0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+
                         android:gravity="center"
-                        android:text="To :"
+                        android:text="Class :"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="13dp"
                         android:textStyle="bold" />
@@ -160,17 +204,30 @@
                         android:textStyle="bold" />
 
                     <TextView
+
                         android:id="@+id/classname"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:layout_marginLeft="10dp"
                         android:background="@drawable/roun_rect_lightgray"
                         android:gravity="center"
                         android:text="family"
                         android:textColor="@android:color/black"
                         android:textSize="13dp"
                         android:textStyle="bold" />
-
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:weightSum="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:gravity="center"
+                        android:text="Course:"
+                        android:textColor="@android:color/black"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                     <TextView
                         android:id="@+id/batchname"
                         android:layout_width="wrap_content"
@@ -182,8 +239,61 @@
                         android:textColor="@android:color/holo_red_dark"
                         android:textSize="13dp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:weightSum="1"
+                        android:foregroundGravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center_vertical">
+                        <LinearLayout
+
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="Enquiry By :"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/enq_by_txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            </TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/teacher"></ImageView>
+
+                            <TextView
+
+                                android:id="@+id/inq_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="CONFIRMED"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
 
             </RelativeLayout>
 

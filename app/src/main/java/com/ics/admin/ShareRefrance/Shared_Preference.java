@@ -8,6 +8,7 @@ public class Shared_Preference {
     public static final String ID = "id";
     public static final String IS_LOGIN = "isLogin";
     public static final String NAMEE = "user_fullname";
+    public static final String FACT_NAME = "faculty_name";
     public static final String FACULTY_ID = "faculty_id";
     public static final String COURSE_ID = "course_id";
     public static final String BATCH_ID = "batch_id";
@@ -55,6 +56,13 @@ public class Shared_Preference {
         editor.commit();
     }
 
+    public static void setFactName(Context context, String value) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(FACT_NAME, value);
+        editor.commit();
+    }
+
     public static void setschool_id(Context context, String value) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
         SharedPreferences.Editor editor = preferences.edit();
@@ -65,6 +73,11 @@ public class Shared_Preference {
     public static String getNamee(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
         return preferences.getString(NAMEE, "");
+    }
+
+    public static String getFactName(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        return preferences.getString(FACT_NAME, "");
     }
 
     public static String getSchoolId(Context context) {

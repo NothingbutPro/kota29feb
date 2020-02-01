@@ -18,13 +18,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ics.admin.Adapter.MenuExpandableAdapter;
 import com.ics.admin.BasicAdmin.TeachersDetails.ViewTeachersActivity;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.FaculttyPermission;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Interfaces.ProgressDialogs;
 import com.ics.admin.Model.Faculties;
 import com.ics.admin.Model.MenuPermisssion;
@@ -50,10 +47,6 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity.selectteacher;
-import static com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity.selectteacherStrings;
-import static com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity.teacher_id;
 
 public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAdapter.MyViewHolder> {
     ProgressDialogs progressDialogs = new ProgressDialogs();
@@ -82,6 +75,7 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
     public void onBindViewHolder(@NonNull ViewTeachersonAdapter.MyViewHolder myViewHolder, final int i) {
         myViewHolder.factname.setText(""+facultiesArrayList.get(i).getName());
         myViewHolder.factnumber.setText(""+facultiesArrayList.get(i).getMobile());
+        myViewHolder.fact_type.setText(""+facultiesArrayList.get(i).getAddress());
         myViewHolder.assignjob.setVisibility(View.GONE);
         myViewHolder.deltecher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +132,7 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
         Button editteacher;
         EditText edtteachename,edtemailtxt,edtmobileed;
         TextView factname;
+        TextView fact_type;
         TextView factnumber;
         LinearLayout teacehrdli;
         com.github.florent37.shapeofview.shapes.CutCornerView editteachbtn;
@@ -157,6 +152,7 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
             edtemailtxt =  itemView.findViewById(R.id.edtemailtxt);
             edtmobileed =  itemView.findViewById(R.id.edtmobileed);
             editteachbtn =  itemView.findViewById(R.id.editteachbtn);
+            fact_type =  itemView.findViewById(R.id.fact_type);
             teacehrdli =  itemView.findViewById(R.id.teacehrdli);
 //            editteachbtn =  itemView.findViewById(R.id.editteachbtn);
 //            rolesexpand = (TextView) itemView.findViewById(R.id.rolesexpand);

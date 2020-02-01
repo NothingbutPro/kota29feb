@@ -1,4 +1,4 @@
-package com.ics.admin;
+package com.ics.admin.CommonJavaClass;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.ics.admin.Fragment.CommunityFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;

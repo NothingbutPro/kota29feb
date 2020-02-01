@@ -1,7 +1,6 @@
 package com.ics.admin.Adapter.AdminAdapters;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.ics.admin.BasicAdmin.EditStuffs;
-import com.ics.admin.BasicAdmin.Masters.Batch.AddStudentActivity;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.Fragment.CommunityFragment;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.ABBCoursemodel;
 import com.ics.admin.R;
 

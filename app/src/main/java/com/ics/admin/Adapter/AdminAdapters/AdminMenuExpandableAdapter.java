@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +67,6 @@ public class AdminMenuExpandableAdapter  extends RecyclerView.Adapter<AdminMenuE
 
     @Override
     public AdminMenuExpandableAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
 //        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adminprmission, parent, false);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adminprmission, parent, false);
         return new AdminMenuExpandableAdapter.MyViewHolder(view);
@@ -80,14 +81,14 @@ public class AdminMenuExpandableAdapter  extends RecyclerView.Adapter<AdminMenuE
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(),SubMenusActivity.class);
-//                intent.putExtra("mymenuid","a"+position);
-//                v.getContext().startActivity(intent);
+                Toast.makeText(mContext, "working on it", Toast.LENGTH_SHORT).show();
                 try {
                     PsoitionNAme = menuPermisssionList.get(position).getMenu_name();
                     Intent in = new Intent(mContext, MasterManuActivity.class);
-                    if(PsoitionNAme.equals("Home Work description")) {
+                    if(PsoitionNAme.equals("Home Work des")) {
                         in.putExtra("ids", "Home Work");
+                    }else if(PsoitionNAme.contains("Fee")){
+                        in.putExtra("ids", "Fee Structure Management");
                     }else {
                         in.putExtra("ids", PsoitionNAme);
                     }
@@ -95,20 +96,29 @@ public class AdminMenuExpandableAdapter  extends RecyclerView.Adapter<AdminMenuE
 
                     menuPermissionsSubList.clear();
                     //  AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    LayoutInflater li = (LayoutInflater) v.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        LayoutInflater inflater = getLayoutInflater();
-                    View dialogLayout = li.inflate(R.layout.facultypermissiondialog, null);
-                    TextView roles = dialogLayout.findViewById(R.id.roles);
-                    ToggleButton dialogtoggel = dialogLayout.findViewById(R.id.dialogtoggel);
-                    subrec = dialogLayout.findViewById(R.id.subrec);
+                    Dialog dialog = new Dialog(v.getContext());
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.facultypermissiondialog);
+
+                    Window window = dialog.getWindow();
+                    window.setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+//                    LayoutInflater li = (LayoutInflater) v.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                    View dialogLayout = li.inflate(R.layout.facultypermissiondialog, null);
+                    TextView roles = dialog.findViewById(R.id.roles);
+                    ToggleButton dialogtoggel = dialog.findViewById(R.id.dialogtoggel);
+                    subrec = dialog.findViewById(R.id.subrec);
                     shared_preference = new Shared_Preference();
                     subrec.setVisibility(View.VISIBLE);
                     dialogtoggel.setVisibility(View.GONE);
 
                     roles.setText(menuPermisssionList.get(position).getMenu_name());
 //                roles.setText(menuPermisssionList.get(position).getMenu_name());
+//                    dialog.show();
+//                    new GELALLMYPERMISSIONS(String.valueOf(position), shared_preference.getId(mContext)).execute();
 
-                    new GELALLMYPERMISSIONS(String.valueOf(position), shared_preference.getId(mContext)).execute();
                 }catch (Exception e)
                 {
                     Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
@@ -123,6 +133,7 @@ public class AdminMenuExpandableAdapter  extends RecyclerView.Adapter<AdminMenuE
         StrictMode.setVmPolicy(builder.build());
 
     }
+
 
     private class GELALLMYPERMISSIONS  extends AsyncTask<String, Void, String> {
         String position;

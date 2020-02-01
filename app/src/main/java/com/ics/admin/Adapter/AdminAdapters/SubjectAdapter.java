@@ -16,8 +16,7 @@ import android.widget.TextView;
 
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.BasicAdmin.Masters.Subjects.SubjectViewActivity;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.Fragment.CommunityFragment;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.ABBSubject;
 import com.ics.admin.R;
 

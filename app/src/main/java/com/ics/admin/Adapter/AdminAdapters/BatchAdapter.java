@@ -1,13 +1,10 @@
 package com.ics.admin.Adapter.AdminAdapters;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,32 +13,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.ics.admin.BasicAdmin.EditStuffs;
-import com.ics.admin.BasicAdmin.Masters.Forclass.ClassViewActivity;
-import com.ics.admin.DeleteDialog;
-import com.ics.admin.Fragment.CommunityFragment;
+import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.R;
-import com.ics.admin.BasicAdmin.Masters.Batch.AddStudentActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.MyViewHolder> {
 
