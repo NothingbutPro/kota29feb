@@ -2,6 +2,7 @@ package com.ics.admin.BasicAdmin.Masters.Batch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -41,6 +43,7 @@ public class AddStudentActivity extends AppCompatActivity {
  ArrayList<ClassNAmes> class_names;
  Button btn_save;
  String selected_class , sel_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,18 +77,22 @@ public class AddStudentActivity extends AppCompatActivity {
         String id;
         String class_id;
         String batch;
-
+        AdminProgressdialog adminProgressdialog;
         public AddBatch(String id, String sel_id, String class_spiner) {
             this.id = id;
             this.class_id=sel_id;
             this.batch=class_spiner;
         }
 
+        @Override
+        protected void onPreExecute() {
+//            Activity host = (Activity) view.getContext();
+            adminProgressdialog = new AdminProgressdialog(AddStudentActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
-
-
             try {
 
                 URL url = new URL("http://ihisaab.in/school_lms/Adminapi/add_Batch");
@@ -151,13 +158,14 @@ public class AddStudentActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = null;
                 Log.e("PostRegistration", result.toString());
+                adminProgressdialog.EndProgress();
                 try {
 
                     Log.e("AddBatch ",">>>>>>>>>>>>>>>>_____________________"+result);
                     jsonObject = new JSONObject(result);
                     if(jsonObject.getBoolean("responce")){
                         Toast.makeText(AddStudentActivity.this, "Add Batch Successfull", Toast.LENGTH_SHORT).show();
-
+                        adminProgressdialog.EndProgress();
                         Intent intent=new Intent(AddStudentActivity.this, AddBatchActivity.class);
                         startActivity(intent);
                         finish();
@@ -165,7 +173,8 @@ public class AddStudentActivity extends AppCompatActivity {
                     }
                     else
                     {
-//                        Toast.makeText(AddStudentActivity.this, "Faculty Added", Toast.LENGTH_SHORT).show();
+                        adminProgressdialog.EndProgress();
+                        Toast.makeText(AddStudentActivity.this, "Failed", Toast.LENGTH_SHORT).show();
 //                        Intent intent = new Intent(AddStudentActivity.this , AdminActivity.class);
 //                        startActivity(intent);
 //                        JSONObject massage=jsonObject.getJSONObject("massage");
@@ -216,13 +225,18 @@ public class AddStudentActivity extends AppCompatActivity {
                ///////////////////  Class Spinner List
 
     private class GetClassSpinner extends AsyncTask<String, Void, String> {
-
+        AdminProgressdialog adminProgressdialog;
         String id;
 
         public GetClassSpinner(String id) {
             this.id = id;
         }
 
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog = new AdminProgressdialog(AddStudentActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -349,27 +363,24 @@ public class AddStudentActivity extends AppCompatActivity {
                         });
                         Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
                         Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
-
+                        adminProgressdialog.EndProgress();
                     }
                     else
                     {
-//                        Toast.makeText(AddStudentActivity.this, "Faculty Added", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(AddStudentActivity.this , AdminActivity.class);
-//                        startActivity(intent);
-//                        JSONObject massage=jsonObject.getJSONObject("massage");
-//
-////                        String mobile=jsonObject.getString("mobile");
-//
-////                        Toast.makeText(getApplication(),"Sorry You are not Registerd"+name, Toast.LENGTH_SHORT).show();
-//
-//                        //Intent intent=new Intent(RegistrationActivity.this, HomePageActivity.class);
-//                        //startActivity(intent);
-//                        //finish();
+                        final ArrayList <String> list_class = new ArrayList<>();
+                        list_class.add("---Select class---");
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddStudentActivity.this, android.R.layout.simple_spinner_item
+                                ,list_class);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        class_spiner.setAdapter(adapter);
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 

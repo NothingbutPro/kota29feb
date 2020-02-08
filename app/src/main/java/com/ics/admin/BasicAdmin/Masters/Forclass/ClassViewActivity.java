@@ -15,6 +15,10 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.ics.admin.Adapter.AdminAdapters.ClassAdapter;
+import com.ics.admin.BasicAdmin.AdminProfileActivity;
+import com.ics.admin.BasicAdmin.Masters.Batch.AddBatchActivity;
+import com.ics.admin.BasicAdmin.Masters.Batch.AddStudentActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -37,7 +41,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class ClassViewActivity extends AppCompatActivity {
     RecyclerView class_recyclerView;
-    com.github.clans.fab.FloatingActionButton class_fab;
+    com.google.android.material.floatingactionbutton.FloatingActionButton add_class_fab;
     Shared_Preference shared_preference;
     ArrayList<ClassNAmes>classArrayList = new ArrayList<>();
     @Override
@@ -47,14 +51,23 @@ public class ClassViewActivity extends AppCompatActivity {
 
         shared_preference=new Shared_Preference();
 
-        TextView class_fab=findViewById(R.id.class_fab);
+        TextView batch_fab=findViewById(R.id.batch_fab);
        class_recyclerView=(RecyclerView)findViewById(R.id.class_recyclerView);
+        add_class_fab=findViewById(R.id.add_class);
 
         new Addclass(Shared_Preference.getId(ClassViewActivity.this)).execute();
-       class_fab.setOnClickListener(new View.OnClickListener() {
+        add_class_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in=new Intent(ClassViewActivity.this, AddClassActivity.class);
+                startActivity(in);
+                finish();
+            }
+        });
+        batch_fab.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent in=new Intent(ClassViewActivity.this, AddClassActivity.class);
+               Intent in=new Intent(ClassViewActivity.this, AddStudentActivity.class);
                startActivity(in);
                finish();
            }
@@ -64,7 +77,7 @@ public class ClassViewActivity extends AppCompatActivity {
         String user_id;
         // String Faculty_id;
         private Dialog dialog;
-
+      AdminProgressdialog adminProgressdialog;
 
         public Addclass(String user_id)
         {
@@ -72,8 +85,13 @@ public class ClassViewActivity extends AppCompatActivity {
             // this.subject=subject;
         }
 
+      @Override
+      protected void onPreExecute() {
+           adminProgressdialog = new AdminProgressdialog(ClassViewActivity.this);
+          super.onPreExecute();
+      }
 
-        @Override
+      @Override
         protected String doInBackground(String... arg0) {
 
             try {
@@ -143,6 +161,7 @@ public class ClassViewActivity extends AppCompatActivity {
 
                     jsonObject1 = new JSONObject(result);
                     if(!jsonObject1.getBoolean("responce")){
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(ClassViewActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
@@ -167,7 +186,7 @@ public class ClassViewActivity extends AppCompatActivity {
 
                         ClassAdapter classAdapter = new ClassAdapter(ClassViewActivity.this,classArrayList);
                         class_recyclerView.setAdapter(classAdapter); // set the Adapter to RecyclerView
-
+                        adminProgressdialog.EndProgress();
                     }
 
 

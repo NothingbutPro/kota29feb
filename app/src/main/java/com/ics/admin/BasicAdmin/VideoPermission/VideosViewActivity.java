@@ -16,7 +16,9 @@ import com.ics.admin.Adapter.AdminAdapters.OnlyVideoAdapter;
 import com.ics.admin.Adapter.AdminAdapters.VideoPackagesAdapter;
 import com.ics.admin.Adapter.AdminAdapters.VideosAdminPackageAdapter;
 import com.ics.admin.Adapter.AdminAdapters.ViewTeachersonAdapter;
+import com.ics.admin.BasicAdmin.StudentDetails.StudentAssinviewActivity;
 import com.ics.admin.BasicAdmin.TeachersDetails.ViewTeachersActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.Faculties;
 import com.ics.admin.Model.VideoAdminPackages;
 import com.ics.admin.Model.VideosOnly;
@@ -82,7 +84,12 @@ public class VideosViewActivity extends AppCompatActivity {
         public GETALLVIDEOS(String Faculty_id) {
             this.Faculty_id =Faculty_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(VideosViewActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -189,6 +196,7 @@ public class VideosViewActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -226,7 +234,12 @@ public class VideosViewActivity extends AppCompatActivity {
         public GETONLYALLVIDEOS(String Faculty_id) {
             this.Faculty_id =Faculty_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(VideosViewActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 

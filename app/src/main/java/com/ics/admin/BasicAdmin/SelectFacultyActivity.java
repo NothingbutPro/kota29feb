@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ics.admin.Adapter.AdminAdapters.FacultyAdapter;
+import com.ics.admin.BasicAdmin.Enquiry.ViewEnquiryActivity;
 import com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.Faculties;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -52,7 +54,12 @@ public class SelectFacultyActivity  extends AppCompatActivity {
         public GETSALLFACULTIES(String Faculty_id) {
             this.Faculty_id =Faculty_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(SelectFacultyActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -125,6 +132,7 @@ public class SelectFacultyActivity  extends AppCompatActivity {
 
                     jsonObject1 = new JSONObject(result);
                     if(!jsonObject1.getBoolean("responce")){
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(SelectFacultyActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
@@ -149,6 +157,7 @@ public class SelectFacultyActivity  extends AppCompatActivity {
 
                         FacultyAdapter facultyAdapter = new FacultyAdapter(SelectFacultyActivity.this,facultiesArrayList);
                         facultyrec.setAdapter(facultyAdapter); // set the Adapter to RecyclerView
+                        adminProgressdialog.EndProgress();
                     }
 
 

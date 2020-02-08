@@ -111,7 +111,6 @@
             android:inputType="textPassword"
             android:textColor="@color/black" />
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/main_staff_id_li"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -131,6 +130,7 @@
 
                 >
                 <Spinner
+                    android:entries="@array/worktype"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:id="@+id/class_staff_spin"
@@ -147,8 +147,13 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="15dp"
+                android:hint="Password"
+                android:paddingLeft="8dp"
                 android:background="@drawable/backgraund"
-                android:layout_height="40dp"
+                android:singleLine="true"
+                android:inputType="textPassword"
                 >
             <Spinner
                 android:layout_weight="1"
@@ -156,11 +161,7 @@
                 android:id="@+id/staff_batch_spin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15dp"
-                android:hint="Password"
-                android:singleLine="true"
-                android:inputType="textPassword"
-                android:textColor="@color/black" />
+                 />
             </LinearLayout>
         </LinearLayout>
 

@@ -292,6 +292,41 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:padding="5dp"
+                        android:weightSum="1"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+
+                            android:layout_marginRight="18dp"
+                            android:layout_weight="0.50"
+                            android:id="@+id/edit_btn"
+                            android:text="Edit"
+                            android:src="@drawable/edit_icon"
+                            android:textColor="@color/white1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </ImageView>
+
+                        <ImageView
+                            android:layout_marginRight="4dp"
+                            android:src="@drawable/delete_icon"
+                            android:layout_weight="0.50"
+                            android:id="@+id/delhome"
+                            android:text="Delete"
+                            android:layout_gravity="right"
+                            android:textColor="@color/white1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </ImageView>
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
 
@@ -310,7 +345,13 @@
             android:id="@+id/newenquiry_by"
             android:hint="Enquiry By"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp">
 
 
         </EditText>
@@ -320,83 +361,120 @@
             android:id="@+id/newmobile"
             android:hint="Mobile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp">
         </EditText>
 
         <EditText
             android:id="@+id/newenquiry_type"
             android:hint="Enquiry Type"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
+            >
         </EditText>
 
         <EditText
             android:id="@+id/newfollowup_type"
             android:hint="Followup Type"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
+            >
         </EditText>
         <EditText
             android:id="@+id/newfollowup_date"
             android:hint="Followup Date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
+            >
         </EditText>
         <EditText
             android:id="@+id/newremark"
             android:hint="Remark"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            >
         </EditText>
         <Button
-            android:background="@color/red"
+            android:background="@drawable/button"
             android:textColor="@color/white1"
             android:text="Edit and Save"
             android:id="@+id/edit_btn_save"
             android:layout_gravity="right"
-            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </Button>
     </LinearLayout>
 
-    <LinearLayout
-        android:weightSum="1"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_weight="0.50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <Button
+<!--    <LinearLayout-->
+<!--        -->
+<!--        android:weightSum="1"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <LinearLayout-->
+<!--            -->
+<!--            android:layout_weight="0.50"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <Button-->
 
-                android:background="@color/red"
-                android:textColor="@color/white1"
-                android:text="Edit"
-                android:id="@+id/edit_btn"
-                android:layout_gravity="left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--                android:background="@color/red"-->
+<!--                android:textColor="@color/white1"-->
+<!--                android:text="Edit"-->
+<!--                android:id="@+id/edit_btn"-->
+<!--                android:layout_gravity="left"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-            </Button>
-        </LinearLayout>
+<!--            </Button>-->
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_weight="0.50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <Button
-                android:background="@color/red"
-                android:textColor="@color/white1"
-                android:text="Delete"
-                android:id="@+id/delhome"
-                android:layout_gravity="left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--        <LinearLayout-->
+<!--            android:layout_weight="0.50"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <Button-->
+<!--                android:background="@color/red"-->
+<!--                android:textColor="@color/white1"-->
+<!--                android:text="Delete"-->
+<!--                android:id="@+id/delhome"-->
+<!--                android:layout_gravity="left"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-            </Button>
-        </LinearLayout>
-    </LinearLayout>
+<!--            </Button>-->
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
 
 </LinearLayout>

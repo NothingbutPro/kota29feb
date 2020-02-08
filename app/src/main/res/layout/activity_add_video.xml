@@ -71,7 +71,7 @@
             <Spinner
                 android:id="@+id/class_spiner_vid"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:hint=" Class"
 
@@ -201,7 +201,7 @@
         android:textAllCaps="false"
         android:id="@+id/capturestartbtn"
         android:textColor="@color/white1"
-        android:background="@color/red"
+        android:background="@drawable/button"
         android:text="Select Video"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
@@ -234,7 +234,7 @@
         android:id="@+id/sendbtn"
         android:layout_margin="10dp"
         android:textColor="@color/white1"
-        android:background="@color/red"
+        android:background="@drawable/button"
         android:text="Submit Video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

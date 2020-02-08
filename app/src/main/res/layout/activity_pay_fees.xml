@@ -54,50 +54,54 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:background="@color/red"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
-            android:background="@drawable/backgraund"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <TextView
 
-            android:padding="4dp"
-            android:text="Select Class"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
         <LinearLayout
             android:padding="9dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp">
             <Spinner
             android:id="@+id/class_fee_id"
             android:text="Select Class"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </Spinner>
+
         </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="3dp"
-                android:background="@drawable/backgraund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView
+<!--                <TextView-->
 
-                    android:padding="4dp"
-                    android:text="Select Batch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </TextView>
+<!--                    android:padding="4dp"-->
+<!--                    android:text="Select Batch"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                </TextView>-->
                 <LinearLayout
                     android:padding="9dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/backgraund"
+                    android:paddingLeft="8dp"
+                    android:textSize="15dp">
                     <Spinner
                         android:id="@+id/batch_fee_id"
                         android:text="Select Class"
@@ -109,23 +113,28 @@
 
 
             <LinearLayout
+
                 android:layout_marginTop="5dp"
-                android:background="@drawable/backgraund"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView
+<!--                <TextView-->
 
-                    android:padding="4dp"
-                    android:text="Select Student"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </TextView>
+<!--                    android:padding="4dp"-->
+<!--                    android:text="Select Student"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                </TextView>-->
                 <LinearLayout
-
                     android:padding="9dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/backgraund"
+                    android:paddingLeft="8dp"
+                    android:textSize="15dp">
                     <Spinner
                         android:id="@+id/student_fee_id"
                         android:layout_width="match_parent"
@@ -133,12 +142,7 @@
                     </Spinner>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/backgraund"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+
                     <TextView
 
                         android:padding="4dp"
@@ -147,23 +151,26 @@
                         android:layout_height="wrap_content">
                     </TextView>
                     <LinearLayout
-
                         android:padding="9dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/backgraund"
+                        android:paddingLeft="8dp"
+                        android:textSize="15dp">
                         <Spinner
                             android:entries="@array/payby"
                             android:id="@+id/paybyspinwithout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         </Spinner>
-                    </LinearLayout>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/backgraund"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -175,10 +182,14 @@
                         android:layout_height="wrap_content">
                     </TextView>
                     <LinearLayout
-
                         android:padding="9dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/backgraund"
+                        android:paddingLeft="8dp"
+                        android:textSize="15dp">
                         <Spinner
                             android:entries="@array/paymodes"
                             android:id="@+id/paymodes"
@@ -188,32 +199,21 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/backgraund"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
 
-                        android:padding="4dp"
-                        android:text="Fee Amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                    <LinearLayout
 
-                        android:padding="9dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <EditText
+                            android:hint="Fee Amount"
                             android:id="@+id/feeamount"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/backgraund"
+                            android:paddingLeft="8dp"
+                            android:textSize="15dp">
                         </EditText>
-                    </LinearLayout>
 
-                </LinearLayout>
+
 
         </LinearLayout>
     //++++++++++++++++++++++++++For how many has been paid===============
@@ -239,7 +239,7 @@
             //+++++++++++++++++++
 <!--            if not payed at all-->
             <LinearLayout
-                android:visibility="gone"
+
                 android:id="@+id/nonemiselecli"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -275,28 +275,23 @@
 
                 <LinearLayout
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/backgraund"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
 
-                        android:padding="4dp"
-                        android:text="Paying Amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                    <LinearLayout
 
-                        android:padding="9dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <EditText
+                            android:hint="Paying Amount"
                             android:id="@+id/payamtwithoutemi"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/backgraund"
+                            android:paddingLeft="8dp"
+                            android:textSize="15dp">
                         </EditText>
-                    </LinearLayout>
+
 
                 </LinearLayout>
             </LinearLayout>
@@ -314,76 +309,55 @@
 
                 <LinearLayout
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/backgraund"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
 
-                        android:padding="4dp"
-                        android:text="Next Instalment Remainder"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
 
-                    <LinearLayout
-
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
 
                         <EditText
+                            android:hint="Next Instalment Remainder"
                             android:inputType="number"
                             android:id="@+id/installs_date"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/backgraund"
+                            android:paddingLeft="8dp"
+                            android:textSize="15dp">
                         </EditText>
 
-                    </LinearLayout>
+
 <!--        //++++++++++++++++++For NExt remainder+++++++++++++++++++++++++            -->
-                    <TextView
-
-                        android:padding="4dp"
-                        android:text="Instalments"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-
-                    <LinearLayout
-
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
                         <EditText
+                            android:hint="Instalments"
                             android:inputType="number"
                             android:id="@+id/installs"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/backgraund"
+                            android:paddingLeft="8dp"
+                            android:textSize="15dp">
                         </EditText>
 
-                    </LinearLayout>
 <!--                    //+++++++++++++++++++++++++++++++++++++-->
-                    <TextView
 
-                        android:padding="4dp"
-                        android:text="Emi Monthly Amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                    <LinearLayout
-
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <EditText
+                            android:hint="Emi Monthly Amount"
                             android:inputType="number"
                             android:id="@+id/emimonthamt"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/backgraund"
+                            android:paddingLeft="8dp"
+                            android:textSize="15dp">
                         </EditText>
 
-                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -391,58 +365,42 @@
 
                 <LinearLayout
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/backgraund"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
 
-                        android:padding="4dp"
-                        android:text="Emi Month"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                    <LinearLayout
 
-                        android:padding="9dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <EditText
+                            android:hint="Emi Month"
                             android:inputType="number"
                             android:id="@+id/emimnthstr"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/backgraund"
+                            android:paddingLeft="8dp"
+                            android:textSize="15dp">
                         </EditText>
-                    </LinearLayout>
+
 
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/backgraund"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:padding="4dp"
-                        android:text="Paying Amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                    <LinearLayout
 
-                        android:padding="9dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+
                         <EditText
+                            android:hint="Paying Amount"
                             android:id="@+id/payinamt"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/backgraund"
+                            android:paddingLeft="8dp"
+                            android:textSize="15dp">
                         </EditText>
-                    </LinearLayout>
 
-                </LinearLayout>
 
             </LinearLayout>
 <!--            end of emi-->

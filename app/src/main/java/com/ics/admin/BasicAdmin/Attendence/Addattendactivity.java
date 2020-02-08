@@ -25,9 +25,11 @@ import android.widget.Toast;
 import com.ics.admin.Adapter.AdminAdapters.FacultyAdapter;
 import com.ics.admin.Adapter.AdminAdapters.StudentAdapter;
 import com.ics.admin.Adapter.AdminAdapters.StudentAttendenceAdapter;
+import com.ics.admin.BasicAdmin.AdminProfileActivity;
 import com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity;
 import com.ics.admin.BasicAdmin.SelectFacultyActivity;
 import com.ics.admin.BasicAdmin.StudentDetails.Studentadnviewactivty;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.Model.Faculties;
@@ -54,6 +56,8 @@ import javax.net.ssl.HttpsURLConnection;
 import static com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity.selectteacher;
 import static com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity.selectteacherStrings;
 import static com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity.teacher_id;
+import static com.ics.admin.BasicAdmin.TeachersDetails.AddTeachersActivity.isEmailValid;
+
 public class Addattendactivity extends AppCompatActivity {
     RecyclerView attendancegrid;
 //    public static TextView selectteacher;
@@ -190,7 +194,12 @@ public class Addattendactivity extends AppCompatActivity {
             this.class_id=class_id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(Addattendactivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -306,16 +315,16 @@ public class Addattendactivity extends AppCompatActivity {
                         });
                         Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
                         Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
-
+                        adminProgressdialog.EndProgress();
                     }
                     else
                     {
-
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
@@ -359,7 +368,12 @@ public class Addattendactivity extends AppCompatActivity {
                 this.userid = i;
                 this.calls_id = sel_id;
             }
-
+            AdminProgressdialog adminProgressdialog;
+            @Override
+            protected void onPreExecute() {
+                adminProgressdialog= new AdminProgressdialog(Addattendactivity.this);
+                super.onPreExecute();
+            }
             @Override
             protected String doInBackground(String... arg0) {
 
@@ -443,6 +457,7 @@ public class Addattendactivity extends AppCompatActivity {
                             // Apply the adapter to the spinner
                             attenclass_batch_spinner.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+                            adminProgressdialog.EndProgress();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                         }else {
@@ -491,7 +506,7 @@ public class Addattendactivity extends AppCompatActivity {
 
                                 }
                             });
-
+                            adminProgressdialog.EndProgress();
                         }
 
 
@@ -541,7 +556,12 @@ public class Addattendactivity extends AppCompatActivity {
             this.class_id = sel_id;
             this.bath_id = sel_batch;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(Addattendactivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -647,6 +667,7 @@ public class Addattendactivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -686,7 +707,12 @@ public class Addattendactivity extends AppCompatActivity {
             this.userid =id;
             this.attenJsonArray =attenJsonArray;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(Addattendactivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -776,6 +802,7 @@ public class Addattendactivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

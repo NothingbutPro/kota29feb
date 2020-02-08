@@ -40,14 +40,17 @@
         </TextView>
     <LinearLayout
         android:padding="5dp"
-        android:background="@drawable/backgraund"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/backgraund"
+        android:paddingLeft="8dp"
+        android:textSize="15dp">
 
     <Spinner
         android:id="@+id/spin_class"
-        android:padding="10dp"
+        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -66,12 +69,16 @@
         </TextView>
     <LinearLayout
         android:padding="5dp"
-        android:background="@drawable/backgraund"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/backgraund"
+        android:paddingLeft="8dp"
+        android:textSize="15dp">
         <Spinner
             android:id="@+id/spin_batch"
-            android:padding="10dp"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -79,10 +86,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:padding="1dp"
-        android:background="@drawable/backgraund"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/backgraund"
+        android:paddingLeft="8dp"
+        android:textSize="15dp">
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchbystudent"
             app:iconifiedByDefault="false"
@@ -95,6 +107,7 @@
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="4dp"
         android:id="@+id/studentfeespin"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

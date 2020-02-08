@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.ics.admin.Adapter.AdminAdapters.StudyMaterialAdapter;
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.Model.StudyMaterials;
 import com.ics.admin.R;
@@ -199,7 +201,12 @@ public class  StudyMaterialActivity extends AppCompatActivity {
            this.id = id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(StudyMaterialActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -320,6 +327,7 @@ public class  StudyMaterialActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -495,7 +503,12 @@ public class  StudyMaterialActivity extends AppCompatActivity {
             this.id = id;
             //  this.course=course;
         }
-
+    AdminProgressdialog adminProgressdialog;
+    @Override
+    protected void onPreExecute() {
+        adminProgressdialog= new AdminProgressdialog(StudyMaterialActivity.this);
+        super.onPreExecute();
+    }
 
 
 
@@ -630,6 +643,7 @@ public class  StudyMaterialActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -666,6 +680,7 @@ public class  StudyMaterialActivity extends AppCompatActivity {
         String SpinnerId;
         File mydoc;
         String result = "";
+        AdminProgressdialog adminProgressdialog;
 
 
         public ImageUploadTask(String Title, String SpinnerId, File mydoc) {
@@ -676,14 +691,19 @@ public class  StudyMaterialActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            dialog = new ProgressDialog(StudyMaterialActivity.this);
-            dialog.setMessage("Processing");
-
-            dialog.setCancelable(true);
-            dialog.show();
-            dialog.setCanceledOnTouchOutside(false);
+            adminProgressdialog = new AdminProgressdialog(StudyMaterialActivity.this);
             super.onPreExecute();
         }
+        //        @Override
+//        protected void onPreExecute() {
+//            dialog = new ProgressDialog(StudyMaterialActivity.this);
+//            dialog.setMessage("Processing");
+//
+//            dialog.setCancelable(true);
+//            dialog.show();
+//            dialog.setCanceledOnTouchOutside(false);
+//            super.onPreExecute();
+//        }
 
         @Override
         protected String doInBackground(Void... params) {
@@ -737,7 +757,7 @@ public class  StudyMaterialActivity extends AppCompatActivity {
                 dialog.dismiss();
 //                Toast.makeText(Single_user_act_TRD.this, "Some Problem", Toast.LENGTH_LONG).show();
             }
-
+            adminProgressdialog.EndProgress();
         }
     }
 }

@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Interfaces.ProgressDialogs;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.ClassNAmes;
@@ -94,7 +95,12 @@ public class AssignStudentActivity extends AppCompatActivity {
             this.class_id=class_id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AssignStudentActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -179,6 +185,7 @@ public class AssignStudentActivity extends AppCompatActivity {
                         }
 
                         final ArrayList <String> list_class = new ArrayList<>();
+                        list_class.add("--Select Class--");
                         for (int k=0 ; k<class_names.size() ; k++){
                             list_class.add(class_names.get(k).getClass_name());
                         }
@@ -192,12 +199,21 @@ public class AssignStudentActivity extends AppCompatActivity {
                         class_spiner_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                selected_class = list_class.get(position);
-                                sel_id =""+class_names.get(position).getUserId();
-                                Log.e("Spinner Selected "," Items >>> _______"+selected_class+" --- "+sel_id);
-                                batch_names.clear();
-                                batchArrayList.clear();
-                                new GETAllBathces(new Shared_Preference().getId(AssignStudentActivity.this),sel_id).execute();
+                                if(position ==0) {
+                                    selected_class = list_class.get(position);
+                                    sel_id = "" ;
+                                    Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                    batch_names.clear();
+                                    batchArrayList.clear();
+                                    new GETAllBathces(new Shared_Preference().getId(AssignStudentActivity.this), sel_id).execute();
+                                }else {
+                                    selected_class = list_class.get(position);
+                                    sel_id = "" + class_names.get(position-1).getUserId();
+                                    Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                    batch_names.clear();
+                                    batchArrayList.clear();
+                                    new GETAllBathces(new Shared_Preference().getId(AssignStudentActivity.this), sel_id).execute();
+                                }
                             }
 
                             @Override
@@ -211,7 +227,31 @@ public class AssignStudentActivity extends AppCompatActivity {
                     }
                     else
                     {
+                        final ArrayList <String> list_class = new ArrayList<>();
+                        list_class.add("--Select Class--");
 
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AssignStudentActivity.this, android.R.layout.simple_spinner_item
+                                ,list_class);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        class_spiner_assign.setAdapter(adapter);
+                        class_spiner_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if(position !=0) {
+                                    selected_class = list_class.get(position);
+                                    batch_names.clear();
+                                    batchArrayList.clear();
+                                    new GETAllBathces(new Shared_Preference().getId(AssignStudentActivity.this), "").execute();
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                     }
 
 
@@ -221,6 +261,7 @@ public class AssignStudentActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -261,7 +302,12 @@ public class AssignStudentActivity extends AppCompatActivity {
             this.userid = i;
             this.calls_id = sel_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AssignStudentActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -338,7 +384,7 @@ public class AssignStudentActivity extends AppCompatActivity {
                         Toast.makeText(AssignStudentActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
                         batch_names.clear();
                         batchArrayList.clear();
-                        batch_names.add("No Batch  Found");
+                        batch_names.add("--Select Batch");
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(AssignStudentActivity.this, android.R.layout.simple_spinner_item
                                 ,batch_names);
 
@@ -350,7 +396,7 @@ public class AssignStudentActivity extends AppCompatActivity {
                     }else {
                         batch_names.clear();
                         batchArrayList.clear();
-
+                        batch_names.add("--Select Batch--");
                         for(int i=0;i<jsonObject1.getJSONArray("data").length();i++) {
                             JSONObject jsonObject = jsonObject1.getJSONArray("data").getJSONObject(i);
                             String userid = jsonObject.getString("id");
@@ -378,11 +424,12 @@ public class AssignStudentActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         try {
-                            if(!batch_spin_assign.getSelectedItem().equals("No Batch  Found")) {
+                            if(position ==0) {
                                 selected_batch = batch_names.get(position);
-                                sel_batch = "" +batchArrayList.get(position).getUserId();
+                                sel_batch = "";
                             }else {
                                 selected_batch = batch_names.get(position);
+                                sel_batch = "" +batchArrayList.get(position-1).getUserId();
                             }
                             Log.e("Spinner Selected ", " Items >>> _______" + sel_batch + " --- " + sel_id);
                         }catch (Exception e)
@@ -428,7 +475,7 @@ public class AssignStudentActivity extends AppCompatActivity {
     }
 
     private class AssignTOSTURENT extends AsyncTask<String, Void, String> {
-
+        AdminProgressdialog adminProgressdialog;
         String id;
         String class_id;
         String course;
@@ -445,9 +492,14 @@ public class AssignStudentActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            progressDialogs.ProgressMe(AssignStudentActivity.this ,AssignStudentActivity.this);
+            adminProgressdialog = new AdminProgressdialog(AssignStudentActivity.this);
             super.onPreExecute();
         }
+        //        @Override
+//        protected void onPreExecute() {
+//            progressDialogs.ProgressMe(AssignStudentActivity.this ,AssignStudentActivity.this);
+//            super.onPreExecute();
+//        }
 
         @Override
         protected String doInBackground (String...arg0){
@@ -541,6 +593,7 @@ public class AssignStudentActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString (JSONObject params) throws Exception {

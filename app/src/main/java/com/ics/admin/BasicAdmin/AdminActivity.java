@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Fragment.AdminEFragment;
 import com.ics.admin.Fragment.BatchFragment;
 import com.ics.admin.Fragment.CommunityFragment;
@@ -192,7 +193,12 @@ public class AdminActivity extends AppCompatActivity
             this.userid = i;
             this.headerLayout = headerLayout;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AdminActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -308,6 +314,7 @@ public class AdminActivity extends AppCompatActivity
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

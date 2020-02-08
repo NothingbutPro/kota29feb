@@ -9,12 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.gurutouchlabs.kenneth.elegantdialog.ElegantDialog;
 import com.ics.admin.BasicAdmin.Masters.Forclass.ClassViewActivity;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
@@ -32,6 +37,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.zip.Inflater;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -42,7 +48,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyViewHolder>{
     ArrayList<ClassNAmes>classArrayList = new ArrayList<>();
     Activity activity;
-
+    View view;
     public ClassAdapter(ClassViewActivity activity, ArrayList<ClassNAmes> classArrayList) {
         this.activity=activity;
         this.classArrayList = classArrayList;
@@ -60,6 +66,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull ClassAdapter.MyViewHolder myViewHolder, int i) {
         myViewHolder.add_class.setText(""+classArrayList.get(i).getClass_name());
+
         myViewHolder.deleli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,15 +109,43 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyViewHolder
         myViewHolder.edtli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(myViewHolder.claseditli.getVisibility() == View.VISIBLE)
+                Dialog dialogs = new Dialog(v.getContext());
+                // Create Alert using Builder
+//                View view = activity.getLayoutInflater().inflate(R.id.claseditli , null);
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.claseditli);
+                    ((ViewGroup) myViewHolder.claseditli.getParent()).removeView(myViewHolder.claseditli);
+
+                    view.setVisibility(View.VISIBLE);
+                }catch (Exception e)
                 {
-                    myViewHolder.claseditli.setVisibility(View.GONE);
-//                    myViewHolder.claseditli.setVisibility(View.GONE);
+                    view =vx;
+                    e.printStackTrace();
                 }
-                else
-                    {
-                    myViewHolder.claseditli.setVisibility(View.VISIBLE);
-                }
+                CFAlertDialog.Builder builder = new CFAlertDialog.Builder(v.getContext())
+                        .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                        .setFooterView(view)
+                       .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                CFAlertDialog cfAlertDialog = builder.create();
+                cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                cfAlertDialog.show();
+// Show the alert
+//                builder.show();
+//                dialog.getWindow().setBackgroundDrawableResource(android.R.color.white);
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+////                ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.FILL_PARENT);
+////                View view = new LinearLayout(activity);
+////                View view = activity.getLayoutInflater().inflate(R.id.claseditli , null);
+//                View view = v.getRootView().findViewById(R.id.claseditli);
+//                ((ViewGroup)myViewHolder.claseditli.getParent()).removeView(myViewHolder.claseditli);
+//                view.setVisibility(View.VISIBLE);
+//                dialog.setContentView(view);
+////                dialog.getWindow().setLayout(width, height);
+//                dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                dialog.show();
+
             }
         });
 

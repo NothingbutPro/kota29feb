@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.github.clans.fab.FloatingActionButton;
 import com.ics.admin.Adapter.AdminAdapters.FacultyAdapter;
 import com.ics.admin.BasicAdmin.AddFacultyActivity;
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Fragment.FacultyFragment;
 import com.ics.admin.Model.Faculties;
 import com.ics.admin.R;
@@ -72,7 +74,12 @@ public class AddUserPermission extends AppCompatActivity {
         public GetAllFacultiess(String Faculty_id) {
             this.Faculty_id =Faculty_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddUserPermission.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -178,6 +185,7 @@ public class AddUserPermission extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

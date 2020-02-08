@@ -137,12 +137,14 @@
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="30dp"
             android:elevation="10dp"
+            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <Button
+            <ImageView
+                android:layout_gravity="end"
                 android:id="@+id/delannounce"
                 android:textColor="@color/white1"
-                android:background="@color/red"
+                android:src="@drawable/delete_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete"

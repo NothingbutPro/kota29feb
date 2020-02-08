@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.ics.admin.Adapter.AdminAdapters.StudentAdapter;
+import com.ics.admin.BasicAdmin.VideoPermission.VideoPackagessActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.Students;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -56,7 +58,12 @@ public class StudentAssinviewActivity extends AppCompatActivity {
             this.userid = id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(StudentAssinviewActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -157,6 +164,7 @@ public class StudentAssinviewActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

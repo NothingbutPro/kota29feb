@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.ics.admin.BasicAdmin.Masters.Subjects.AddSubjectActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBCoursemodel;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
@@ -86,6 +89,12 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
         //  this.course=course;
 
     }
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddFeesActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -206,16 +215,16 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                     });
                     Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
                     Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
-
+                    adminProgressdialog.EndProgress();
                 }
                 else
                 {
-
+                    adminProgressdialog.EndProgress();
                 }
 
 
             } catch (JSONException e) {
-
+                adminProgressdialog.EndProgress();
                 e.printStackTrace();
             }
 
@@ -259,7 +268,12 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                 this.userid = i;
                 this.calls_id = sel_id;
             }
-
+            AdminProgressdialog adminProgressdialog;
+            @Override
+            protected void onPreExecute() {
+                adminProgressdialog= new AdminProgressdialog(AddFeesActivity.this);
+                super.onPreExecute();
+            }
             @Override
             protected String doInBackground(String... arg0) {
 
@@ -341,6 +355,7 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                             batch_names.add("--Select Course--");
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
+                            adminProgressdialog.EndProgress();
                         }else {
                             batch_names.add("--Select Course--");
                             for(int i=0;i<jsonObject1.getJSONArray("data").length();i++)
@@ -357,6 +372,7 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                                 batchArrayList.add(new ABBCoursemodel(id,Class,title,"Course :","Class:",class_id));
 
                             }
+                            adminProgressdialog.EndProgress();
                         }
 
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddFeesActivity.this, android.R.layout.simple_spinner_item
@@ -434,7 +450,12 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
             this.userid = i;
             this.feeamount = feeamount;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddFeesActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -511,12 +532,14 @@ public class GETAllClassesx extends AsyncTask<String, Void, String>
                 try {
                     jsonObject1 = new JSONObject(result);
                     if(jsonObject1.getBoolean("responce")) {
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(AddFeesActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddFeesActivity.this ,  ViewAllFeesActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 } catch (JSONException e) {
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 

@@ -6,12 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsSpinner;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -19,16 +17,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ics.admin.Adapter.AdminAdapters.AllStudentFeesAdapter;
-import com.ics.admin.Adapter.AdminAdapters.BatchAdapter;
-import com.ics.admin.Adapter.AdminAdapters.StudentAdapter;
 import com.ics.admin.Adapter.AdminAdapters.Student_Fee_Adapter;
-import com.ics.admin.Api_Retrofit.Retro_urls;
 import com.ics.admin.Api_Retrofit.StudentApis;
-import com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity;
-import com.ics.admin.BasicAdmin.Masters.Batch.AddBatchActivity;
-import com.ics.admin.BasicAdmin.Masters.Courses.AddCourseActivity;
 import com.ics.admin.BasicAdmin.StudentDetails.AllStudentListActivity;
-import com.ics.admin.Interfaces.ProgressDialogs;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.Model.Student_Fee_Details;
@@ -36,7 +28,6 @@ import com.ics.admin.Model.Student_Fee_Details_Data;
 import com.ics.admin.Model.Students;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
-import com.ics.admin.Student_main_app._StudentModels._Student_Public_Message;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +42,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
@@ -216,7 +206,12 @@ public class AllStudentFeeActivity extends AppCompatActivity {
             this.class_id=class_id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AllStudentFeeActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -340,6 +335,7 @@ public class AllStudentFeeActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -378,7 +374,12 @@ public class AllStudentFeeActivity extends AppCompatActivity {
         public GETAllBatchsxby(String i) {
             this.userid = i;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AllStudentFeeActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -495,6 +496,7 @@ public class AllStudentFeeActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

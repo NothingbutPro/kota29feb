@@ -136,7 +136,7 @@ public class HomeWorkByFaculty extends Fragment {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 Log.d("LOG_APP", "DATE SELECTED "+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                                 dates = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                                dayshome.setText(String.valueOf(dayshome.getText().toString()+": "+ dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
+                                dayshome.setText(String.valueOf(dates));
                                 //PUT YOUR LOGING HERE
                                 //UNCOMMENT THIS LINE TO CALL TIMEPICKER
                                 //openTimePicker();

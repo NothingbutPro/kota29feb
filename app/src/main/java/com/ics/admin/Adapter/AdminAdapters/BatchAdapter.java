@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.ABBBatch;
@@ -26,6 +27,7 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.MyViewHolder
 
     ArrayList<ABBBatch>batchArrayList = new ArrayList<>();
     Activity activity;
+    private View view;
 
     public BatchAdapter(Activity activity, ArrayList<ABBBatch> batchArrayList) {
         this.activity = activity;
@@ -44,14 +46,14 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull BatchAdapter.MyViewHolder myViewHolder, int i) {
 //        ABBBatch ob = Names.get(i);
-//        ABBBatch ob1=
+//        ABBBatch ob1=mainsubname
 //        myViewHolder.name.setText("" + ob.getBatch()+"");
 //        myViewHolder.add_class.setText(""+batchArrayList.get(i).get);
 
-        myViewHolder.name.setText(""+batchArrayList.get(i).getBatch());
+        myViewHolder.name.setText(batchArrayList.get(i).getBatch());
         myViewHolder.add_class.setText(""+batchArrayList.get(i).getClass_id());
-        myViewHolder.mainname.setText(""+batchArrayList.get(i).getMainName() +": ");
-        myViewHolder.mainsubname.setText(""+batchArrayList.get(i).getMainSubName());
+        myViewHolder.mainname.setText(""+batchArrayList.get(i).getMainName()+":");
+        myViewHolder.mainsubname.setText(""+batchArrayList.get(i).getMainSubName()+": ");
         myViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,15 +64,33 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.MyViewHolder
         });
         myViewHolder.editbatch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.hide_li);
+                    ((ViewGroup) myViewHolder.hide_li.getParent()).removeView(myViewHolder.hide_li);
 
-
-                if(myViewHolder.hide_li.getVisibility() == View.GONE) {
                     myViewHolder.hide_li.setVisibility(View.VISIBLE);
-
-                }else {
-                    myViewHolder.hide_li.setVisibility(View.GONE);
+                }catch (Exception e)
+                {
+                    view =vx;
+                    e.printStackTrace();
                 }
+                CFAlertDialog.Builder builder = new CFAlertDialog.Builder(view.getContext())
+                        .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                        .setFooterView(view)
+                        .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                CFAlertDialog cfAlertDialog = builder.create();
+                cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                cfAlertDialog.show();
+
+//                if(myViewHolder.hide_li.getVisibility() == View.GONE) {
+//                    myViewHolder.hide_li.setVisibility(View.VISIBLE);
+//
+//                }else {
+//                    myViewHolder.hide_li.setVisibility(View.GONE);
+//                }
 
             }
         });
@@ -100,7 +120,8 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // public CircleImageView circleimageview;
         TextView name,add_class,mainname,mainsubname;
-        Button delbatch ,editbatch,edit_btn;
+        ImageView delbatch ,editbatch;
+        Button edit_btn;
         LinearLayout hide_li;
         ImageView add_student;
         EditText batchedit;

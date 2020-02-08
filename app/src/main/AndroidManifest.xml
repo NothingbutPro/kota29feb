@@ -25,7 +25,8 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="top.defaults.camera"
         tools:replace="android:icon">
-        <activity android:name=".Student_main_app.Student_UI._Student_Video_Lecture_Activity"></activity>
+        <activity android:name=".BasicAdmin.Masters.Courses.AddCourseActivity"></activity>
+        <activity android:name=".Student_main_app.Student_UI._Student_Video_Lecture_Activity" />
         <activity android:name=".Student_main_app.Student_UI._Student_Profile_Activity" />
         <activity android:name=".Student_main_app.Student_UI._Student_Announcement" />
         <activity android:name=".Student_main_app._StudentRegistration" />
@@ -88,7 +89,7 @@
 
         <activity android:name=".BasicAdmin.Masters.Forclass.ClassViewActivity" />
         <activity android:name=".BasicAdmin.Masters.Subjects.SubjectViewActivity" />
-        <activity android:name=".BasicAdmin.Masters.Courses.AddCourseActivity" />
+        <activity android:name=".BasicAdmin.Masters.Courses.ViewCourseActivity" />
         <activity android:name=".BasicAdmin.Masters.StudyMaterial.StudyMaterialActivity" />
         <activity android:name=".BasicAdmin.Masters.Subjects.AddSubjectActivity" />
         <activity android:name=".BasicAdmin.Masters.Forclass.AddClassActivity" />

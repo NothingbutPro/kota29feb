@@ -245,7 +245,8 @@
             </TextView>
 
             <EditText
-
+                android:focusable="false"
+                android:enabled="false"
                 android:editable="false"
                 android:id="@+id/dayshome"
                 android:layout_width="match_parent"

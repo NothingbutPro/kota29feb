@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 import com.ics.admin.BasicAdmin.AddFacultyActivity;
 import com.ics.admin.BasicAdmin.AdminActivity;
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
 import com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity;
+import com.ics.admin.BasicAdmin.Masters.Subjects.AddSubjectActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
@@ -41,6 +44,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -123,7 +128,11 @@ public class AddTeachersActivity extends AppCompatActivity {
                     edt_mobile.setError("Please Enter Mobile Number");
                     return false;
                 }
-
+                if(!isEmailValid(edt_email.getText().toString()))
+                {
+                    edt_email.setError("Email is not correct");
+                    return false;
+                }
 
 
                 else
@@ -159,6 +168,13 @@ public class AddTeachersActivity extends AppCompatActivity {
 
     }
 
+    public static boolean isEmailValid(String edt_email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(edt_email);
+        return matcher.matches();
+    }
+
     private class AddFaculty extends AsyncTask<String, Void, String> {
         String Name;
         String Phone_Number;
@@ -175,6 +191,12 @@ public class AddTeachersActivity extends AppCompatActivity {
             this.Email = email;
             this.Password=Password;
 
+        }
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddTeachersActivity.this);
+            super.onPreExecute();
         }
 
         @Override
@@ -273,6 +295,7 @@ public class AddTeachersActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -314,7 +337,12 @@ public class AddTeachersActivity extends AppCompatActivity {
             this.class_id=class_id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddTeachersActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -451,6 +479,34 @@ public class AddTeachersActivity extends AppCompatActivity {
                     }
                     else
                     {
+                        final ArrayList <String> list_class = new ArrayList<>();
+                        list_class.add("--Select Class--");
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddTeachersActivity.this, android.R.layout.simple_spinner_item
+                                ,list_class);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        class_staff_spin.setAdapter(adapter);
+                        class_staff_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if(position ==0) {
+                                    selected_class = list_class.get(position);
+                                    new GETAllBathces_Add_Staff(new Shared_Preference().getId(AddTeachersActivity.this),"").execute();
+                                }
+                                batch_names.clear();
+                                batchArrayList.clear();
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                        Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
+                        Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
 
                     }
 
@@ -461,6 +517,7 @@ public class AddTeachersActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -500,7 +557,12 @@ public class AddTeachersActivity extends AppCompatActivity {
                 this.userid = i;
                 this.calls_id = sel_id;
             }
-
+            AdminProgressdialog adminProgressdialog;
+            @Override
+            protected void onPreExecute() {
+                adminProgressdialog= new AdminProgressdialog(AddTeachersActivity.this);
+                super.onPreExecute();
+            }
             @Override
             protected String doInBackground(String... arg0) {
 
@@ -645,6 +707,7 @@ public class AddTeachersActivity extends AppCompatActivity {
                     }
 
                 }
+                adminProgressdialog.EndProgress();
             }
 
             public String getPostDataString(JSONObject params) throws Exception {

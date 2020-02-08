@@ -16,7 +16,9 @@ import com.github.clans.fab.FloatingActionButton;
 import com.ics.admin.Adapter.AdminAdapters.FacultyAdapter;
 import com.ics.admin.Adapter.AdminAdapters.ViewTeachersonAdapter;
 import com.ics.admin.BasicAdmin.AddFacultyActivity;
+import com.ics.admin.BasicAdmin.FeesStructure.PayFeesActivity;
 import com.ics.admin.BasicAdmin.UsersPermission.AddUserPermission;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.Faculties;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -68,7 +70,12 @@ public class ViewTeachersActivity extends AppCompatActivity {
         String Mobile_Number;
         String Faculty_id;
         private Dialog dialog;
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(ViewTeachersActivity.this);
+            super.onPreExecute();
+        }
 
         public GetAllFacultiess(String Faculty_id) {
             this.Faculty_id =Faculty_id;
@@ -180,6 +187,7 @@ public class ViewTeachersActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

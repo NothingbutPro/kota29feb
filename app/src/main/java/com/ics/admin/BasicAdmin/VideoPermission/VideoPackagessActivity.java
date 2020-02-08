@@ -29,6 +29,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ics.admin.Adapter.AdminAdapters.VideoPackagesAdapter;
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
+import com.ics.admin.BasicAdmin.StudentDetails.StudentAssinviewActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Interfaces.GetDates;
 import com.ics.admin.Model.ABBCoursemodel;
 import com.ics.admin.Model.VideoPackages;
@@ -127,7 +130,7 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                 lp.copyFrom(dialog.getWindow().getAttributes());
                 lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
                 dialog.getWindow().setAttributes(lp);
                 Button doneselect = dialog.findViewById(R.id.doneselect);
                 grivideorec = dialog.findViewById(R.id.grivideorec);
@@ -162,7 +165,12 @@ public class VideoPackagessActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        vidtime.setText(Integer.valueOf(vidtime.getText().toString())+" min");
+                        try {
+                            vidtime.setText(Integer.valueOf(vidtime.getText().toString()) + " min");
+                        }catch (Exception e)
+                        {
+                            Toast.makeText(VideoPackagessActivity.this, "No Video selected", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 dialog.show();
@@ -261,7 +269,12 @@ public class VideoPackagessActivity extends AppCompatActivity {
             this.userid = i;
 
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(VideoPackagessActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -373,6 +386,7 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -425,7 +439,12 @@ public class VideoPackagessActivity extends AppCompatActivity {
             this.vidtimes =vidtimes;
 
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(VideoPackagessActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -520,6 +539,7 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -560,7 +580,12 @@ public class VideoPackagessActivity extends AppCompatActivity {
             this.userid = i;
 
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(VideoPackagessActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -672,6 +697,7 @@ public class VideoPackagessActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

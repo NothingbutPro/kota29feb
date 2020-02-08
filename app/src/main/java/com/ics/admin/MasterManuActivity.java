@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.ics.admin.Adapter.SliderAdapter;
 import com.ics.admin.Adapter.SubMenuAdapter;
 import com.ics.admin.Adapter.SubPermissionAdapter;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.SubMenuPermissions;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 import com.smarteist.autoimageslider.IndicatorAnimations;
@@ -94,10 +95,16 @@ public class MasterManuActivity extends AppCompatActivity {
             String Faculty_id;
             String position;
             private Dialog dialog;
-
+            AdminProgressdialog adminProgressdialog;
             public GETALLMYPERMISSIONS(String faculty_id) {
                 this.Faculty_id=faculty_id;
 
+            }
+
+            @Override
+            protected void onPreExecute() {
+                adminProgressdialog = new AdminProgressdialog(MasterManuActivity.this );
+                super.onPreExecute();
             }
 
             @Override
@@ -315,11 +322,12 @@ public class MasterManuActivity extends AppCompatActivity {
 
 
                     } catch (JSONException e) {
-
+                        Toast.makeText(mContext, "Server Timed out", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
                 }
+                adminProgressdialog.EndProgress();
             }
 
             public String getPostDataString(JSONObject params) throws Exception {

@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,10 +39,13 @@ import android.widget.Toast;
 
 import com.ics.admin.Adapter.AdminAdapters.FacultyAdapter;
 import com.ics.admin.Adapter.AdminAdapters.StudentAdapter;
+import com.ics.admin.BasicAdmin.Enquiry.ViewEnquiryActivity;
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
 import com.ics.admin.BasicAdmin.Masters.StudyMaterial.EditStudyMaterial;
 import com.ics.admin.BasicAdmin.Masters.StudyMaterial.StudyMaterialActivity;
 import com.ics.admin.BasicAdmin.SelectFacultyActivity;
 import com.ics.admin.BasicAdmin.StudentDetails.AssignStudentActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Fragment.FacultyFragment;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.ClassNAmes;
@@ -76,7 +80,8 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 public class HomeWorkActivity extends AppCompatActivity {
-     TextView selectdatae,homework,dayshome;
+     TextView selectdatae,homework;
+      EditText dayshome;
      LinearLayout dateli,dtechli;
      public static TextView selectteacher;
      public static String selectteacherStrings ,teacher_id;
@@ -124,14 +129,17 @@ public class HomeWorkActivity extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH);
                 int  mDay   = c.get(Calendar.DAY_OF_MONTH);
                 //launch datepicker modal
+                Toast.makeText(HomeWorkActivity.this, "Getting sub", Toast.LENGTH_SHORT).show();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                selectdatae.setText("");
+//                                selectdatae.setText("");
+                                dayshome.setText("");
                                 Log.d("LOG_APP", "DATE SELECTED "+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                                 dates = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                                selectdatae.setText(String.valueOf(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
+//                                selectdatae.setText(String.valueOf(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
+                                dayshome.setText(String.valueOf(dates));
                                 //PUT YOUR LOGING HERE
                                 //UNCOMMENT THIS LINE TO CALL TIMEPICKER
                                 //openTimePicker();
@@ -243,6 +251,7 @@ public class HomeWorkActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                selectdatae.setText("");
                                 Log.d("LOG_APP", "DATE SELECTED "+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                                 dates = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
                                 selectdatae.setText(String.valueOf(selectdatae.getText().toString()+": "+ dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
@@ -464,14 +473,18 @@ public class HomeWorkActivity extends AppCompatActivity {
         String class_id;
         String course;
         private Dialog dialog;
-
+        AdminProgressdialog adminProgressdialog;
         public GETCLASSFORHOMe(String id) {
             this.id = id;
             //  this.course=course;
             this.class_id=class_id;
         }
 
-
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog  = new AdminProgressdialog(HomeWorkActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -576,7 +589,7 @@ public class HomeWorkActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 if(position ==0) {
                                     selected_class = list_class.get(position);
-
+                                    new GETAllBathces(new Shared_Preference().getId(HomeWorkActivity.this),"").execute();
                                 }else {
                                     try {
                                         selected_class = list_class.get(position);
@@ -604,11 +617,11 @@ public class HomeWorkActivity extends AppCompatActivity {
                         });
                         Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
                         Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
-
+                        adminProgressdialog.EndProgress();
                     }
                     else
                     {
-
+                        adminProgressdialog.EndProgress();
                     }
 
 
@@ -618,6 +631,7 @@ public class HomeWorkActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -652,11 +666,18 @@ public class HomeWorkActivity extends AppCompatActivity {
         String calls_id;
         // String Faculty_id;
         private Dialog dialog;
+        AdminProgressdialog adminProgressdialog;
 
 
         public GETAllBathces(String i, String sel_id) {
             this.userid = i;
             this.calls_id = sel_id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog = new AdminProgressdialog(HomeWorkActivity.this);
+            super.onPreExecute();
         }
 
         @Override
@@ -738,13 +759,14 @@ public class HomeWorkActivity extends AppCompatActivity {
                         batch_names.clear();
                         batchArrayList.clear();
                         batch_spin_assign.setAdapter(null);
-                        batch_names.add("No Batch Found");
+                        batch_names.add("--Select Batch--");
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomeWorkActivity.this, android.R.layout.simple_spinner_item
                                 ,batch_names);
 
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         batch_spin_assign.setAdapter(adapter);
+                        adminProgressdialog.EndProgress();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                     }else {
@@ -759,45 +781,45 @@ public class HomeWorkActivity extends AppCompatActivity {
                             batch_names.add(Batch);
                             batchArrayList.add(new ABBBatch(userid,Class,Batch,"Class","Batch"));
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomeWorkActivity.this, android.R.layout.simple_spinner_item
-                                ,batch_names);
 
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        // Apply the adapter to the spinner
-                        batch_spin_assign.setAdapter(adapter);
-                        batch_spin_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                if(position==0) {
+                        adminProgressdialog.EndProgress();
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomeWorkActivity.this, android.R.layout.simple_spinner_item
+                            ,batch_names);
+
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    // Apply the adapter to the spinner
+                    batch_spin_assign.setAdapter(adapter);
+                    batch_spin_assign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if(position==0) {
+                                selected_batch = batch_names.get(position);
+                            }else {
+                                try {
+
                                     selected_batch = batch_names.get(position);
-                                }else {
-                                    try {
-
-                                        selected_batch = batch_names.get(position);
-                                        sel_batch = "" + batchArrayList.get(position-1).getUserId();
-                                        Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
-                                    }catch (Exception e)
-                                    {
+                                    sel_batch = "" + batchArrayList.get(position-1).getUserId();
+                                    Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                }catch (Exception e)
+                                {
 //                                        selected_batch = batch_names.get(position);
 //                                        sel_batch = "" + batchArrayList.get(position-1).getUserId();
-                                        Log.e("Spinner batch Selected ", " Items >>> _______"+ selected_batch+ selected_class + " --- " + sel_id);
-                                        e.printStackTrace();
-                                    }
+                                    Log.e("Spinner batch Selected ", " Items >>> _______"+ selected_batch+ selected_class + " --- " + sel_id);
+                                    e.printStackTrace();
                                 }
-
                             }
 
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
+                        }
 
-                            }
-                        });
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-
+                        }
+                    });
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
@@ -839,7 +861,12 @@ public class HomeWorkActivity extends AppCompatActivity {
         public GETSALLFACULTIES(String Faculty_id) {
             this.Faculty_id =Faculty_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(HomeWorkActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -913,6 +940,7 @@ public class HomeWorkActivity extends AppCompatActivity {
                     jsonObject1 = new JSONObject(result);
                     if(!jsonObject1.getBoolean("responce")){
                         Toast.makeText(HomeWorkActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
+                        adminProgressdialog.EndProgress();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                     }else {
@@ -936,11 +964,12 @@ public class HomeWorkActivity extends AppCompatActivity {
 
                         FacultyAdapter facultyAdapter = new FacultyAdapter(HomeWorkActivity.this,facultiesArrayList);
                         facultyrec.setAdapter(facultyAdapter); // set the Adapter to RecyclerView
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
@@ -998,7 +1027,12 @@ public class HomeWorkActivity extends AppCompatActivity {
 
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(HomeWorkActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -1078,11 +1112,13 @@ public class HomeWorkActivity extends AppCompatActivity {
                     jsonObject1 = new JSONObject(result);
                     if(jsonObject1.getBoolean("responce"))
                     {
+                        adminProgressdialog.EndProgress();
                         Intent intent = new Intent(HomeWorkActivity.this ,ViewWorkActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 } catch (JSONException e) {
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
@@ -1178,11 +1214,14 @@ public class HomeWorkActivity extends AppCompatActivity {
                 entity.addPart("work_date", new StringBody("" +  work_date));
                 entity.addPart("school_id", new StringBody("" +  school_id));
                 entity.addPart("teacher_id", new StringBody("" +  teacher_id));
-                entity.addPart("homework", new StringBody("" +  homework));
+                entity.addPart("homework", new StringBody("" +  homework.getText().toString()));
                 entity.addPart("work_type", new StringBody("" +  work_type));
                 entity.addPart("daysforwok", new StringBody("" +  daysforwok));
-                entity.addPart("pdf_file", new FileBody(MYDOC));
-
+                if(MYDOC !=null) {
+                    entity.addPart("pdf_file", new FileBody(MYDOC));
+                }else {
+                    entity.addPart("pdf_file", new StringBody(""));
+                }
 //                    entity.addPart("ret_mobile", new StringBody("" + r_mob));
 //                    entity.addPart("reference_referal_code", new StringBody(""+ref_co));
 
@@ -1207,7 +1246,7 @@ public class HomeWorkActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject1  = new JSONObject(result1);
                     if(jsonObject1.getBoolean("responce")){
-                        Toast.makeText(HomeWorkActivity.this, ""+jsonObject1.getString("data").toString(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(HomeWorkActivity.this, ""+jsonObject1.getString("data").toString(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(HomeWorkActivity.this , StudyMaterialActivity.class);
                         startActivity(intent);
                         finish();

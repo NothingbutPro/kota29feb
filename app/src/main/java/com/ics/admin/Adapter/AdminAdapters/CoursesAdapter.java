@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.ABBCoursemodel;
@@ -25,6 +26,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
 
     ArrayList<ABBCoursemodel> batchArrayList = new ArrayList<>();
     Activity activity;
+    private View view;
 
     public CoursesAdapter(Activity activity, ArrayList<ABBCoursemodel> batchArrayList) {
         this.activity = activity;
@@ -55,7 +57,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 String url = "http://ihisaab.in/school_lms/Adminapi/deleteCourselist";
-                new DeleteDialog().DeleteDialog("batch_id", activity, batchArrayList.get(i).getUserId(), url);
+                new DeleteDialog().DeleteDialog("course_id", activity, batchArrayList.get(i).getUserId(), url);
 //                new CommunityFragment.DELETStuff("Course_id",activity,batchArrayList.get(i).getUserId(), url).execute();
             }
         });
@@ -69,14 +71,37 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
         });
         myViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 //                Intent intent = new Intent()
-                if(myViewHolder.hide_li.getVisibility() == View.VISIBLE)
-                {
-                    myViewHolder.hide_li.setVisibility(View.GONE);
-                }else {
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.hide_li);
+                    ((ViewGroup) myViewHolder.hide_li.getParent()).removeView(myViewHolder.hide_li);
                     myViewHolder.hide_li.setVisibility(View.VISIBLE);
+                    CFAlertDialog.Builder builder = new CFAlertDialog.Builder(view.getContext())
+                            .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                            .setFooterView(view)
+                            .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                    CFAlertDialog cfAlertDialog = builder.create();
+                    cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    cfAlertDialog.show();
+                }catch (Exception e)
+                {
+                    view =vx;
+                    if(view !=null) {
+                        CFAlertDialog.Builder builder = new CFAlertDialog.Builder(view.getContext())
+                                .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                                .setFooterView(view)
+                                .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                        CFAlertDialog cfAlertDialog = builder.create();
+                        cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        cfAlertDialog.show();
+                        e.printStackTrace();
+                    }
                 }
+
             }
         });
 
@@ -92,10 +117,11 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // public CircleImageView circleimageview;
         TextView name,add_class ,mainname,mainsubname;
-        ImageView add_student;
+        ImageView delbatch,edit_btn;
         EditText editall;
         LinearLayout hide_li;
-        Button delbatch,edit_btn,edit_btn_save;
+        Button edit_btn_save;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

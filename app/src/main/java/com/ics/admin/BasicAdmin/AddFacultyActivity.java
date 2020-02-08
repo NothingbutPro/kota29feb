@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 
@@ -155,7 +157,12 @@ public class AddFacultyActivity extends AppCompatActivity {
             this.Password=Password;
 
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddFacultyActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -233,11 +240,14 @@ public class AddFacultyActivity extends AppCompatActivity {
 
                     jsonObject = new JSONObject(result);
                     if(!jsonObject.getBoolean("responce")){
+                        adminProgressdialog.EndProgress();
+                        Toast.makeText(AddFacultyActivity.this, "Failed to add Faculty", Toast.LENGTH_SHORT).show();
                         //    getotp.setVisibility(View.VISIBLE);
 //                        Intent
                     }
                     else
                     {
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(AddFacultyActivity.this, "Faculty Added", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddFacultyActivity.this , AdminActivity.class);
                         startActivity(intent);

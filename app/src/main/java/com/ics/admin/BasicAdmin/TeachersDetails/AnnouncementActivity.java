@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity;
 import com.ics.admin.BasicAdmin.HomeWork.ViewAllAnnouncements;
+import com.ics.admin.BasicAdmin.StudentDetails.Studentadnviewactivty;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Interfaces.GetDates;
 import com.ics.admin.Interfaces.ProgressDialogs;
 import com.ics.admin.Model.ABBBatch;
@@ -89,7 +91,19 @@ public class AnnouncementActivity extends AppCompatActivity {
         announcementbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PostAllAnnouncements(new Shared_Preference().getId(v.getContext()), notificationedt.getText().toString()).execute();
+                if(sel_id != "") {
+                    if(sel_batch != "") {
+                        if(notificationedt.getText().toString() != "") {
+                            new PostAllAnnouncements(new Shared_Preference().getId(v.getContext()), notificationedt.getText().toString()).execute();
+                        }else {
+                            Toast.makeText(AnnouncementActivity.this, "Please enter some notification", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(AnnouncementActivity.this, "Please select batch", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(AnnouncementActivity.this, "Please select class", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -99,11 +113,18 @@ public class AnnouncementActivity extends AppCompatActivity {
         String class_id;
         String course;
         private Dialog dialog;
+        AdminProgressdialog adminProgressdialog;
 
         public GetAllClassesForannounce(String id) {
             this.id = id;
             //  this.course=course;
             this.class_id = class_id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog = new AdminProgressdialog(AnnouncementActivity.this);
+            super.onPreExecute();
         }
 
         @Override
@@ -207,7 +228,7 @@ public class AnnouncementActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 if (position == 0) {
                                     selected_class = list_class.get(position);
-
+                                    new GETAllBathcesForAnnounce(new Shared_Preference().getId(AnnouncementActivity.this), "").execute();
                                 } else {
                                     try {
                                         selected_class = list_class.get(position);
@@ -246,6 +267,7 @@ public class AnnouncementActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -286,7 +308,12 @@ public class AnnouncementActivity extends AppCompatActivity {
             this.userid = i;
             this.calls_id = sel_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AnnouncementActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -365,7 +392,7 @@ public class AnnouncementActivity extends AppCompatActivity {
                         batch_names.clear();
                         batchArrayList.clear();
                         batch_id_announce_spin.setAdapter(null);
-                        batch_names.add("No Batch Found");
+                        batch_names.add("--Select Batch--");
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(AnnouncementActivity.this, android.R.layout.simple_spinner_item
                                 , batch_names);
 
@@ -428,6 +455,7 @@ public class AnnouncementActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -471,13 +499,13 @@ public class AnnouncementActivity extends AppCompatActivity {
             this.userid = id;
             this.name = dialog;
         }
-
+        AdminProgressdialog adminProgressdialog;
         @Override
         protected void onPreExecute() {
-//            progressDialogss=  new ProgressDialogs();
-//            progressDialogss.ProgressMe((Context) Ann ,activity );
+            adminProgressdialog= new AdminProgressdialog(AnnouncementActivity.this);
             super.onPreExecute();
         }
+
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -567,6 +595,7 @@ public class AnnouncementActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

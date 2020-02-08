@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ics.admin.BasicAdmin.FeesStructure.PayFeesActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 
@@ -69,7 +71,12 @@ public class AddSubjectActivity extends AppCompatActivity {
            this.subject = subject;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddSubjectActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -172,6 +179,7 @@ public class AddSubjectActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

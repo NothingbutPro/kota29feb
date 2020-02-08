@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.BasicAdmin.Masters.Subjects.SubjectViewActivity;
 import com.ics.admin.CommonJavaClass.DeleteDialog;
@@ -44,6 +46,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
     //ArrayList<SubjectViewActivity.ABBSubject> subjectArrayList = new ArrayList<>();
     ArrayList<ABBSubject>subjectArrayList = new ArrayList<>();
     Activity activity;
+    private View view;
 
     public SubjectAdapter(SubjectViewActivity activity, ArrayList<ABBSubject> subjectsArrayList) {
 
@@ -55,7 +58,6 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
     @Override
     public SubjectAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.subject_adapter, viewGroup, false);
-
         return new SubjectAdapter.MyViewHolder(v);
     }
 
@@ -72,13 +74,26 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
         });
         myViewHolder.editsubsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(myViewHolder.hide_li.getVisibility() == View.GONE)
-                {
+            public void onClick(View v) {
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.hide_li);
+                    ((ViewGroup) myViewHolder.hide_li.getParent()).removeView(myViewHolder.hide_li);
+
                     myViewHolder.hide_li.setVisibility(View.VISIBLE);
-                }else {
-                myViewHolder.hide_li .setVisibility(View.GONE);
+                }catch (Exception e)
+                {
+                    view =vx;
+                    e.printStackTrace();
                 }
+                CFAlertDialog.Builder builder = new CFAlertDialog.Builder(view.getContext())
+                        .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                        .setFooterView(view)
+                        .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                CFAlertDialog cfAlertDialog = builder.create();
+                cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                cfAlertDialog.show();
             }
         });
         myViewHolder.delesubs.setOnClickListener(new View.OnClickListener() {
@@ -100,11 +115,11 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView add_Subject;
-        Button delesubs;
+        ImageView delesubs;
         EditText editall;
         LinearLayout hide_li;
         Button edit_btn;
-        Button editsubsbtn;
+        ImageView editsubsbtn;
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);

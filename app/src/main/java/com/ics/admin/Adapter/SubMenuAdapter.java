@@ -17,7 +17,7 @@ import com.ics.admin.BasicAdmin.FeesStructure.AllStudentFeeActivity;
 import com.ics.admin.BasicAdmin.FeesStructure.ViewAllFeesActivity;
 import com.ics.admin.BasicAdmin.HomeWork.ViewAllAnnouncements;
 import com.ics.admin.BasicAdmin.Masters.Batch.AddBatchActivity;
-import com.ics.admin.BasicAdmin.Masters.Courses.AddCourseActivity;
+import com.ics.admin.BasicAdmin.Masters.Courses.ViewCourseActivity;
 import com.ics.admin.BasicAdmin.Attendence.Addattendactivity;
 import com.ics.admin.BasicAdmin.Masters.Forclass.ClassViewActivity;
 import com.ics.admin.BasicAdmin.Enquiry.AddEnquiryActivity;
@@ -120,7 +120,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<SubMenuAdapter.MyViewHo
                         Toast.makeText(v.getContext(), ""+namestff, Toast.LENGTH_SHORT).show();
 
                 }else  if(namestff.getSubmenu().contains("Add Course")) {
-                    Intent intent0 = new Intent(v.getContext(), AddCourseActivity.class);
+                    Intent intent0 = new Intent(v.getContext(), ViewCourseActivity.class);
                     v.getContext().startActivity(intent0);
                     Toast.makeText(v.getContext(), "" + namestff, Toast.LENGTH_SHORT).show();
                 }
@@ -273,7 +273,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<SubMenuAdapter.MyViewHo
 //                        break;
 //
 //                    case 4:
-//                        Intent intent3= new Intent(v.getContext(), AddCourseActivity.class);
+//                        Intent intent3= new Intent(v.getContext(), ViewCourseActivity.class);
 //                        v.getContext().startActivity(intent3);
 //                        Toast.makeText(v.getContext(), ""+namestff, Toast.LENGTH_SHORT).show();
 //                        break;

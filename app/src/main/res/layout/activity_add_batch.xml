@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".BasicAdmin.Masters.Batch.AddBatchActivity">
+>
 
   <androidx.appcompat.widget.Toolbar
       android:background="@color/red"
@@ -30,9 +30,10 @@
     android:layout_below="@+id/toolsbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <com.github.clans.fab.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_batch_fab"
         android:layout_width="wrap_content"
-        android:layout_height="20pt"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         fab:srcCompat="@drawable/ic_add"
         fab:fab_colorNormal="@color/red"
@@ -130,8 +131,8 @@
         android:layout_height="wrap_content">
 <TextView
     android:drawableLeft="@drawable/ic_add_attachment"
-    android:text="Add Batch"
-    android:id="@+id/batchfab"
+    android:text="Add Class"
+    android:id="@+id/class_fab"
     android:padding="5dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

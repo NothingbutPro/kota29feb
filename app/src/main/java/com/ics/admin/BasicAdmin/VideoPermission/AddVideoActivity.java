@@ -36,6 +36,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBCoursemodel;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
@@ -335,8 +337,9 @@ public class AddVideoActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == RESULT_OK) {
-            if(requestCode == Gallery_view) {
+            if (requestCode == Gallery_view) {
                 Intent data = intent;
                 try {
 //                Toast.makeText(this, "Please upload from SD card only", Toast.LENGTH_SHORT).show();
@@ -468,7 +471,7 @@ public class AddVideoActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(this, "Not getting file from phone please upload valid .pdf", Toast.LENGTH_SHORT).show();
                 }
-            }else {
+            } else {
                 Log.e("Video File : ", "" + intent.getData());
 
                 // Video captured and saved to fileUri specified in the Intent
@@ -477,7 +480,7 @@ public class AddVideoActivity extends AppCompatActivity {
         } else if (resultCode == RESULT_CANCELED) {
 
 
-            Log.e("Video File : ","Cancleded" );
+            Log.e("Video File : ", "Cancleded");
 
             // User cancelled the video capture
 //            Toast.makeText(this, "User cancelled the video capture.",
@@ -486,7 +489,7 @@ public class AddVideoActivity extends AppCompatActivity {
 
         } else {
             fliename.setText("No video file selected");
-            Log.e("Video File : ","failed" );
+            Log.e("Video File : ", "failed");
 
 
             // Video capture failed, advise user
@@ -503,6 +506,7 @@ public class AddVideoActivity extends AppCompatActivity {
         String result = "";
         File file;
         File bMap;
+        AdminProgressdialog adminProgressdialog;
 
         public OKSENDVIDEO(String name, String sel_batch, String sel_id, File mediaFile, File bMap) {
             this.Title = name;
@@ -513,17 +517,22 @@ public class AddVideoActivity extends AppCompatActivity {
             this.bMap = bMap;
         }
 
-
         @Override
         protected void onPreExecute() {
-            dialog = new ProgressDialog(AddVideoActivity.this);
-            dialog.setMessage("Processing");
-
-            dialog.setCancelable(true);
-            dialog.show();
-            dialog.setCanceledOnTouchOutside(false);
+            adminProgressdialog = new AdminProgressdialog(AddVideoActivity.this);
             super.onPreExecute();
         }
+
+//        @Override
+//        protected void onPreExecute() {
+//            dialog = new ProgressDialog(AddVideoActivity.this);
+//            dialog.setMessage("Processing");
+//
+//            dialog.setCancelable(true);
+//            dialog.show();
+//            dialog.setCanceledOnTouchOutside(false);
+//            super.onPreExecute();
+//        }
 
         @Override
         protected String doInBackground(Void... params) {
@@ -564,14 +573,14 @@ public class AddVideoActivity extends AppCompatActivity {
 
             String result1 = result;
             if (result1 != null) {
-                dialog.dismiss();
+//                dialog.dismiss();
                 Log.e("result1", result1);
                 try {
                     JSONObject jsonObject1  = new JSONObject(result1);
                     if(jsonObject1.getBoolean("responce")){
                         Toast.makeText(AddVideoActivity.this, "Video Added Successfully", Toast.LENGTH_SHORT).show();
 //                        Toast.makeText(AddVideoActivity.this, ""+jsonObject1.getString("data").toString(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddVideoActivity.this , AddVideoActivity.class);
+                        Intent intent = new Intent(AddVideoActivity.this , VideosViewActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -585,10 +594,10 @@ public class AddVideoActivity extends AppCompatActivity {
                 //     startActivity(in);
 
             } else {
-                dialog.dismiss();
+//                dialog.dismiss();
 //                Toast.makeText(Single_user_act_TRD.this, "Some Problem", Toast.LENGTH_LONG).show();
             }
-
+            adminProgressdialog.EndProgress();
         }
     }
 
@@ -605,7 +614,12 @@ public class AddVideoActivity extends AppCompatActivity {
             this.class_id=class_id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddVideoActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -698,6 +712,7 @@ public class AddVideoActivity extends AppCompatActivity {
                     }
                     else
                     {
+                        list_class.add("--Select Class--");
 
                     }
 
@@ -742,6 +757,7 @@ public class AddVideoActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -782,7 +798,12 @@ public class AddVideoActivity extends AppCompatActivity {
             this.userid = i;
             this.calls_id = sel_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddVideoActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -911,6 +932,7 @@ public class AddVideoActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.BasicAdmin.Masters.Batch.AddStudentActivity;
 import com.ics.admin.BasicAdmin.StudentDetails.AssignStudentActivity;
@@ -52,6 +53,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
     ArrayList<Students> studentsArrayList = new ArrayList<>();
     Activity activity;
     private ArrayList<StudentsFeesEmi> studentsfeeList = new ArrayList<>();
+    private View view;
 
     public StudentAdapter(Activity activity, ArrayList<Students> studentsArrayList) {
         this.activity = activity;
@@ -68,14 +70,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull StudentAdapter.MyViewHolder myViewHolder, final int i) {
-        myViewHolder.name.setText(""+studentsArrayList.get(i).getName());
+        myViewHolder.name.setText(studentsArrayList.get(i).getName());
 
 //        myViewHolder.
         if(studentsArrayList.get(i).getAssigned().equals("assigned"))
         {
 //           myViewHolder.assignstd.setVisibility(View.GONE);
-            myViewHolder.mainclass.setText(""+studentsArrayList.get(i).getClassx());
-            myViewHolder.v_batch.setText("("+studentsArrayList.get(i).getBatch()+")");
+            myViewHolder.mainclass.setText(studentsArrayList.get(i).getClassx());
+            myViewHolder.v_batch.setText(studentsArrayList.get(i).getBatch());
         }
         else
             {
@@ -98,13 +100,32 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
         });
         myViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(myViewHolder.hide_li.getVisibility() == View.VISIBLE)
+            public void onClick(View v) {
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.hide_li);
+                    ((ViewGroup) myViewHolder.hide_li.getParent()).removeView(myViewHolder.hide_li);
+
+                    view.setVisibility(View.VISIBLE);
+                }catch (Exception e)
                 {
-                    myViewHolder.hide_li.setVisibility(View.GONE);
-                }else {
-                    myViewHolder.hide_li.setVisibility(View.VISIBLE);
+                    view =vx;
+                    e.printStackTrace();
                 }
+                CFAlertDialog.Builder builder = new CFAlertDialog.Builder(v.getContext())
+                        .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                        .setFooterView(view)
+                        .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                CFAlertDialog cfAlertDialog = builder.create();
+                cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                cfAlertDialog.show();
+//                if(myViewHolder.hide_li.getVisibility() == View.VISIBLE)
+//                {
+//                    myViewHolder.hide_li.setVisibility(View.GONE);
+//                }else {
+//                    myViewHolder.hide_li.setVisibility(View.VISIBLE);
+//                }
             }
         });
         myViewHolder.edit_btn_save.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +138,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
                 new EditStuffs("update_student", activity, "",studentsArrayList.get(i).getId(),name,mobile,address, url).execute();
             }
         });
-        myViewHolder.add_class.setText("Mobile :"+studentsArrayList.get(i).getMobile()+" Address: "+studentsArrayList.get(i).getClassx());
+//        myViewHolder.add_class.setText("Address: "+studentsArrayList.get(i).get());
+        myViewHolder.st_mobile.setText(String.valueOf(studentsArrayList.get(i).getMobile()));
         myViewHolder.delbatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,18 +192,20 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // public CircleImageView circleimageview;
-        TextView name,add_class,mainclass,mainsubname,v_batch;
+        TextView name,add_class,mainclass,mainsubname,v_batch,st_mobile;
         EditText new_name,new_mobile,new_address;
         ImageView add_student;
 
         LinearLayout assignstd,hide_li;
-        Button delbatch,edit_btn_save,edit_btn;
+        ImageView delbatch,edit_btn;
+        Button edit_btn_save;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
             v_batch = (TextView) itemView.findViewById(R.id.v_batch);
             add_class=(TextView)itemView.findViewById(R.id.add_class);
+            st_mobile=(TextView)itemView.findViewById(R.id.st_mobile);
             add_student = (ImageView) itemView.findViewById(R.id.add_student);
             mainclass =  itemView.findViewById(R.id.mainclass);
             mainsubname = itemView.findViewById(R.id.mainsubname);
@@ -201,14 +225,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 //                    activity.startActivity(intent1);
 //                }
 //            });
-            add_student.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(activity, AddStudentActivity.class);
-                    activity.startActivity(intent);
-                    activity.finish();
-                }
-            });
+//            add_student.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(activity, AddStudentActivity.class);
+//                    activity.startActivity(intent);
+//                    activity.finish();
+//                }
+//            });
 
 
         }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.BasicAdmin.TeachersDetails.ViewTeachersActivity;
 import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Interfaces.ProgressDialogs;
@@ -57,6 +60,7 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
     HashMap<String, List<SubMenuPermissions>> menuPermissionsSubListHash = new HashMap<>();
 
     Activity activity;
+    private View view;
 
     public ViewTeachersonAdapter(Activity activity, ArrayList facultiesArrayList)
     {
@@ -76,7 +80,8 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
         myViewHolder.factname.setText(""+facultiesArrayList.get(i).getName());
         myViewHolder.factnumber.setText(""+facultiesArrayList.get(i).getMobile());
         myViewHolder.fact_type.setText(""+facultiesArrayList.get(i).getAddress());
-        myViewHolder.assignjob.setVisibility(View.GONE);
+//        myViewHolder.onlyassign.setVisibility(View.GONE);
+//        myViewHolder.assignjob.setVisibility(View.GONE);
         myViewHolder.deltecher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,12 +101,34 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
         myViewHolder.editteachbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(myViewHolder.teacehrdli.getVisibility() == View.VISIBLE)
-                {
-                   myViewHolder.teacehrdli.setVisibility(View.GONE);
-                }else {
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.teacehrdli);
+                    ((ViewGroup) myViewHolder.teacehrdli.getParent()).removeView(myViewHolder.teacehrdli);
+
                     myViewHolder.teacehrdli.setVisibility(View.VISIBLE);
+                    CFAlertDialog.Builder builder = new CFAlertDialog.Builder(view.getContext())
+                            .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                            .setFooterView(view)
+                            .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                    CFAlertDialog cfAlertDialog = builder.create();
+                    cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    cfAlertDialog.show();
+                }catch (Exception e)
+                {
+                    view =vx;
+                    CFAlertDialog.Builder builder = new CFAlertDialog.Builder(activity)
+                            .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                            .setFooterView(view)
+                            .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                    CFAlertDialog cfAlertDialog = builder.create();
+                    cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    cfAlertDialog.show();
+                    e.printStackTrace();
                 }
+
             }
         });
     }
@@ -128,14 +155,14 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public CircleImageView circleimageview;
-        TextView deltecher;
+        ImageView deltecher;
         Button editteacher;
         EditText edtteachename,edtemailtxt,edtmobileed;
         TextView factname;
         TextView fact_type;
         TextView factnumber;
-        LinearLayout teacehrdli;
-        com.github.florent37.shapeofview.shapes.CutCornerView editteachbtn;
+        LinearLayout teacehrdli,onlyassign;
+        ImageView editteachbtn;
         LinearLayout assignjob;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -144,14 +171,16 @@ public class ViewTeachersonAdapter extends RecyclerView.Adapter<ViewTeachersonAd
 //            name = (TextView) itemView.findViewById(R.id.name);
             factname = (TextView) itemView.findViewById(R.id.factnames);
             factnumber = (TextView) itemView.findViewById(R.id.factnumbers);
-            deltecher = (TextView) itemView.findViewById(R.id.deltecher);
+            deltecher =  itemView.findViewById(R.id.deltecher);
+            deltecher =  itemView.findViewById(R.id.deltecher);
 //            address = (TextView) itemView.findViewById(R.id.address);
             assignjob =  itemView.findViewById(R.id.assignjobs);
             edtteachename =  itemView.findViewById(R.id.edtteachename);
             editteacher =  itemView.findViewById(R.id.teachedtbtn);
             edtemailtxt =  itemView.findViewById(R.id.edtemailtxt);
+            onlyassign =  itemView.findViewById(R.id.onlyassign);
             edtmobileed =  itemView.findViewById(R.id.edtmobileed);
-            editteachbtn =  itemView.findViewById(R.id.editteachbtn);
+            editteachbtn =  itemView.findViewById(R.id.editteachers);
             fact_type =  itemView.findViewById(R.id.fact_type);
             teacehrdli =  itemView.findViewById(R.id.teacehrdli);
 //            editteachbtn =  itemView.findViewById(R.id.editteachbtn);

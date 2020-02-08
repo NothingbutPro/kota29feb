@@ -85,7 +85,7 @@ public class AdminMenuExpandableAdapter  extends RecyclerView.Adapter<AdminMenuE
                 try {
                     PsoitionNAme = menuPermisssionList.get(position).getMenu_name();
                     Intent in = new Intent(mContext, MasterManuActivity.class);
-                    if(PsoitionNAme.equals("Home Work des")) {
+                    if(PsoitionNAme.equals("Homework")) {
                         in.putExtra("ids", "Home Work");
                     }else if(PsoitionNAme.contains("Fee")){
                         in.putExtra("ids", "Fee Structure Management");

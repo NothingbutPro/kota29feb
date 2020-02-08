@@ -5,6 +5,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.ics.admin.BasicAdmin.Enquiry.ViewEnquiryActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -141,7 +145,12 @@ public class EditStuffs extends AsyncTask<String, Void, String> {
         this.numbers = 3;
     }
 
-
+    AdminProgressdialog adminProgressdialog;
+    @Override
+    protected void onPreExecute() {
+        adminProgressdialog= new AdminProgressdialog(activity);
+        super.onPreExecute();
+    }
     @Override
     protected String doInBackground(String... arg0) {
 
@@ -290,17 +299,18 @@ public class EditStuffs extends AsyncTask<String, Void, String> {
                     Intent intent = new Intent(activity , activity.getClass());
                     activity.startActivity(intent);
                     activity.finish();
+                    adminProgressdialog.EndProgress();
 //                        Toast.makeText(ClassViewActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                 }else {
-
-
+                    Toast.makeText(activity,"Failed to edit", Toast.LENGTH_SHORT).show();
+                    adminProgressdialog.EndProgress();
                 }
 
 
             } catch (JSONException e) {
-
+                adminProgressdialog.EndProgress();
                 e.printStackTrace();
             }
 

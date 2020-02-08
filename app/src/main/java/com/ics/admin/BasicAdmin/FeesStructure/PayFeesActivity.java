@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ics.admin.BasicAdmin.StudentDetails.Studentadnviewactivty;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBCoursemodel;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
@@ -189,7 +191,12 @@ public class PayFeesActivity extends AppCompatActivity {
             //  this.course=course;
 
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(PayFeesActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -313,6 +320,7 @@ public class PayFeesActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -352,7 +360,12 @@ public class PayFeesActivity extends AppCompatActivity {
                 this.userid = i;
                 this.calls_id = sel_id;
             }
-
+            AdminProgressdialog adminProgressdialog;
+            @Override
+            protected void onPreExecute() {
+                adminProgressdialog= new AdminProgressdialog(PayFeesActivity.this);
+                super.onPreExecute();
+            }
             @Override
             protected String doInBackground(String... arg0) {
 
@@ -485,6 +498,7 @@ public class PayFeesActivity extends AppCompatActivity {
                     }
 
                 }
+                adminProgressdialog.EndProgress();
             }
 
             public String getPostDataString(JSONObject params) throws Exception {
@@ -525,7 +539,12 @@ public class PayFeesActivity extends AppCompatActivity {
                     this.calls_id = sel_id;
                     this.sel_course = sel_course;
                 }
-
+                AdminProgressdialog adminProgressdialog;
+                @Override
+                protected void onPreExecute() {
+                    adminProgressdialog= new AdminProgressdialog(PayFeesActivity.this);
+                    super.onPreExecute();
+                }
 
                 @Override
                 protected String doInBackground(String... arg0) {
@@ -659,6 +678,7 @@ public class PayFeesActivity extends AppCompatActivity {
                         }
 
                     }
+                    adminProgressdialog.EndProgress();
                 }
             }
 
@@ -682,7 +702,12 @@ public class PayFeesActivity extends AppCompatActivity {
             this.selected_student_id_class = selected_student_id_class;
 
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(PayFeesActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -805,7 +830,15 @@ public class PayFeesActivity extends AppCompatActivity {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 // Continue with delete operation
                                                 try {
-                                                    student_fee_id.setSelection(student_fee_id.getSelectedItemPosition() + 1);
+                                                    int count  = student_fee_id.getCount();
+                                                    int count2 = student_fee_id.getSelectedItemPosition();
+                                                    if( !(student_fee_id.getSelectedItemPosition() +1 ==student_fee_id.getCount() ) )
+                                                    {
+                                                        student_fee_id.setSelection(student_fee_id.getSelectedItemPosition() + 1);
+                                                    }else {
+                                                        student_fee_id.setSelection(student_fee_id.getSelectedItemPosition());
+                                                        Toast.makeText(PayFeesActivity.this, "All Student are paid", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }catch (Exception e)
                                                 {
                                                     Toast.makeText(PayFeesActivity.this, "All Student are paid", Toast.LENGTH_SHORT).show();
@@ -831,6 +864,7 @@ public class PayFeesActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
     }
@@ -879,7 +913,12 @@ public class PayFeesActivity extends AppCompatActivity {
             this.paybyspinwithoutemi = paybyspinwithoutemi;
             this.paymodes = paymodes;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(PayFeesActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -986,6 +1025,7 @@ public class PayFeesActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
     }
@@ -999,7 +1039,12 @@ public class PayFeesActivity extends AppCompatActivity {
             this.payed_id = payed_id;
             this.selectedItem = selectedItem;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(PayFeesActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -1094,6 +1139,7 @@ public class PayFeesActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
     }
@@ -1124,7 +1170,12 @@ public class PayFeesActivity extends AppCompatActivity {
             this.months = months;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(PayFeesActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -1229,6 +1280,7 @@ public class PayFeesActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
     }

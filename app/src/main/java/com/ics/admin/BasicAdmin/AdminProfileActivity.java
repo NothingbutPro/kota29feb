@@ -19,7 +19,9 @@ import com.google.gson.Gson;
 import com.ics.admin.Adapter.AdminAdapters.BatchAdapter;
 import com.ics.admin.Api_Retrofit.Retro_urls;
 import com.ics.admin.Api_Retrofit.StudentApis;
+import com.ics.admin.BasicAdmin.Enquiry.ViewEnquiryActivity;
 import com.ics.admin.BasicAdmin.Masters.Batch.AddBatchActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -145,7 +147,12 @@ public class AdminProfileActivity extends AppCompatActivity {
         public GETMYINFORMATIONS(String i) {
             this.userid = i;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AdminProfileActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -247,18 +254,17 @@ public class AdminProfileActivity extends AppCompatActivity {
                     }
                     else
                     {
-
-
-
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -297,7 +303,12 @@ public class AdminProfileActivity extends AppCompatActivity {
         public EDITMYPROFILE(String i) {
             this.userid = i;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AdminProfileActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -393,6 +404,7 @@ public class AdminProfileActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

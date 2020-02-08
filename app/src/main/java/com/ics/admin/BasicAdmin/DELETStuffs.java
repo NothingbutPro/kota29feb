@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Button;
+
+import com.ics.admin.BasicAdmin.Enquiry.ViewEnquiryActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,7 +42,12 @@ public class  DELETStuffs extends AsyncTask<String, Void, String> {
         this.newclassname = Del_ids;
 
     }
-
+    AdminProgressdialog adminProgressdialog;
+    @Override
+    protected void onPreExecute() {
+        adminProgressdialog= new AdminProgressdialog(activity);
+        super.onPreExecute();
+    }
 
     @Override
     protected String doInBackground(String... arg0) {
@@ -128,6 +137,7 @@ public class  DELETStuffs extends AsyncTask<String, Void, String> {
             }
 
         }
+        adminProgressdialog.EndProgress();
     }
 
     public String getPostDataString(JSONObject params) throws Exception {

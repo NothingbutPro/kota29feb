@@ -10,28 +10,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_margin="5dp">
+       >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:orientation="horizontal">
+        <LinearLayout
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <LinearLayout
+
+                android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+
+                    android:scaleType="centerInside"
                     android:src="@drawable/teacher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
 
                 </ImageView>
+                <LinearLayout
+
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_marginTop="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/mainname"
-                    android:text=""
-                    android:textColor="@color/red"
-                    android:textSize="18sp"
-                    android:layout_marginTop="5dp"
+                    android:text="Class"
+                    android:textSize="14sp"
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -40,133 +55,123 @@
                 </TextView>
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ABCD"
-                    android:layout_gravity="left|center"
-                    android:textSize="18sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="15dp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/mainsubname"
-                    android:text=""
-                    android:textColor="@color/red"
-                    android:textSize="18sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
 
-
-                </TextView>
-                <TextView
-                    android:id="@+id/add_class"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Class "
-                    android:layout_gravity="left|center"
-                    android:layout_marginTop="5dp"
                     android:textSize="14sp"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/brown"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/hide_li"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-
-                    android:id="@+id/editall"
-                    android:hint="New Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </EditText>
-                <Button
-                    android:layout_gravity="right"
-                    android:textColor="@color/white1"
-                    android:background="@color/red"
-                    android:id="@+id/edit_btn_save"
-                    android:text="Edit and Save"
+                    android:layout_marginLeft="5dp"
+                    />
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/mainsubname"
+                        android:text="dfgdf"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                </Button>
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/add_class"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Class "
+                        android:textSize="14sp"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/brown"/>
+
+
+                </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
+
             <LinearLayout
-                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:layout_gravity="end"
                 android:id="@+id/assignstd"
                 android:weightSum="3"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
 
-                <Button
-
+                <ImageView
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white1"
-                    android:background="@color/red"
+                    android:src="@drawable/edit_icon"
                     android:text="Edit"
                     android:id="@+id/edit_btn"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                </Button>
+                </ImageView>
 
-                <Button
-                    android:layout_marginLeft="20dp"
+                <ImageView
+
                     android:text="Delete"
-                    android:background="@color/red"
-                    android:textColor="@color/white1"
+                    android:src="@drawable/delete_icon"
                     android:id="@+id/delbatch"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                </Button>
+                </ImageView>
 
-                <!--            <ImageView-->
-                <!--                android:id="@+id/add_student"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_gravity="left|center"-->
-                <!--                android:layout_marginLeft="15dp"-->
-                <!--                android:src="@drawable/ic_add_circle_outline_black_24dp" />-->
-                <!--    <TextView-->
+            </LinearLayout>
 
-                <!--        android:layout_marginRight="20dp"-->
-                <!--        android:layout_weight="1"-->
-                <!--        android:layout_width="match_parent"-->
-                <!--        android:layout_height="wrap_content"-->
-                <!--        android:text="Assign"-->
-                <!--        android:textStyle="normal"-->
-                <!--        android:layout_gravity="left|center"-->
-                <!--        android:layout_margin="10dp"-->
-                <!--        android:textSize="18sp"-->
-                <!--        android:textColor="@color/colordarkBlue"/>-->
             </LinearLayout>
 
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/hide_li"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
 
+            android:id="@+id/editall"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:hint="Enter New Course Name"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp" >
 
+        </EditText>
+        <Button
+            android:layout_gravity="right"
+            android:id="@+id/edit_btn_save"
+            android:textAllCaps="false"
+            android:layout_margin="10dp"
+            android:text="Submit Edit"
+            android:background="@drawable/button"
+            android:textColor="@color/white1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
 
+        </Button>
+    </LinearLayout>
 
+    <View
+        android:background="@color/gre"
+        android:layout_below="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
 
+    </View>
 </RelativeLayout>

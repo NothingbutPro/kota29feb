@@ -1,23 +1,34 @@
-package com.ics.admin.BasicAdmin.HomeWork;
+package com.ics.admin.BasicAdmin.Masters.Courses;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ics.admin.Adapter.AdminAdapters.AllAnnounceMentsAdapter;
-import com.ics.admin.Adapter.AdminAdapters.HomeWorkAdapter;
+import com.ics.admin.Adapter.AdminAdapters.CoursesAdapter;
 import com.ics.admin.BasicAdmin.Enquiry.ViewEnquiryActivity;
+import com.ics.admin.BasicAdmin.Masters.Forclass.AddClassActivity;
 import com.ics.admin.CommonJavaClass.AdminProgressdialog;
-import com.ics.admin.Model.AllAnnouncemet;
-import com.ics.admin.Model.HomeWorks;
+import com.ics.admin.Model.ABBCoursemodel;
+import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,40 +45,70 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class ViewAllAnnouncements extends AppCompatActivity {
-    RecyclerView _announceidrec;
-    ArrayList<AllAnnouncemet> allAnnouncemetArrayList = new ArrayList<>();
+public class ViewCourseActivity extends AppCompatActivity {
+    EditText edt_name;
+    Spinner class_spiner;
+    Button btn_save;
+    ArrayList<ClassNAmes> class_names;
+    String selected_class , sel_id;
+    TextView class_fab;
+    LinearLayout coursematerialli;
+    RecyclerView getcoursemat;
+    com.google.android.material.floatingactionbutton.FloatingActionButton  add_course_fab;
+    private CoursesAdapter addCourseActivity;
+    ArrayList<ABBCoursemodel> materialsArrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_all_announcements);
-        _announceidrec=findViewById(R.id.announceidrec);
-        new GETALLANNPOUNCEMTNS(new Shared_Preference().getId(this)).execute();
+        setContentView(R.layout.activity_add_course);
+        class_fab =  findViewById(R.id.class_fab);
+        add_course_fab =  findViewById(R.id.add_course_fab);
+        getcoursemat= findViewById(R.id.getcoursemat);
+        new GETALLCOURSES(new Shared_Preference().getId(this)).execute();
+
+        add_course_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(ViewCourseActivity.this , AddCourseActivity.class);
+               startActivity(intent);
+            }
+        });
+//        new ABBCourse(Shared_Preference.getId(ViewCourseActivity.this)).execute();
+        class_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext() , AddClassActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
-    private class GETALLANNPOUNCEMTNS extends AsyncTask<String, Void, String> {
+
+    private class GETALLCOURSES extends AsyncTask<String, Void, String> {
 
         String id;
         String class_id;
         String batch;
 
-        public GETALLANNPOUNCEMTNS(String id) {
+        public GETALLCOURSES(String id) {
             this.id = id;
         }
-
         AdminProgressdialog adminProgressdialog;
         @Override
         protected void onPreExecute() {
-            adminProgressdialog= new AdminProgressdialog(ViewAllAnnouncements.this);
+            adminProgressdialog= new AdminProgressdialog(ViewCourseActivity.this);
             super.onPreExecute();
         }
+
         @Override
         protected String doInBackground(String... arg0) {
 
 
             try {
 
-                URL url = new URL("http://ihisaab.in/school_lms/api/view_announcement");
+                URL url = new URL("http://ihisaab.in/school_lms/Adminapi/Courselist");
 
                 JSONObject postDataParams = new JSONObject();
 
@@ -134,47 +175,54 @@ public class ViewAllAnnouncements extends AppCompatActivity {
                     Log.e("AddBatch ",">>>>>>>>>>>>>>>>_____________________"+result);
                     jsonObject = new JSONObject(result);
                     if(jsonObject.getBoolean("responce")){
-
-                        Toast.makeText(ViewAllAnnouncements.this, "Geting Data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewCourseActivity.this, "Geting Data", Toast.LENGTH_SHORT).show();
                         for(int i=0;i<jsonObject.getJSONArray("data").length();i++)
                         {
                             JSONObject jsonObject1 = jsonObject.getJSONArray("data").getJSONObject(i);
                             String id = jsonObject1.getString("id");
-                            String user_id = jsonObject1.getString("user_id");
+                            String Class = jsonObject1.getString("Class");
+                            String title = jsonObject1.getString("Course");
                             String class_id = jsonObject1.getString("class_id");
-                            String batch_id = jsonObject1.getString("batch_id");
-                            String notification = jsonObject1.getString("notification");
-                            String date = jsonObject1.getString("date");
-                            String status = jsonObject1.getString("status");
-                            String Batch = jsonObject1.getString("Batch");
-                            String Class_ = jsonObject1.getString("Class");
-                            String cr_date = jsonObject1.getString("cr_date");
-                            Toast.makeText(ViewAllAnnouncements.this, "date is "+date, Toast.LENGTH_SHORT).show();
+//                            String pdf_file = jsonObject1.getString("pdf_file");
+//                            String id = jsonObject1.getString("id");
+//                            String id = jsonObject1.getString("id");
 
-                            allAnnouncemetArrayList.add(new AllAnnouncemet(id,user_id,class_id,batch_id,notification,date,status,Batch,Class_,cr_date));
+                            materialsArrayList.add(new ABBCoursemodel(id,Class,title,"Course :","Class:",class_id ));
+
 
                         }
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(ViewAllAnnouncements.this);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(ViewCourseActivity.this);
                         layoutManager.setOrientation(RecyclerView.VERTICAL);
-                        AllAnnounceMentsAdapter allAnnounceMentsAdapter = new AllAnnounceMentsAdapter(ViewAllAnnouncements.this , allAnnouncemetArrayList);
-                        _announceidrec.setLayoutManager(layoutManager);
-                        _announceidrec.setAdapter(allAnnounceMentsAdapter);
-                        adminProgressdialog.EndProgress();
+                        addCourseActivity = new CoursesAdapter(ViewCourseActivity.this , materialsArrayList);
+                        getcoursemat.setLayoutManager(layoutManager);
+                        getcoursemat.setAdapter(addCourseActivity);
+
 
                     }
                     else
                     {
-                        adminProgressdialog.EndProgress();
-                        Toast.makeText(ViewAllAnnouncements.this, "None Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewCourseActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(AddStudentActivity.this , AdminActivity.class);
+//                        startActivity(intent);
+//                        JSONObject massage=jsonObject.getJSONObject("massage");
+//
+////                        String mobile=jsonObject.getString("mobile");
+//
+////                        Toast.makeText(getApplication(),"Sorry You are not Registerd"+name, Toast.LENGTH_SHORT).show();
+//
+//                        //Intent intent=new Intent(RegistrationActivity.this, HomePageActivity.class);
+//                        //startActivity(intent);
+//                        //finish();
                     }
 
 
                 } catch (JSONException e) {
-                    adminProgressdialog.EndProgress();
+
                     e.printStackTrace();
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {
@@ -202,4 +250,5 @@ public class ViewAllAnnouncements extends AppCompatActivity {
             return result.toString();
         }
     }
+
 }

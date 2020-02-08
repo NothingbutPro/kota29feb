@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.ABBCoursemodel;
@@ -59,6 +61,7 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
 
     Activity activity;
     private RecyclerView grivideorec;
+    private View view;
 
     public OnlyVideoAdapter(Activity activity, ArrayList<VideosOnly> batchArrayList) {
         this.activity = activity;
@@ -101,7 +104,7 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
 
         myViewHolder.editvideonly.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
                 if(myViewHolder.hide_li.getVisibility() ==View.VISIBLE)
                 {
@@ -113,6 +116,25 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
                     myViewHolder.hide_li.setVisibility(View.VISIBLE);
                     Toast.makeText(activity, "Executing", Toast.LENGTH_SHORT).show();
                     new GETAllClassesforedit(new Shared_Preference().getId((Context) activity) , myViewHolder).execute();
+                    View vx = view;
+                    try {
+                        view = v.getRootView().findViewById(R.id.hide_li);
+                        ((ViewGroup) myViewHolder.hide_li.getParent()).removeView(myViewHolder.hide_li);
+
+                        view.setVisibility(View.VISIBLE);
+                    }catch (Exception e)
+                    {
+                        view =vx;
+                        e.printStackTrace();
+                    }
+                    CFAlertDialog.Builder builder = new CFAlertDialog.Builder(v.getContext())
+                            .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                            .setFooterView(view)
+                            .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                    CFAlertDialog cfAlertDialog = builder.create();
+                    cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    cfAlertDialog.show();
                 }
             }
         });
@@ -146,7 +168,7 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
         Button edit_vid_btn_save;
         CheckBox checvidpackag;
 
-        Button delvidonly,editvideonly;
+        ImageView delvidonly,editvideonly;
         LinearLayout hide_li;
         Spinner new_class_spin,new_course_spin;
         TextView new_tits;
@@ -456,6 +478,39 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
                     }
                     else
                     {
+                        final ArrayList <String> list_class = new ArrayList<>();
+                            list_class.add("--Select Class--");
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item
+                                ,list_class);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        myViewHolder.new_class_spin.setAdapter(adapter);
+                        myViewHolder.new_class_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if(position !=0) {
+                                    selected_class = list_class.get(position);
+                                    sel_id = "" + class_names.get(position).getUserId();
+                                    Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                    batch_names.clear();
+                                    batchArrayListAbbCoursemodelArrayList.clear();
+
+                                    new GETAllBathcesedit(new Shared_Preference().getId((Context) activity), sel_id).execute();
+                                }else {
+                                    new GETAllBathcesedit(new Shared_Preference().getId((Context) activity), "").execute();
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                        Log.e("GET CLASS ",">>>>>>>>>>>>>>>>_____________________"+result.toString());
+                        Log.e("GET CLASS ","ARRAY LIST SPINNER MAP ____________________"+class_names+"\n"+list_class);
+
                         Toast.makeText(activity, "No class found", Toast.LENGTH_SHORT).show();
                     }
 
@@ -579,18 +634,39 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
                     try {
 
                         jsonObject1 = new JSONObject(result);
-                        if(!jsonObject1.getBoolean("responce")){
+                        if (!jsonObject1.getBoolean("responce")) {
                             Toast.makeText(activity, "Nothing found", Toast.LENGTH_SHORT).show();
                             batch_names.clear();
                             batchArrayListAbbCoursemodelArrayList.clear();
 //                        batch_names.clear();
                             myViewHolder.new_course_spin.setAdapter(null);
+                            batch_names.add("--Select Batch--");
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
-                        }else {
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>((Context) activity, android.R.layout.simple_spinner_item
+                                    , batch_names);
+
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            // Apply the adapter to the spinner
+                            myViewHolder.new_course_spin.setAdapter(adapter);
+                            myViewHolder.new_course_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    if (position != 0) {
+                                        selected_batch = batch_names.get(position);
+                                        sel_batch = "" + batchArrayListAbbCoursemodelArrayList.get(position).getUserId();
+                                        Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                    }
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                        } else {
                             Toast.makeText(activity, "batch found", Toast.LENGTH_SHORT).show();
-                            for(int i=0;i<jsonObject1.getJSONArray("data").length();i++)
-                            {
+                            for (int i = 0; i < jsonObject1.getJSONArray("data").length(); i++) {
                                 JSONObject jsonObject2 = jsonObject1.getJSONArray("data").getJSONObject(i);
                                 String id = jsonObject2.getString("id");
                                 String Class = jsonObject2.getString("Course");
@@ -600,14 +676,14 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
 //                            String id = jsonObject1.getString("id");
 //                            String id = jsonObject1.getString("id");
                                 batch_names.add(Class);
-                                batchArrayListAbbCoursemodelArrayList.add(new ABBCoursemodel(id,Class,title,"Course :","Class:",class_id));
+                                batchArrayListAbbCoursemodelArrayList.add(new ABBCoursemodel(id, Class, title, "Course :", "Class:", class_id));
 
                             }
 
 //                            batchArrayList.add(new ABBBatch(userid,Class,Batch,"Class","Batch"));
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>((Context)activity, android.R.layout.simple_spinner_item
-                                    ,batch_names);
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>((Context) activity, android.R.layout.simple_spinner_item
+                                    , batch_names);
 
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             // Apply the adapter to the spinner
@@ -615,9 +691,11 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
                             myViewHolder.new_course_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    selected_batch = batch_names.get(position);
-                                    sel_batch =""+batchArrayListAbbCoursemodelArrayList.get(position).getUserId();
-                                    Log.e("Spinner Selected "," Items >>> _______"+selected_class+" --- "+sel_id);
+                                    if (position != 0) {
+                                        selected_batch = batch_names.get(position);
+                                        sel_batch = "" + batchArrayListAbbCoursemodelArrayList.get(position).getUserId();
+                                        Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                    }
                                 }
 
                                 @Override
@@ -627,6 +705,7 @@ public class OnlyVideoAdapter extends RecyclerView.Adapter<OnlyVideoAdapter.MyVi
                             });
 
                         }
+
 
 
                     } catch (JSONException e) {

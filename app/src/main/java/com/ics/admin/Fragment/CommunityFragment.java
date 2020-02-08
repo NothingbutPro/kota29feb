@@ -192,7 +192,8 @@ public class CommunityFragment extends Fragment {
                 try {
 
                     jsonObject = new JSONObject(result);
-                    if(!jsonObject.getBoolean("responce")){
+                    if(!jsonObject.getBoolean("responce"))
+                    {
 //                       Intent intent = new Intent(OTPActivity.this , LoginActivity.class);
 //                       startActivity(intent);
                         Toast.makeText(getActivity(),"You are not registerd"+result, Toast.LENGTH_SHORT).show();
@@ -214,12 +215,12 @@ public class CommunityFragment extends Fragment {
                                 if(menu_name.equals("Home Work"))
                                 {
                                     Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);
-                                    menu_name =  "Home Work des";
+                                    menu_name =  "Homework";
                                 }
                                 if(menu_name.equals("Teacher Export"))
                                 {
                                     Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);
-                                    menu_name =  "Home Work des";
+                                    menu_name =  "Homework";
                                 }if(menu_name.contains("Fee"))
                             {
                                 Log.e("Menus" , ">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+menu_name);

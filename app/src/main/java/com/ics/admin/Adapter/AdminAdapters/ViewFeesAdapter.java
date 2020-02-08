@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Interfaces.ProgressDialogs;
 import com.ics.admin.Model.MenuPermisssion;
@@ -56,6 +58,7 @@ public class ViewFeesAdapter extends RecyclerView.Adapter<ViewFeesAdapter.MyView
     HashMap<String, List<SubMenuPermissions>> menuPermissionsSubListHash = new HashMap<>();
 
     Activity activity;
+    private View view;
 
     public ViewFeesAdapter(Activity activity, ArrayList facultiesArrayList)
     {
@@ -100,12 +103,31 @@ public class ViewFeesAdapter extends RecyclerView.Adapter<ViewFeesAdapter.MyView
         myViewHolder.editteachbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(myViewHolder.teacehrdli.getVisibility() == View.VISIBLE)
-                {
-                    myViewHolder.teacehrdli.setVisibility(View.GONE);
-                }else {
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.teacehrdli);
+                    ((ViewGroup) myViewHolder.teacehrdli.getParent()).removeView(myViewHolder.teacehrdli);
+
                     myViewHolder.teacehrdli.setVisibility(View.VISIBLE);
+                }catch (Exception e)
+                {
+                    view =vx;
+                    e.printStackTrace();
                 }
+                CFAlertDialog.Builder builder = new CFAlertDialog.Builder(view.getContext())
+                        .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                        .setFooterView(view)
+                        .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                CFAlertDialog cfAlertDialog = builder.create();
+                cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                cfAlertDialog.show();
+//                if(myViewHolder.teacehrdli.getVisibility() == View.VISIBLE)
+//                {
+//                    myViewHolder.teacehrdli.setVisibility(View.GONE);
+//                }else {
+//                    myViewHolder.teacehrdli.setVisibility(View.VISIBLE);
+//                }
             }
         });
     }
@@ -132,7 +154,7 @@ public class ViewFeesAdapter extends RecyclerView.Adapter<ViewFeesAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public CircleImageView circleimageview;
-        TextView deltecher;
+        ImageView deltecher;
         Button feeamtbtn;
         EditText edtcoursefeeamount;
         TextView class_fee;
@@ -141,7 +163,7 @@ public class ViewFeesAdapter extends RecyclerView.Adapter<ViewFeesAdapter.MyView
         LinearLayout teacehrdli;
         Button viewemis;
 
-        com.github.florent37.shapeofview.shapes.CutCornerView editteachbtn;
+        ImageView editteachbtn;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -151,10 +173,10 @@ public class ViewFeesAdapter extends RecyclerView.Adapter<ViewFeesAdapter.MyView
             class_fee = (TextView) itemView.findViewById(R.id.class_fee);
             course_fee = (TextView) itemView.findViewById(R.id.course_fee);
             fee_amt = (TextView) itemView.findViewById(R.id.fee_amt);
-            deltecher = (TextView) itemView.findViewById(R.id.deltecher);
+            deltecher =  itemView.findViewById(R.id.deltecher);
             edtcoursefeeamount =  itemView.findViewById(R.id.edtcoursefeeamount);
             feeamtbtn =  itemView.findViewById(R.id.feeamtbtn);
-            editteachbtn =  itemView.findViewById(R.id.editteachbtn);
+            editteachbtn =  itemView.findViewById(R.id.editteacher);
             viewemis =  itemView.findViewById(R.id.viewemis);
             teacehrdli =  itemView.findViewById(R.id.teacehrdli);
 

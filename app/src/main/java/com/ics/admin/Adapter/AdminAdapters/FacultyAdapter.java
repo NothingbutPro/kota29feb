@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ics.admin.Adapter.MenuExpandableAdapter;
+import com.ics.admin.BasicAdmin.Enquiry.ViewEnquiryActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.FaculttyPermission;
 import com.ics.admin.Fragment.FacultyFragment;
 import com.ics.admin.Model.Faculties;
@@ -167,7 +169,12 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.MyViewHo
         public GetAllPermissions(ExpandableListView rolesexpand) {
             this.rolesexpand = rolesexpand;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(activity);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -318,7 +325,12 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.MyViewHo
             this.user_id = user_id;
             this.position = k;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(activity);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {

@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ics.admin.BasicAdmin.Attendence.Addattendactivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
 
@@ -31,6 +33,8 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static com.ics.admin.BasicAdmin.TeachersDetails.AddTeachersActivity.isEmailValid;
 
 public class Studentadnviewactivty extends AppCompatActivity {
     LinearLayout stdli;
@@ -57,9 +61,13 @@ public class Studentadnviewactivty extends AppCompatActivity {
         addstudentsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AddStudentsFOrAmin(new Shared_Preference().getId(v.getContext()) ,nameed.getText().toString() , emailtxt.getText().toString(),
-                        passworded.getText().toString() , mobileed.getText().toString(),addressed.getText().toString()
-                ,edt_father_name.getText().toString() ,edt_m_name.getText().toString() , edt_parent_number.getText().toString()).execute();
+                if(isEmailValid(emailtxt.getText().toString())) {
+                    new AddStudentsFOrAmin(new Shared_Preference().getId(v.getContext()), nameed.getText().toString(), emailtxt.getText().toString(),
+                            passworded.getText().toString(), mobileed.getText().toString(), addressed.getText().toString()
+                            , edt_father_name.getText().toString(), edt_m_name.getText().toString(), edt_parent_number.getText().toString()).execute();
+                }else {
+                    emailtxt.setError("Email is not valid");
+                }
             }
         });
     }
@@ -104,7 +112,12 @@ public class Studentadnviewactivty extends AppCompatActivity {
             this.parent_number = parent_number;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(Studentadnviewactivty.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -205,6 +218,7 @@ public class Studentadnviewactivty extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

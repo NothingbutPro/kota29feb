@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:padding="10dp"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:text="Announcement"
@@ -26,7 +27,6 @@
 
     <LinearLayout
         android:layout_margin="5dp"
-        android:background="@drawable/background_day_hover"
         android:layout_gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -34,7 +34,7 @@
         android:textColor="@color/white"
         android:padding="10dp"
         android:layout_margin="1dp"
-        android:background="@color/red"
+        android:background="@drawable/button"
         android:text="View Announcements"
         android:id="@+id/viewannounce_btn"
         android:layout_width="wrap_content"
@@ -47,19 +47,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <LinearLayout
-        android:background="@drawable/backgraund"
+
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp">
         <Spinner
-            android:padding="10dp"
+            android:layout_gravity="center_vertical"
             android:id="@+id/class_announce_spin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
         </Spinner>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp">
         <Spinner
 
             android:padding="10dp"
@@ -69,6 +86,7 @@
             android:layout_height="wrap_content">
 
         </Spinner>
+        </LinearLayout>
         <EditText
             android:background="@drawable/backgraund"
             android:layout_margin="5dp"
@@ -93,21 +111,29 @@
             android:layout_marginTop="10dp"
             android:id="@+id/seldates"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="text"
+            android:background="@drawable/backgraund"
+            android:paddingLeft="8dp"
+            android:textSize="15dp" >
 
         </EditText>
 
 
         <Button
-
+            android:focusable="false"
+            android:layout_margin="10dp"
+            android:textColor="@color/white1"
+            android:background="@drawable/button"
+            android:textAllCaps="false"
             android:id="@+id/announcementbtn"
-            android:layout_width="293dp"
+            android:layout_width="match_parent"
             android:layout_height="59dp"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/button"
             android:text="Announce"
-            android:textColor="@color/white1" />
+         />
     </LinearLayout>
     </ScrollView>
 <!--    <androidx.recyclerview.widget.RecyclerView-->

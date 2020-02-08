@@ -16,7 +16,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ics.admin.Adapter.AdminAdapters.CoursesAdapter;
+import com.ics.admin.BasicAdmin.FeesStructure.PayFeesActivity;
 import com.ics.admin.BasicAdmin.HomeWork.HomeWorkActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Interfaces.GetDates;
 import com.ics.admin.Model.ABBCoursemodel;
 import com.ics.admin.Model.ClassNAmes;
@@ -113,7 +115,12 @@ public class AddEnquiryActivity extends AppCompatActivity {
             this.class_id = class_id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddEnquiryActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -230,14 +237,45 @@ public class AddEnquiryActivity extends AppCompatActivity {
                         );
                         Log.e("GET CLASS ", ">>>>>>>>>>>>>>>>_____________________" + result.toString());
                         Log.e("GET CLASS ", "ARRAY LIST SPINNER MAP ____________________" + class_names + "\n" + list_class);
-
+                        adminProgressdialog.EndProgress();
                     } else {
+                        final ArrayList<String> list_class = new ArrayList<>();
+                        list_class.add("-----Select Class----");
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddEnquiryActivity.this, android.R.layout.simple_spinner_item
+                                , list_class);
 
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        class_enq_spin.setAdapter(adapter);
+                        class_enq_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                                     @Override
+                                                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                                         if(position ==0) {
+                                                                             selected_class = list_class.get(position);
+                                                                             new GETAllBathcess(new Shared_Preference().getId(AddEnquiryActivity.this), "-1").execute();
+//                                sel_id = "" + class_names.get(position).getUserId();
+//                                Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                                                         }else {
+                                                                             selected_class = list_class.get(position);
+                                                                             sel_id =class_names.get(position-1).getUserId();
+                                                                             Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                                                             new GETAllBathcess(new Shared_Preference().getId(AddEnquiryActivity.this), sel_id).execute();
+                                                                         }
+                                                                     }
+                                                                     @Override
+                                                                     public void onNothingSelected(AdapterView<?> parent) {
+
+                                                                     }
+                                                                 }
+                        );
+                        Log.e("GET CLASS ", ">>>>>>>>>>>>>>>>_____________________" + result.toString());
+                        Log.e("GET CLASS ", "ARRAY LIST SPINNER MAP ____________________" + class_names + "\n" + list_class);
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
@@ -283,7 +321,12 @@ public class AddEnquiryActivity extends AppCompatActivity {
             this.userid = i;
             this.calls_id = sel_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddEnquiryActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -385,10 +428,11 @@ public class AddEnquiryActivity extends AppCompatActivity {
 
                         Log.e("GET CLASS ", ">>>>>>>>>>>>>>>>_____________________" + result.toString());
                         Log.e("GET CLASS ", "ARRAY LIST SPINNER MAP ____________________" + class_names + "\n" + selectcouser);
-
+                        adminProgressdialog.EndProgress();
 
                     } else {
                         Toast.makeText(AddEnquiryActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        adminProgressdialog.EndProgress();
 
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddEnquiryActivity.this, android.R.layout.simple_spinner_item
@@ -420,6 +464,7 @@ public class AddEnquiryActivity extends AppCompatActivity {
                     );
 
                     cancel(true);
+                    adminProgressdialog.EndProgress();
                 } catch (JSONException e) {
 
                     e.printStackTrace();
@@ -481,7 +526,12 @@ public class AddEnquiryActivity extends AppCompatActivity {
 
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(AddEnquiryActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -562,6 +612,7 @@ public class AddEnquiryActivity extends AppCompatActivity {
 
                     jsonObject = new JSONObject(result);
                     if (jsonObject.getBoolean("responce")) {
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(AddEnquiryActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddEnquiryActivity.this , ViewEnquiryActivity.class);
                         startActivity(intent);
@@ -572,12 +623,12 @@ public class AddEnquiryActivity extends AppCompatActivity {
 //                    class_names = new ArrayList<>();
 
                     } else {
-
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 

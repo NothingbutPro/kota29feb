@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:padding="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
+
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="0dp">
         <LinearLayout
-
+            android:layout_margin="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
 
+                android:layout_gravity="left"
+                android:gravity="left"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
+                    android:padding="10dp"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
             <TextView
-                android:textColor="@color/red"
+
+                android:textColor="@color/black"
                 android:text="Class:"
                 android:textSize="18sp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </TextView>
@@ -41,15 +45,19 @@
                 android:text="ABCD"
                 android:layout_gravity="left"
                 android:textSize="18sp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="9dp"
                 android:textColor="@color/black"/>
                 </LinearLayout>
+
                 <LinearLayout
+
+                    android:padding="10dp"
                     android:weightSum="1"
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
+
                         android:layout_marginRight="8dp"
                         android:layout_weight="0.50"
                         android:id="@+id/edtli"
@@ -76,36 +84,54 @@
 
 
                 </LinearLayout>
+
             </LinearLayout>
 
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:visibility="gone"
+                    android:padding="17dp"
                     android:id="@+id/claseditli"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
+
+
                     <EditText
+
                         android:id="@+id/edtclass"
-                        android:hint="Edit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:inputType="text"
+                        android:hint="Edit"
+                        android:background="@drawable/backgraund"
+                        android:paddingLeft="8dp"
+                        android:textSize="15dp" >
 
                     </EditText>
+
                     <LinearLayout
-                        android:layout_gravity="right"
-                        android:layout_width="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
+                            android:textAllCaps="false"
+                            android:layout_margin="10dp"
                             android:id="@+id/btnsaveedt"
-                            android:text="Save"
-                            android:background="@color/red"
+                            android:text="Submit Edit"
+                            android:background="@drawable/button"
                             android:textColor="@color/white1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></Button>
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        </Button>
 
                     </LinearLayout>
 

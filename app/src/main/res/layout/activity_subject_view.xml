@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="List of Subject"
         android:layout_marginTop="10dp"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:gravity="center"
         android:textColor="@color/white"
 
@@ -30,15 +30,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <com.github.clans.fab.FloatingActionButton
-            android:visibility="gone"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_subject_fab"
             android:layout_width="wrap_content"
-            android:layout_height="20pt"
+            android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
-            android:src="@drawable/ic_add"
-            fab:fab_colorNormal="@color/red"
-            fab:fab_colorPressed="#FAF1996A"
-            fab:fab_colorRipple="#FAF88545" />
+            app:srcCompat="@drawable/ic_add"
+            app:fab_colorNormal="@color/red"
+
+        />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/subject_fabli"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:drawableLeft="@drawable/ic_add_attachment"
-            android:text="Add Subject"
+            android:text="Add Course"
             android:id="@+id/subject_fab"
             android:padding="5dp"
             android:layout_width="wrap_content"

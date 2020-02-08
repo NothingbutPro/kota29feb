@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import com.ics.admin.Adapter.AdminAdapters.EnquiryAdapter;
 import com.ics.admin.Adapter.AdminAdapters.VideosAdminPackageAdapter;
+import com.ics.admin.BasicAdmin.Attendence.ViewAttendenceActivity;
 import com.ics.admin.BasicAdmin.VideoPermission.VideosViewActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.Enqiries;
 import com.ics.admin.Model.VideoAdminPackages;
 import com.ics.admin.R;
@@ -57,7 +59,12 @@ RecyclerView viewenquiry;
         public GETALLMYENQUIRIES(String Faculty_id) {
             this.Faculty_id =Faculty_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(ViewEnquiryActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -130,9 +137,11 @@ RecyclerView viewenquiry;
 
                     jsonObject1 = new JSONObject(result);
                     if(!jsonObject1.getBoolean("responce")){
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(ViewEnquiryActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
+
                     }else {
                         for(int i=0;i<jsonObject1.getJSONArray("data").length();i++) {
                             JSONObject jsonObject = jsonObject1.getJSONArray("data").getJSONObject(i);
@@ -165,12 +174,13 @@ RecyclerView viewenquiry;
                         layoutManager.setOrientation(RecyclerView.VERTICAL);
                         viewenquiry.setLayoutManager(layoutManager);
                         viewenquiry.setAdapter(enquiryAdapter);
+                        adminProgressdialog.EndProgress();
 // set the Adapter to RecyclerView
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 

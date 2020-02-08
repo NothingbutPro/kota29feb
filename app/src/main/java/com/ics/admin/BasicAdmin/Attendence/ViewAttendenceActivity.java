@@ -20,8 +20,10 @@ import android.widget.Toast;
 
 import com.ics.admin.Adapter.AdminAdapters.AttendenceListAdapter;
 import com.ics.admin.Adapter.AdminAdapters.ViewTeachersonAdapter;
+import com.ics.admin.BasicAdmin.Masters.Courses.AddCourseActivity;
 import com.ics.admin.BasicAdmin.TeachersDetails.AnnouncementActivity;
 import com.ics.admin.BasicAdmin.TeachersDetails.ViewTeachersActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Interfaces.GetDates;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.AttendenceList;
@@ -100,13 +102,19 @@ public class ViewAttendenceActivity extends AppCompatActivity {
         String sel_batch;
         String dates;
 
+
         public GETALLMYATTENDENCES(String Faculty_id, String sel_id, String sel_batch, String date) {
             this.Faculty_id =Faculty_id;
             this.sel_id =sel_id;
             this.sel_batch =sel_batch;
             this.dates =date;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(ViewAttendenceActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -163,6 +171,7 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                     return sb.toString();
 
                 } else {
+
                     return new String("false : " + responseCode);
                 }
             } catch (Exception e) {
@@ -182,6 +191,7 @@ public class ViewAttendenceActivity extends AppCompatActivity {
 
                     jsonObject1 = new JSONObject(result);
                     if(!jsonObject1.getBoolean("responce")){
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(ViewAttendenceActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
@@ -208,11 +218,12 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                         attenlist.setLayoutManager(linearLayoutManager); // set LayoutManager to RecyclerView
                         AttendenceListAdapter facultyAdapter = new AttendenceListAdapter(ViewAttendenceActivity.this,attendenceListArrayList);
                         attenlist.setAdapter(facultyAdapter); // set the Adapter to RecyclerView
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
@@ -256,7 +267,12 @@ public class ViewAttendenceActivity extends AppCompatActivity {
             //  this.course=course;
             this.class_id = class_id;
         }
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(ViewAttendenceActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -340,7 +356,7 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                         }
 
                         final ArrayList<String> list_class = new ArrayList<>();
-                        list_class.add("--Class--");
+                        list_class.add("--Select Class--");
                         for (int k = 0; k < class_names.size(); k++) {
 
                             list_class.add(k + 1, class_names.get(k).getClass_name());
@@ -385,14 +401,60 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                         });
                         Log.e("GET CLASS ", ">>>>>>>>>>>>>>>>_____________________" + result.toString());
                         Log.e("GET CLASS ", "ARRAY LIST SPINNER MAP ____________________" + class_names + "\n" + list_class);
-
+                        adminProgressdialog.EndProgress();
                     } else {
+                        final ArrayList<String> list_class = new ArrayList<>();
+                        list_class.add("--Select Class--");
+                        for (int k = 0; k < class_names.size(); k++) {
 
+                            list_class.add(k + 1, class_names.get(k).getClass_name());
+
+                        }
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ViewAttendenceActivity.this, android.R.layout.simple_spinner_item
+                                , list_class);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        classattend.setAdapter(adapter);
+                        classattend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if (position == 0) {
+                                    selected_class = list_class.get(position);
+                                    new GETAllBathcesForAttendence(new Shared_Preference().getId(ViewAttendenceActivity.this), sel_id).execute();
+                                } else {
+                                    try {
+                                        selected_class = list_class.get(position);
+                                        sel_id = "" + class_names.get(position - 1).getUserId();
+                                        new GETAllBathcesForAttendence(new Shared_Preference().getId(ViewAttendenceActivity.this), sel_id).execute();
+                                    } catch (Exception e) {
+
+//                                        selected_class = list_class.get(position);
+//                                        sel_id = "" + class_names.get(position-1).getUserId();
+                                        new GETAllBathcesForAttendence(new Shared_Preference().getId(ViewAttendenceActivity.this), sel_id).execute();
+                                        e.printStackTrace();
+                                    }
+                                    Log.e("Spinner Selected ", " Items >>> _______" + selected_class + " --- " + sel_id);
+                                }
+                                batch_names.clear();
+                                batchArrayList.clear();
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                        Log.e("GET CLASS ", ">>>>>>>>>>>>>>>>_____________________" + result.toString());
+                        Log.e("GET CLASS ", "ARRAY LIST SPINNER MAP ____________________" + class_names + "\n" + list_class);
+                        adminProgressdialog.EndProgress();
                     }
 
 
                 } catch (JSONException e) {
-
+                    adminProgressdialog.EndProgress();
                     e.printStackTrace();
                 }
 
@@ -436,7 +498,12 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                 this.userid = i;
                 this.calls_id = sel_id;
             }
-
+            AdminProgressdialog adminProgressdialog;
+            @Override
+            protected void onPreExecute() {
+                adminProgressdialog= new AdminProgressdialog(ViewAttendenceActivity.this);
+                super.onPreExecute();
+            }
             @Override
             protected String doInBackground(String... arg0) {
 
@@ -515,17 +582,18 @@ public class ViewAttendenceActivity extends AppCompatActivity {
                             batch_names.clear();
                             batchArrayList.clear();
                             batchattend.setAdapter(null);
-                            batch_names.add("--Select Batch");
+                            batch_names.add("--Select Batch--");
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(ViewAttendenceActivity.this, android.R.layout.simple_spinner_item
                                     , batch_names);
 
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             // Apply the adapter to the spinner
                             batchattend.setAdapter(adapter);
+                            adminProgressdialog.EndProgress();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
                         } else {
-                            batch_names.add("--Select--");
+                            batch_names.add("--Select Batch--");
                             for (int i = 0; i < jsonObject1.getJSONArray("data").length(); i++) {
                                 JSONObject jsonObject = jsonObject1.getJSONArray("data").getJSONObject(i);
                                 String userid = jsonObject.getString("id");
@@ -571,12 +639,12 @@ public class ViewAttendenceActivity extends AppCompatActivity {
 
                                 }
                             });
-
+                            adminProgressdialog.EndProgress();
                         }
 
 
                     } catch (JSONException e) {
-
+                        adminProgressdialog.EndProgress();
                         e.printStackTrace();
                     }
 

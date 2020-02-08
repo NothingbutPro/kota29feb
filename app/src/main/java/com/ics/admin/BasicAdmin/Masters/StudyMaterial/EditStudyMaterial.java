@@ -25,6 +25,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.ics.admin.BasicAdmin.FeesStructure.AddFeesActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ClassNAmes;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -269,8 +271,7 @@ public class EditStudyMaterial extends AppCompatActivity {
         String id, class_id;
         File mydoc;
         String result = "";
-
-
+        AdminProgressdialog adminProgressdialog;
 
 
         public EDITANDUPDATEFILE(String id, String class_id, String Title) {
@@ -282,6 +283,7 @@ public class EditStudyMaterial extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            adminProgressdialog = new AdminProgressdialog(EditStudyMaterial.this);
             dialog = new ProgressDialog(EditStudyMaterial.this);
             dialog.setMessage("Processing");
 
@@ -353,7 +355,7 @@ public class EditStudyMaterial extends AppCompatActivity {
                 dialog.dismiss();
 //                Toast.makeText(Single_user_act_TRD.this, "Some Problem", Toast.LENGTH_LONG).show();
             }
-
+            adminProgressdialog.EndProgress();
         }
     }
 
@@ -371,7 +373,12 @@ public class EditStudyMaterial extends AppCompatActivity {
         }
 
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(EditStudyMaterial.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -504,6 +511,7 @@ public class EditStudyMaterial extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

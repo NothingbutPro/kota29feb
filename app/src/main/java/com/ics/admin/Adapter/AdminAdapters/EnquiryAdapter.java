@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.ics.admin.BasicAdmin.EditStuffs;
 import com.ics.admin.CommonJavaClass.DeleteDialog;
 import com.ics.admin.Model.Enqiries;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.MyViewHolder>{
     ArrayList<Enqiries> classArrayList = new ArrayList<>();
     Activity activity;
+    private View view;
 
     public EnquiryAdapter(Activity activity, ArrayList<Enqiries> classArrayList) {
         this.activity=activity;
@@ -73,13 +76,32 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.MyViewHo
         });
         myViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(myViewHolder.hideli.getVisibility() == View.VISIBLE)
+            public void onClick(View v) {
+                View vx = view;
+                try {
+                    view = v.getRootView().findViewById(R.id.hideli);
+                    ((ViewGroup) myViewHolder.hideli.getParent()).removeView(myViewHolder.hideli);
+
+                    view.setVisibility(View.VISIBLE);
+                }catch (Exception e)
                 {
-                    myViewHolder.hideli.setVisibility(View.GONE);
-                }else {
-                    myViewHolder.hideli.setVisibility(View.VISIBLE);
+                    view =vx;
+                    e.printStackTrace();
                 }
+                CFAlertDialog.Builder builder = new CFAlertDialog.Builder(v.getContext())
+                        .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT).setCornerRadius(25)
+                        .setFooterView(view)
+                        .setHeaderView(R.layout.edit_layout_header);
+//                dialog.dismiss();
+                CFAlertDialog cfAlertDialog = builder.create();
+                cfAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                cfAlertDialog.show();
+//                if(myViewHolder.hideli.getVisibility() == View.VISIBLE)
+//                {
+//                    myViewHolder.hideli.setVisibility(View.GONE);
+//                }else {
+//                    myViewHolder.hideli.setVisibility(View.VISIBLE);
+//                }
             }
         });
     }
@@ -91,7 +113,8 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView enq_nummber,factname,homedate,daysofwork,classname,batchname,inid,enq_name,inq_type,enq_remark,source_id,enq_by_txt;
-        Button delhome,edit_btn_save,edit_btn;
+        Button edit_btn_save;
+        ImageView delhome,edit_btn;
         EditText newenquiry_by,newmobile,newenquiry_type,newfollowup_type,newfollowup_date,newremark;
         LinearLayout hideli;
         public MyViewHolder(@NonNull View itemView) {

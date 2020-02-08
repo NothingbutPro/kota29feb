@@ -10,6 +10,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ics.admin.Adapter.AdminAdapters.HomeWorkAdapter;
+import com.ics.admin.BasicAdmin.AdminProfileActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.HomeWorks;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -54,7 +56,12 @@ public class ViewWorkActivity extends AppCompatActivity {
             this.id = id;
         }
 
-
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(ViewWorkActivity.this);
+            super.onPreExecute();
+        }
         @Override
         protected String doInBackground(String... arg0) {
 
@@ -158,12 +165,13 @@ public class ViewWorkActivity extends AppCompatActivity {
                         homeWorkAdapter = new HomeWorkAdapter(ViewWorkActivity.this , homeWorkAdapterArrayList);
                         homeworkrec.setLayoutManager(layoutManager);
                         homeworkrec.setAdapter(homeWorkAdapter);
-
+                        adminProgressdialog.EndProgress();
 
                     }
                     else
                     {
                         Toast.makeText(ViewWorkActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        adminProgressdialog.EndProgress();
 //                        Intent intent = new Intent(AddStudentActivity.this , AdminActivity.class);
 //                        startActivity(intent);
 //                        JSONObject massage=jsonObject.getJSONObject("massage");

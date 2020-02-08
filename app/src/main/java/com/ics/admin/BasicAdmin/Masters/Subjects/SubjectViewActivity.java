@@ -13,7 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionButton;
+import com.ics.admin.BasicAdmin.Masters.Courses.ViewCourseActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.Model.ABBSubject;
 import com.ics.admin.R;
 import com.ics.admin.ShareRefrance.Shared_Preference;
@@ -37,7 +38,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class SubjectViewActivity extends AppCompatActivity {
     RecyclerView subject_recyclerView;
-    com.github.clans.fab.FloatingActionButton subject_fab;
+    com.google.android.material.floatingactionbutton.FloatingActionButton add_subject_fab;
     Shared_Preference shared_preference;
     ArrayList<ABBSubject> subjectsArrayList = new ArrayList<>();
     @Override
@@ -49,13 +50,21 @@ public class SubjectViewActivity extends AppCompatActivity {
 
         TextView subject_fab=findViewById(R.id.subject_fab);
         subject_recyclerView=(RecyclerView)findViewById(R.id.subject_recyclerView);
+        add_subject_fab= findViewById(R.id.add_subject_fab);
 
         new AddSubject(Shared_Preference.getId(SubjectViewActivity.this)).execute();
-
-        subject_fab.setOnClickListener(new View.OnClickListener() {
+        add_subject_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(SubjectViewActivity.this, AddSubjectActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        subject_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(SubjectViewActivity.this, ViewCourseActivity.class);
                 startActivity(intent);
                 finish();
 
@@ -75,6 +84,12 @@ public class SubjectViewActivity extends AppCompatActivity {
            // this.subject=subject;
         }
 
+        AdminProgressdialog adminProgressdialog;
+        @Override
+        protected void onPreExecute() {
+            adminProgressdialog= new AdminProgressdialog(SubjectViewActivity.this);
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -182,6 +197,7 @@ public class SubjectViewActivity extends AppCompatActivity {
                 }
 
             }
+            adminProgressdialog.EndProgress();
         }
 
         public String getPostDataString(JSONObject params) throws Exception {

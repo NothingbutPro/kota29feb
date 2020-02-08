@@ -51,7 +51,7 @@ public class SubMenusActivity extends AppCompatActivity {
 
         shared_preference=new Shared_Preference();
 
-        new GELALLMYPERMISSIONS(shared_preference.getId(SubMenusActivity.this)).execute();
+        new GELALLMYPERMISSIONS(shared_preference.getFacultyId(SubMenusActivity.this)).execute();
 
     }
 

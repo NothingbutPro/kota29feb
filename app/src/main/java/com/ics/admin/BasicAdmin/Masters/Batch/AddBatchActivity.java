@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.ics.admin.Adapter.AdminAdapters.BatchAdapter;
+import com.ics.admin.BasicAdmin.Attendence.ViewAttendenceActivity;
+import com.ics.admin.BasicAdmin.Masters.Forclass.AddClassActivity;
+import com.ics.admin.CommonJavaClass.AdminProgressdialog;
 import com.ics.admin.CommonJavaClass.ProgressDialogs;
 import com.ics.admin.Model.ABBBatch;
 import com.ics.admin.Model.ClassNAmes;
@@ -44,7 +47,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class AddBatchActivity extends AppCompatActivity {
     RecyclerView recyclerView1;
-    com.github.clans.fab.FloatingActionButton fab;
+    com.google.android.material.floatingactionbutton.FloatingActionButton add_batch_fab;
     Shared_Preference shared_preference;
     LinearLayout batchli;
     ArrayList<ABBBatch> batchArrayList = new ArrayList<>();
@@ -63,16 +66,23 @@ public class AddBatchActivity extends AppCompatActivity {
 
         shared_preference=new Shared_Preference();
 
-        TextView fab=findViewById(R.id.batchfab);
+        TextView class_fab=findViewById(R.id.class_fab);
         recyclerView1=(RecyclerView)findViewById(R.id.recyclerView1);
         batchli= findViewById(R.id.batchli);
+        add_batch_fab= findViewById(R.id.add_batch_fab);
         proedt_name_s= findViewById(R.id.proedt_name_s);
         pro_class_spiner= findViewById(R.id.pro_class_spiner);
         pro_btn_save_batch= findViewById(R.id.pro_btn_save_batch);
-
+        add_batch_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext() , AddStudentActivity.class);
+                startActivity(intent);
+            }
+        });
       new GetAllBatch(Shared_Preference.getId(AddBatchActivity.this)).execute();
       //new GETSPINNERDATA(Shared_Preference.getId(AddBatchActivity.this)).execute();
-        fab.setOnClickListener(new View.OnClickListener() {
+        class_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                if(batchli.getVisibility() == View.VISIBLE)
@@ -81,7 +91,7 @@ public class AddBatchActivity extends AppCompatActivity {
 //                }else {
 //                    batchli.setVisibility(View.VISIBLE);
 //                }
-                Intent intent=new Intent(AddBatchActivity.this, AddStudentActivity.class);
+                Intent intent=new Intent(AddBatchActivity.this, AddClassActivity.class);
                 startActivity(intent);
                 finish();
 
@@ -106,13 +116,13 @@ public class AddBatchActivity extends AppCompatActivity {
         public GetAllBatch(String i) {
             this.userid = i;
         }
-
+        AdminProgressdialog adminProgressdialog;
         @Override
         protected void onPreExecute() {
-//            flipProgressDialog=   progressDialogs.SetProgress();
-//            flipProgressDialog.show(getFragmentManager() , "");
+            adminProgressdialog= new AdminProgressdialog(AddBatchActivity.this);
             super.onPreExecute();
         }
+
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -187,6 +197,7 @@ public class AddBatchActivity extends AppCompatActivity {
                     jsonObject1 = new JSONObject(result);
                     if(!jsonObject1.getBoolean("responce"))
                     {
+                        adminProgressdialog.EndProgress();
                         Toast.makeText(AddBatchActivity.this, "Nothing found", Toast.LENGTH_SHORT).show();
 //                        getotp.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getApplication(),"strong OTP"+result, Toast.LENGTH_SHORT).show();
@@ -205,15 +216,15 @@ public class AddBatchActivity extends AppCompatActivity {
                         }
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplication());
                         recyclerView1.setLayoutManager(linearLayoutManager); // set LayoutManager to RecyclerView
-
                         BatchAdapter batchAdapter = new BatchAdapter(AddBatchActivity.this,batchArrayList);
                         recyclerView1.setAdapter(batchAdapter); // set the Adapter to RecyclerView
-
+                             adminProgressdialog.EndProgress();
                     }
 //                    flipProgressDialog.dismiss();
 
                 } catch (JSONException e) {
-                    flipProgressDialog.dismiss();
+                    adminProgressdialog.EndProgress();
+//                    flipProgressDialog.dismiss();
                     e.printStackTrace();
                 }
 

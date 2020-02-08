@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_v_vide"
         app:cardCornerRadius="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <TextView
+
+        android:textColor="@color/black"
         android:id="@+id/sele_vidtxt"
-        android:background="@drawable/backgraund"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,6 +21,7 @@
     </TextView>
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/card_v_vide"
         android:id="@+id/grivideorec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,13 +29,16 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 <Button
+
+    android:textAllCaps="false"
+    android:layout_alignParentBottom="true"
     android:id="@+id/doneselect"
     android:textColor="@color/white1"
     android:text="Done Selecting"
-    android:background="@color/red"
+    android:background="@drawable/button"
     android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 </Button>
-</LinearLayout>
+</RelativeLayout>

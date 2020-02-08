@@ -39,129 +39,140 @@
 
 
             android:orientation="vertical">
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
                 <EditText
+                    android:hint="Name"
                     android:id="@+id/enquiname"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:inputType="text"
+                    android:background="@drawable/backgraund"
+                    android:paddingLeft="8dp"
+                    android:textSize="15dp">
 
                 </EditText>
 
-            </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:padding="4dp"
-                    android:textColor="@color/red"
-                    android:text="Select Class"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </TextView>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:padding="9dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:inputType="text"
                 android:background="@drawable/backgraund"
-                android:hint="Class"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:paddingLeft="8dp"
+                android:autofillHints="Select Class"
+                android:textSize="15dp"
+                android:orientation="vertical">
 
                 <Spinner
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/class_enq_spin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                 </Spinner>
 
-            </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+                <TextView
 
-                android:hint="Enquiry By"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="15dp"
+                    android:text="Enquiry By"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
                 <EditText
-
+                    android:hint="Enqyiry By"
                     android:enabled="false"
                     android:editable="false"
+                    android:padding="10dp"
                     android:id="@+id/enquiryby"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:inputType="text"
+                    android:background="@drawable/backgraund"
+                    android:paddingLeft="8dp"
+                    android:textSize="15dp" >
 
                 </EditText>
 
-            </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:padding="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
 
-            android:textColor="@color/red"
-            android:text="Select Course"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:inputType="text"
+                    android:background="@drawable/backgraund"
+                    android:paddingLeft="8dp"
+                    android:textSize="15dp">
 
-        </TextView>
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="Course"
-                android:padding="9dp"
-                android:background="@drawable/backgraund"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
                 <Spinner
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/course"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                 </Spinner>
 
-            </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
     </LinearLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="Mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
                 <EditText
                     android:maxEms="10"
                     android:maxLength="10"
                     android:inputType="number"
                     android:id="@+id/mob_enq"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:hint="Mobile Number"
+                    android:background="@drawable/backgraund"
+                    android:paddingLeft="8dp"
+                    android:textSize="15dp" >
 
                 </EditText>
 
-            </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:weightSum="1"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_weight="0.50"
-                    android:hint="Enquiry Type"
-                    android:padding="5dp"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:inputType="text"
+                    android:background="@drawable/backgraund"
+                    android:paddingLeft="8dp"
+                    android:textSize="15dp" >
+
 
                     <Spinner
                         android:entries="@array/enquiry_types"
                         android:id="@+id/enqtype"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                     </Spinner>
+                </LinearLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:visibility="gone"
@@ -176,37 +187,41 @@
                     </EditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:hint="Followup Date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
                     <EditText
                         android:focusable="false"
                         android:editable="false"
                         android:inputType="date"
                         android:id="@+id/followdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:hint="Mobile Number"
+                        android:background="@drawable/backgraund"
+                        android:paddingLeft="8dp"
+                        android:textSize="15dp">
 
                     </EditText>
 
-                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:hint="Remark"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
                     <EditText
                         android:id="@+id/remark"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:hint="Mobile Number"
+                        android:background="@drawable/backgraund"
+                        android:paddingLeft="8dp"
+                        android:textSize="15dp">
 
                     </EditText>
 
-                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
             <Button
-
+                android:layout_marginTop="10dp"
                 android:text="Submit Enquiry"
                 android:textColor="@color/white1"
                 android:background="@drawable/button"

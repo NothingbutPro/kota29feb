@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -21,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:visibility="gone"
+
                     android:src="@drawable/teacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -76,7 +77,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-
                                 android:text="sdgfdfgdfg"
                                 android:textColor="@color/red"
                                 android:textSize="15sp">
@@ -264,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center"
                         android:layout_marginLeft="15dp"
-                        android:src="@drawable/ic_add_circle_outline_black_24dp" />
+                        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
                     <TextView
 
                         android:layout_marginRight="20dp"
